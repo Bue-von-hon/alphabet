@@ -151,7 +151,7 @@ public class IndexController {
     public String update(@Valid BoardDto boardDto, Errors errors) {
         if (errors.hasErrors()) return "redirect:/board";
         boardDto.setVisible(true);
-        boardService.saveBoard(boardDto);
+        boardService.updateBoard(boardDto);
         return "redirect:/board";
     }
 

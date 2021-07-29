@@ -22,6 +22,7 @@ public class BoardService {
     private final BoardRepository boardRepository;
     private static final int BLOCK_PAGE_NUM_COUNT = 5;  // 블럭에 존재하는 페이지 번호 수
     private static final int PAGE_POST_COUNT = 4;       // 한 페이지에 존재하는 게시글 수
+    private int totalPageCount = -1; // 조회 가능한 전체 게시글의 수
 
     private BoardDto convertEntityToDto(BoardEntity boardEntity) {
         LocalDateTime time = boardEntity.getCreatedTime();
@@ -61,6 +62,16 @@ public class BoardService {
         if (boardDto.getTitle().equals("")) {
             return -1L;
         }
+        totalPageCount++;
+        return boardRepository.save(boardDto.toEntity()).getBoard_id();
+    }
+
+    @Transactional
+    @Timer
+    public Long updateBoard(BoardDto boardDto) {
+        if (boardDto.getTitle().equals("")) {
+            return -1L;
+        }
         return boardRepository.save(boardDto.toEntity()).getBoard_id();
     }
 
@@ -94,7 +105,10 @@ public class BoardService {
         Optional<BoardEntity> boardEntityOptional = boardRepository.findById(id);
         if (!boardEntityOptional.isPresent()) return;
         BoardEntity boardEntity = boardEntityOptional.get();
-        if (boardEntity.getPw().toString().equals(pw)) boardRepository.deleteById(id);
+        if (boardEntity.getPw().toString().equals(pw)) {
+            boardRepository.deleteById(id);
+            totalPageCount--;
+        }
     }
 
     @Transactional
@@ -124,13 +138,17 @@ public class BoardService {
     }
 
     public ArrayList<Integer> getPageList(Integer curPageNum) {
-        ArrayList<Integer> pageList = new ArrayList<Integer>();
-        // 총 게시글 갯수
-        List<BoardEntity> page = boardRepository.findAll();
         int cnt = 0;
-        for (BoardEntity tmp : page) {
-            if (tmp.isVisible()) cnt++;
+        ArrayList<Integer> pageList = new ArrayList<Integer>();
+        if (totalPageCount==-1) {
+            // 총 게시글 갯수
+            List<BoardEntity> page = boardRepository.findAll();
+            for (BoardEntity tmp : page) {
+                if (tmp.isVisible()) cnt++;
+            }
+            totalPageCount=cnt;
         }
+        else cnt = totalPageCount;
         Double postsTotalCount = Double.valueOf(cnt);
 //        Double postsTotalCount = Double.valueOf(this.getBoardCount());
 
