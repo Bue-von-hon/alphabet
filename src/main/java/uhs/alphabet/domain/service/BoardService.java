@@ -62,7 +62,7 @@ public class BoardService {
         if (boardDto.getTitle().equals("")) {
             return -1L;
         }
-        totalPageCount++;
+        if (boardDto.isVisible()) totalPageCount++;
         return boardRepository.save(boardDto.toEntity()).getBoard_id();
     }
 
@@ -113,6 +113,7 @@ public class BoardService {
 
     @Transactional
     public void deletePostAll() {
+        totalPageCount=-1;
         boardRepository.deleteAll();
     }
 
