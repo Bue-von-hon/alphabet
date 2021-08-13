@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableJpaAuditing
-@SpringBootApplication(scanBasePackages = {"uhs.alphabet"})
+@SpringBootApplication
 public class AlphabetApplication {
 
     public static void main(String[] args) {
