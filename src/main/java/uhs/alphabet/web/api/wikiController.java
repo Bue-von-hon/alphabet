@@ -17,7 +17,7 @@ public class wikiController {
 
     @GetMapping("/home")
     public String home() {
-        return "/wiki/home";
+        return "/wiki/main";
     }
 
     @GetMapping("/view/{id}")
@@ -26,6 +26,6 @@ public class wikiController {
         String str = pageDto.getContent();
         model.addAttribute("markdown",str);
         model.addAttribute("page", pageDto);
-        return "/wiki/view";
+        return "/wiki/pageDetail";
     }
 }
