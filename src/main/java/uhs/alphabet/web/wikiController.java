@@ -1,4 +1,4 @@
-package uhs.alphabet.web.api;
+package uhs.alphabet.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
