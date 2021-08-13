@@ -139,7 +139,7 @@ public class BoardService {
     }
 
     public ArrayList<Integer> getPageList(Integer curPageNum) {
-        int cnt = 0;
+        int cnt = 0; // 총 게시글의 수
         ArrayList<Integer> pageList = new ArrayList<Integer>();
         if (totalPageCount==-1) {
             // 총 게시글 갯수
@@ -150,25 +150,38 @@ public class BoardService {
             totalPageCount=cnt;
         }
         else cnt = totalPageCount;
-        Double postsTotalCount = Double.valueOf(cnt);
-//        Double postsTotalCount = Double.valueOf(this.getBoardCount());
 
+        Double postsTotalCount = Double.valueOf(cnt);
         // 총 게시글 기준으로 계산한 마지막 페이지 번호 계산 (올림으로 계산)
         Integer totalLastPageNum = (int)(Math.ceil((postsTotalCount/PAGE_POST_COUNT)));
 
-        // 현재 페이지를 기준으로 블럭의 마지막 페이지 번호 계산
-        Integer blockLastPageNum = (totalLastPageNum > curPageNum + BLOCK_PAGE_NUM_COUNT)
-                ? curPageNum + BLOCK_PAGE_NUM_COUNT
-                : totalLastPageNum;
+        int curPageBlockNum = 0; // 현재 페이지가 몇번째 block에 속하는지
+        curPageBlockNum = (int) Math.floor((curPageNum-1)/BLOCK_PAGE_NUM_COUNT) + 1;
 
-        // 페이지 시작 번호 조정
-        curPageNum = (curPageNum <= 3) ? 1 : curPageNum - 2;
-
-        // 페이지 번호 할당
-        for (int val = curPageNum, idx = 0; val <= blockLastPageNum; val++, idx++) {
-            if (idx>5) break;
-            pageList.add(val);
+        for (int i = 0; i < BLOCK_PAGE_NUM_COUNT; i++) {
+            if ((curPageBlockNum-1)*BLOCK_PAGE_NUM_COUNT+1+i > totalLastPageNum) continue;
+            pageList.add((curPageBlockNum-1)*BLOCK_PAGE_NUM_COUNT+1+i);
         }
+
+
+
+////        Double postsTotalCount = Double.valueOf(this.getBoardCount());
+//
+
+//
+//        // 현재 페이지를 기준으로 블럭의 마지막 페이지 번호 계산
+//        Integer blockLastPageNum = (totalLastPageNum > curPageNum + BLOCK_PAGE_NUM_COUNT)
+//                ? curPageNum + BLOCK_PAGE_NUM_COUNT
+//                : totalLastPageNum;
+//
+//        // 페이지 시작 번호 조정
+//        curPageNum = (curPageNum <= 3) ? 1 : curPageNum - 2;
+//
+//        // 페이지 번호 할당
+//        for (int val = curPageNum, idx = 0; val <= blockLastPageNum; val++, idx++) {
+//            if (idx>5) break;
+//            pageList.add(val);
+//        }
 
         return pageList;
     }

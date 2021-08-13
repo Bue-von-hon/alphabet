@@ -162,7 +162,7 @@ public class BoardServiceTest {
             else boardService.saveBoard(boardDto);
         }
         pageList = boardService.getPageList(curPagNum);
-        Assertions.assertEquals(BLOCK_PAGE_NUM_COUNT+1, pageList.size());
+        Assertions.assertEquals(BLOCK_PAGE_NUM_COUNT, pageList.size());
 
         for (int i = 1; i <= 4; i++) {
             Assertions.assertEquals(i, pageList.get(i-1));
@@ -176,15 +176,20 @@ public class BoardServiceTest {
 
         curPagNum = 5;
         pageList = boardService.getPageList(curPagNum);
-        for (int i = 1; i <= 4; i++) {
-            Assertions.assertEquals(i+2, pageList.get(i-1));
+        for (int i = 1; i <= 5; i++) {
+            Assertions.assertEquals(i, pageList.get(i-1));
+        }
+        curPagNum = 6;
+        pageList = boardService.getPageList(curPagNum);
+        for (int i = 1; i <= 5; i++) {
+            Assertions.assertEquals(curPagNum+i-1, pageList.get(i-1));
         }
 
         // 게시글 N개 지우기 암호 불일치
         for (Long i = id; i < id+40; i++) boardService.deletePost(i, "4321");
         curPagNum = 1;
         pageList = boardService.getPageList(curPagNum);
-        Assertions.assertEquals(BLOCK_PAGE_NUM_COUNT+1, pageList.size());
+        Assertions.assertEquals(BLOCK_PAGE_NUM_COUNT, pageList.size());
 
         // 게시글 N개 지우기 암호 일치
         for (Long i = id; i < id+40; i++) boardService.deletePost(i, "1234");
