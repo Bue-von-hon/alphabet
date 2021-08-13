@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+</head>
+<body>
+<main class="contents">
+    hello wiki!
+</main>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    function A() {
+        var trg=document.getElementById('content');
+        document.getElementById('content2').innerHTML = marked(document.getElementById('content').innerHTML);
+    }
+
+</script>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+</head>
+<body>
+<main class="contents">
+    <span id="md" hidden>{{markdown}}</span>
+    <div id="title" style="alignment: center; font-family: bold; text-align: center; font-size: 30px;">{{page.title}}</div><br>
+    <div id="content" style="text-align: center"></div>
+</main>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    window.onload = function mdToHtml() {
+        document.getElementById('content').innerHTML = marked(document.getElementById('md').innerHTML);
+    }
+
+</script>
+</html>
