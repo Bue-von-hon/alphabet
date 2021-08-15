@@ -12,7 +12,7 @@ import uhs.alphabet.domain.service.PageService;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/wiki")
+@RequestMapping(value = "/wiki")
 public class wikiController {
     private final PageService pageService;
 
