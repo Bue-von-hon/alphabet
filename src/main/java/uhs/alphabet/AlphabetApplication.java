@@ -13,7 +13,7 @@ public class AlphabetApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return super.configure(builder);
+        return builder.sources(AlphabetApplication.class);
     }
 
     public static void main(String[] args) {
