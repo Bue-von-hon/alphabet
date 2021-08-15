@@ -12,13 +12,13 @@ import uhs.alphabet.domain.service.PageService;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping(value = "wiki")
+@RequestMapping(value = "/wiki")
 public class wikiController {
     private final PageService pageService;
 
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String home() {
-        return "/wiki/main";
+        return "wiki/main";
     }
 
     @RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
@@ -27,6 +27,6 @@ public class wikiController {
         String str = pageDto.getContent();
         model.addAttribute("markdown",str);
         model.addAttribute("page", pageDto);
-        return "/wiki/pageDetail";
+        return "wiki/pageDetail";
     }
 }
