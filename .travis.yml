@@ -19,4 +19,19 @@ notifications:
   email:
     recipients:
       - dkssudvn2@gmail.com
-## test3
+
+# 배포 파일 관리
+before_deploy:
+  - zip -r alphabet-springboot-webservice *
+  - mkdir -p deploy
+  - mv alphabet-springboot-webservice.zip deploy/alphabet-springboot-webservice.zip
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: alphabet-springboot-build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait-until-deployed: true
