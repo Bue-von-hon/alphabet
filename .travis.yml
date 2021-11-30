@@ -1,6 +1,6 @@
 language: java
 jdk:
-  - openjdk8
+  - openjdk11
 
 branches:
   only:
@@ -45,8 +45,3 @@ deploy:
 
     bundle_type: zip
     application: alphabet-springboot-webservice
-
-    deployment_group: alphabet-springboot-webservice-group
-
-    region: ap-northeast-2
-    wait-until-deployed: true
