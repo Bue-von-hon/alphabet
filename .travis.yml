@@ -42,6 +42,10 @@ deploy:
 
     bucket: alphabet-springboot-build
     key: alphabet-springboot-webservice.zip
-
     bundle_type: zip
     application: alphabet-springboot-webservice
+
+    deployment_group: alphabet-springboot-webservice-group
+
+    region: ap-northeast-2
+    wait-until-deployed: true
