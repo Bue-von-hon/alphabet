@@ -69,6 +69,20 @@ dependencies {
     runtime group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.12.RELEASE'
     runtime group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.5'
 
+    compile('org.springframework.boot:spring-boot-starter-mustache')
+    compile('com.h2database:h2')
+    compile('org.springframework.boot:spring-boot-starter-oauth2-client')
+    compile('org.springframework.security:spring-security-test')
+    compile("org.mariadb.jdbc:mariadb-java-client")
+    compile('org.springframework.boot:spring-boot-starter-tomcat')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-aop')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.session:spring-session-jdbc')
+    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.2'
+    compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.12.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.5'
+
 //     https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
     implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.2'
     // https://mvnrepository.com/artifact/junit/junit
