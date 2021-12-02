@@ -83,13 +83,13 @@ dependencies {
     compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.12.RELEASE'
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.5'
 
-//     https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
+    // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
     implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.2'
     // https://mvnrepository.com/artifact/junit/junit
     testImplementation group: 'junit', name: 'junit', version: '4.13.2'
     // https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf
     implementation group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.12.RELEASE'
-// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.5'
 
 
