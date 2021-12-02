@@ -65,6 +65,9 @@ dependencies {
     runtime('org.springframework.boot:spring-boot-starter-aop')
     runtime('org.springframework.boot:spring-boot-starter-data-jpa')
     runtime('org.springframework.session:spring-session-jdbc')
+    runtime group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.2'
+    runtime group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.12.RELEASE'
+    runtime group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.5'
 
 //     https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
     implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.2'
