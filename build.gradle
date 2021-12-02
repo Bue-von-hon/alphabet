@@ -55,6 +55,20 @@ dependencies {
     testCompile( 'org.springframework.boot:spring-boot-starter-test')
     testImplementation 'io.projectreactor:reactor-test'
 
+    runtime('org.springframework.boot:spring-boot-starter-mustache')
+    runtime('com.h2database:h2')
+    runtime('org.springframework.boot:spring-boot-starter-oauth2-client')
+    runtime('org.springframework.security:spring-security-test')
+    runtime("org.mariadb.jdbc:mariadb-java-client")
+    runtime('org.springframework.boot:spring-boot-starter-tomcat')
+    runtime('org.springframework.boot:spring-boot-starter-web')
+    runtime('org.springframework.boot:spring-boot-starter-aop')
+    runtime('org.springframework.boot:spring-boot-starter-data-jpa')
+    runtime('org.springframework.session:spring-session-jdbc')
+    runtime group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.2'
+    runtime group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.12.RELEASE'
+    runtime group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.5'
+
     compile('org.springframework.boot:spring-boot-starter-mustache')
     compile('com.h2database:h2')
     compile('org.springframework.boot:spring-boot-starter-oauth2-client')
@@ -65,6 +79,9 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-aop')
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.session:spring-session-jdbc')
+    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.2'
+    compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.12.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.5'
 
 //     https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
     implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.2'
