@@ -33,7 +33,8 @@ echo "> $JAR_NAME 에 실행 권한 추가"
 chmod +x $JAR_NAME
 
 echo ">$JAR_NAME 실행"
-
+SHELL_PATH='pwd -P'
+echo ">$SHELL_PATH"
 nohup java -jar \
  -Dspring.config.location=classpath:/application.properties,/home/ec2-user/app/application-real-db-oracle.properties,/home/ec2-user/app/application-oauth.properties,/home/ec2-user/app/application-ssl.properties,classpath:/application-real.properties \
  -Dspring.profiles.active=real \
