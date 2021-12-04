@@ -17,14 +17,11 @@ import uhs.alphabet.config.auth.LoginUser;
 import uhs.alphabet.config.auth.dto.SessionUser;
 import uhs.alphabet.domain.dto.BoardDto;
 import uhs.alphabet.domain.dto.PersonDto;
-import uhs.alphabet.domain.entity.BoardEntity;
 import uhs.alphabet.domain.service.BoardService;
 import uhs.alphabet.domain.service.PersonService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @RequiredArgsConstructor

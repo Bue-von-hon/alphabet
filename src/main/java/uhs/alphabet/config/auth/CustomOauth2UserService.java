@@ -1,7 +1,6 @@
 package uhs.alphabet.config.auth;
 
 import lombok.RequiredArgsConstructor;
-import org.hibernate.mapping.Collection;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
