@@ -5,8 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import uhs.alphabet.domain.entity.PageEntity;
 
-import java.time.LocalDateTime;
-
 @Data
 @NoArgsConstructor
 public class PageDto {
