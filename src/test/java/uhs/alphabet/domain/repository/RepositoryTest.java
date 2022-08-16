@@ -38,15 +38,7 @@ public class RepositoryTest {
     @Test
     @DisplayName("saveBoard test 한번 저장")
     public void saveBoard() {
-        BoardEntity boardEntity = BoardEntity.builder()
-                .title("saveTestTitle")
-                .content("saveTestContent")
-                .pw("1234")
-                .writer("writer")
-                .ip("ip")
-                .visible(true)
-                .build();
-        boardRepository.save(BoardEntity.builder()
+        BoardEntity entity = boardRepository.save(BoardEntity.builder()
                 .title("saveTestTitle")
                 .content("saveTestContent")
                 .pw("1234")
@@ -60,12 +52,12 @@ public class RepositoryTest {
         BoardEntity boardEntityTest = boardEntityWrapper.get(0);
 
         Assertions.assertEquals(1,boardEntityWrapper.size());
-        Assertions.assertEquals(boardEntity.getTitle(), boardEntityTest.getTitle());
-        Assertions.assertEquals(boardEntity.getContent(), boardEntityTest.getContent());
-        Assertions.assertEquals(boardEntity.getPw(), boardEntityTest.getPw());
-        Assertions.assertEquals(boardEntity.getWriter(), boardEntityTest.getWriter());
-        Assertions.assertEquals(boardEntity.getIp(), boardEntityTest.getIp());
-        Assertions.assertEquals(boardEntity.isVisible(), boardEntityTest.isVisible());
+        Assertions.assertEquals(entity.getTitle(), boardEntityTest.getTitle());
+        Assertions.assertEquals(entity.getContent(), boardEntityTest.getContent());
+        Assertions.assertEquals(entity.getPw(), boardEntityTest.getPw());
+        Assertions.assertEquals(entity.getWriter(), boardEntityTest.getWriter());
+        Assertions.assertEquals(entity.getIp(), boardEntityTest.getIp());
+        Assertions.assertEquals(entity.isVisible(), boardEntityTest.isVisible());
         Assertions.assertEquals(now.format(formatter), boardEntityTest.getCreatedTime().format(formatter));
         Assertions.assertEquals(now.format(formatter), boardEntityTest.getModified_time().format(formatter));
     }
