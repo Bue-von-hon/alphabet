@@ -71,6 +71,7 @@ public class RepositoryTest {
     }
 
     @Test
+    @DisplayName("게시글을 하나 저장하고, 다시 삭제하는 테스트")
     public void deleteBoard() {
         boardRepository.save(BoardEntity.builder()
                 .title("deleteTestTitle")
@@ -95,6 +96,7 @@ public class RepositoryTest {
     }
 
     @Test
+    @DisplayName("회원을 등록하는 테스트")
     public void savePerson() {
         PersonEntity personEntity = PersonEntity.builder()
                 .handle("savePersonHandle")
@@ -123,6 +125,7 @@ public class RepositoryTest {
     }
 
     @Test
+    @DisplayName("회원을 등록하고 삭제하는 테스트")
     public void deletePerson() {
         personRepository.save(PersonEntity.builder()
                 .handle("handle")
