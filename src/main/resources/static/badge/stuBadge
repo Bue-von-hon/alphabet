@@ -1,0 +1,206 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="353" height="134">
+  <style>
+    .pen {
+      fill: none;
+      stroke: url(#rainbow);
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+    .p{
+      stroke-dasharray: 140 140;
+      stroke-dashoffset: 140;
+      animation-duration: 1s;
+      animation-delay: 4s;
+      animation-name: draw;
+      animation-direction: alternate;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+    }
+    .b{
+      stroke-dasharray: 280 280;
+      stroke-dashoffset: 280;
+      animation-duration: 2s;
+      animation-delay: 5.5s;
+      animation-name: draw;
+      animation-direction: alternate;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+    }
+    @keyframes draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  </style>
+  <defs>
+    <linearGradient id="rainbow" x1="60%" x2="85%" y1="0" y2="0" gradientUnits="userSpaceOnUse" >
+      <stop stop-color="#FF0000" offset="0%"/>
+      <stop stop-color="#FF9900" offset="33%"/>
+      <stop stop-color="#CC33FF" offset="66%"/>
+      <stop stop-color="#ff54dd" offset="100%"/>
+    </linearGradient>
+  </defs>
+  <rect width="350" height="131" fill="white" stroke="#111111" rx="20" ry="20" stroke-width="3" x="1" y="1"></rect>
+<g>
+	<rect width="30" height="40" fill="#c4e693" stroke-width="2" stroke="#111111" x="10" y="15" opacity="0">
+	  <animate id="animation1" attributeName="opacity" values="0;1" dur="0.4s" fill="freeze"/>
+    <animate attributeName="width" values="130;30" dur="0.4s"/>
+    <animate attributeName="height" values="100;40" dur="0.4s"/>
+	</rect>
+	<rect width="60" height="40" fill="#ffc519" stroke-width="2" stroke="#111111" x="100" y="15" opacity="0">
+	  <animate id="animation2" attributeName="opacity" values="0;1" dur="0.4s" fill="freeze" begin="animation1.end"/>
+    <animate attributeName="width" values="0;60" dur="0.4s" begin="animation1.end"/>
+    <animate attributeName="height" values="0;40" dur="0.4s" begin="animation1.end"/>
+	</rect>
+	<rect width="30" height="60" fill="#fffa78" stroke-width="2" stroke="#111111" x="40" y="35" opacity="0">
+	  <animate id="animation3" attributeName="opacity" values="0;1" dur="0.4s" fill="freeze" begin="animation2.end"/>
+    <animate attributeName="width" values="130;30" dur="0.4s" begin="animation2.end"/>
+    <animate attributeName="height" values="100;60" dur="0.4s" begin="animation2.end"/>
+	</rect>
+	<rect width="90" height="20" fill="#3cfbff" stroke-width="2" stroke="#111111" x="10" y="95" opacity="0">
+	  <animate id="animation4" attributeName="opacity" values="0;1" dur="0.4s" fill="freeze" begin="animation3.end"/>
+    <animate attributeName="x" values="0;10" dur="0.4s" begin="animation3.end"/>
+    <animate attributeName="y" values="0;95" dur="0.4s" begin="animation3.end"/>
+    <animate attributeName="width" values="130;90" dur="0.4s" begin="animation3.end"/>
+    <animate attributeName="height" values="100;20" dur="0.4s" begin="animation3.end"/>
+	</rect>
+	<rect width="30" height="40" fill="#111111" stroke-width="2" stroke="#111111" x="70" y="15" opacity="0">
+	  <animate id="animation5" attributeName="opacity" values="0;1" dur="0.4s" fill="freeze" begin="animation4.end"/>
+    <animate attributeName="x" values="0;70" dur="0.4s" begin="animation4.end"/>
+    <animate attributeName="y" values="0;15" dur="0.4s" begin="animation4.end"/>
+    <animate attributeName="width" values="130;30" dur="0.4s" begin="animation4.end"/>
+    <animate attributeName="height" values="100;40" dur="0.4s" begin="animation4.end"/>
+	</rect>
+	<rect width="30" height="40" fill="#ff5675" stroke-width="2" stroke="#111111" x="130" y="55" opacity="0">
+	  <animate id="animation6" attributeName="opacity" values="0;1" dur="0.4" fill="freeze" begin="animation5.end"/>
+    <animate attributeName="x" values="0;130" dur="0.4s" begin="animation5.end"/>
+    <animate attributeName="y" values="0;55" dur="0.4s" begin="animation5.end"/>
+    <animate attributeName="width" values="130;30" dur="0.4s" begin="animation5.end"/>
+    <animate attributeName="height" values="100;40" dur="0.4s" begin="animation5.end"/>
+	</rect>
+	<rect width="30" height="20" fill="#c4e693" stroke-width="2" stroke="#111111" x="100" y="95" opacity="0">
+	  <animate id="animation7" attributeName="opacity" values="0;1" dur="0.4s" fill="freeze" begin="animation6.end"/>
+    <animate attributeName="x" values="0;100" dur="0.4s" begin="animation6.end"/>
+    <animate attributeName="y" values="0;95" dur="0.4s" begin="animation6.end"/>
+    <animate attributeName="width" values="130;30" dur="0.4s" begin="animation6.end"/>
+    <animate attributeName="height" values="100;20" dur="0.4s" begin="animation6.end"/>
+	</rect>
+<!--
+    blank
+-->
+  <rect width="30" height="20" fill="none" stroke-width="2" stroke="#111111" x="40" y="15" opacity="0">
+	  <animate id="animation8" attributeName="opacity" values="0;1" dur="0.5s" fill="freeze" begin="animation7.end"/>
+	</rect>
+	<rect width="30" height="40" fill="none" stroke-width="2" stroke="#111111" x="10" y="55" opacity="0">
+	  <animate id="animation9" attributeName="opacity" values="0;1" dur="0.5s" fill="freeze" begin="animation7.end"/>
+	</rect>
+	<rect width="60" height="40" fill="none" stroke-width="2" stroke="#111111" x="70" y="55" opacity="0">
+	  <animate id="animation10" attributeName="opacity" values="0;1" dur="0.5s" fill="freeze" begin="animation7.end"/>
+	</rect>
+	<rect width="30" height="20" fill="none" stroke-width="2" stroke="#111111" x="130" y="95" opacity="0">
+	  <animate id="animation11" attributeName="opacity" values="0;1" dur="0.5s" fill="freeze" begin="animation7.end"/>
+	</rect>
+</g>
+  <!--A-->
+  <line x1="217" y1="21" x2="217" y2="21" class="pen" opacity="0">
+    <animate id="line1" attributeName="x2" values="217 ; 210" dur="0.2s" fill="freeze"  begin="animation7.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze"  begin="animation7.end"/>
+    <animate attributeName="y2" values="21 ; 37" dur="0.2s" fill="freeze"  begin="animation7.end"/>
+  </line>
+  <line x1="217" y1="21" x2="217" y2="21" class="pen" opacity="0">
+    <animate id="line2" attributeName="x2" values="217 ; 224" dur="0.2s" fill="freeze" begin="line1.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line1.end"/>
+    <animate attributeName="y2" values="21 ; 37" dur="0.2s" fill="freeze" begin="line1.end"/>
+  </line>
+  <line x1="212" y1="32" x2="212" y2="32" class="pen" opacity="0">
+    <animate id="line3" attributeName="x2" values="212 ; 221" dur="0.2s" fill="freeze" begin="line2.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line2.end"/>
+  </line>
+  <!--L-->
+  <line x1="227" y1="21" x2="227" y2="21" class="pen" opacity="0">
+    <animate id="line4" attributeName="y2" values="21 ; 37" dur="0.2s" fill="freeze" begin="line3.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line3.end"/>
+  </line>
+  <line x1="227" y1="37" x2="227" y2="37" class="pen" opacity="0">
+    <animate id="line5" attributeName="x2" values="227 ; 234" dur="0.2s" fill="freeze" begin="line4.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line4.end"/>
+  </line>
+  <!--P-->
+  <line x1="237" y1="21" x2="237" y2="21" class="pen" opacity="0">
+    <animate id="line6" attributeName="y2" values="21 ; 37" dur="0.2s" fill="freeze" begin="line5.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line5.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line5.end"/>
+  </line>
+  <path d="M237 21 C247 21 247 30 237 30" class="pen p"></path>
+  <!--H-->
+  <line x1="247" y1="21" x2="247" y2="21" class="pen" opacity="0">
+    <animate id="line8" attributeName="y2" values="21 ; 37" dur="0.2s" fill="freeze" begin="line6.end+0.2"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line6.end+0.2"/>
+  </line>
+  <line x1="247" y1="30" x2="247" y2="30" class="pen" opacity="0">
+    <animate id="line9" attributeName="x2" values="247 ; 256" dur="0.2s" fill="freeze" begin="line8.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line8.end"/>
+  </line>
+  <line x1="256" y1="21" x2="256" y2="21" class="pen" opacity="0">
+    <animate id="line10" attributeName="y2" values="21 ; 37" dur="0.2s" fill="freeze" begin="line9.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line9.end"/>
+  </line>
+  <!--A-->
+  <line x1="267" y1="21" x2="267" y2="21" class="pen" opacity="0">
+    <animate id="line11" attributeName="x2" values="267 ; 260" dur="0.2s" fill="freeze" begin="line10.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line10.end"/>
+    <animate attributeName="y2" values="21 ; 37" dur="0.2s" fill="freeze" begin="line10.end"/>
+  </line>
+  <line x1="267" y1="21" x2="267" y2="21" class="pen" opacity="0">
+    <animate id="line12" attributeName="x2" values="267 ; 274" dur="0.2s" fill="freeze" begin="line11.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line11.end"/>
+    <animate attributeName="y2" values="21 ; 37" dur="0.2s" fill="freeze" begin="line11.end"/>
+  </line>
+  <line x1="262" y1="32" x2="262" y2="32" class="pen" opacity="0">
+    <animate id="line13" attributeName="x2" values="262 ; 271" dur="0.2s" fill="freeze" begin="line12.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line12.end"/>
+  </line>
+  <!--B-->
+  <line x1="277" y1="21" x2="277" y2="21" class="pen" opacity="0">
+    <animate id="line14" attributeName="y2" values="21 ; 37" dur="0.2s" fill="freeze" begin="line13.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line13.end"/>
+  </line>
+  <path d="M277 21 C287 21 287 29 277 29 287 29 287 37 277 37" class="pen b"></path>
+  <!--E-->
+  <line x1="287" y1="21" x2="287" y2="21" class="pen" opacity="0">
+    <animate id="line16" attributeName="x2" values="287 ; 294" dur="0.2s" fill="freeze" begin="line14.end+0.2"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line14.end+0.2"/>
+  </line>
+  <line x1="287" y1="21" x2="287" y2="21" class="pen" opacity="0">
+    <animate id="line17" attributeName="y2" values="21 ; 37" dur="0.2s" fill="freeze" begin="line16.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line16.end"/>
+  </line>
+  <line x1="287" y1="37" x2="287" y2="37" class="pen" opacity="0">
+    <animate id="line18" attributeName="x2" values="287 ; 294" dur="0.2s" fill="freeze" begin="line17.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line17.end"/>
+  </line>
+  <line x1="287" y1="29" x2="287" y2="29" class="pen" opacity="0">
+    <animate id="line19" attributeName="x2" values="287 ; 294" dur="0.2s" fill="freeze" begin="line18.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line18.end"/>
+  </line>
+  <!--T-->
+  <line x1="297" y1="21" x2="297" y2="21" class="pen" opacity="0">
+    <animate id="line20" attributeName="x2" values="297 ; 306" dur="0.2s" fill="freeze" begin="line19.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line19.end"/>
+  </line>
+  <line x1="302" y1="21" x2="302" y2="21" class="pen" opacity="0">
+    <animate id="line21" attributeName="y2" values="21 ; 37" dur="0.2s" fill="freeze" begin="line20.end"/>
+    <animate attributeName="opacity" values="0;1" dur="0.2s" fill="freeze" begin="line20.end"/>
+  </line>
+<!--
+    text
+-->
+  <text font-size="20" x="210" y="40" opacity="0">
+	  <tspan id="name" dy="26" x="210.0109466053608">{name}</tspan>
+    <animate id="animation14" attributeName="opacity" values="0;1" dur="0.5s" fill="freeze" begin="line21.end"/>
+  </text>
+  <text font-size="20" x="210" y="60" opacity="0">
+	  <tspan id="handle" dy="26" x="210.0109466053608">{handle}</tspan>
+    <animate id="animation13" attributeName="opacity" values="0;1" dur="0.5s" fill="freeze" begin="line21.end"/>
+  </text>
+</svg>
