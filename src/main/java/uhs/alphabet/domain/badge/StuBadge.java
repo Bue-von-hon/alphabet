@@ -15,6 +15,8 @@ public class StuBadge {
         this.handle = handle;
         String ret = "";
         try {
+            System.out.println(ClassLoader.getSystemResource("static/badge/stuBadge").toURI().toString());
+            String s = ClassLoader.getSystemResource("static/badge/stuBadge").toURI().toString();
             Path stuBadge = Path.of(ClassLoader.getSystemResource("static/badge/stuBadge").toURI());
             byte[] bytes = Files.readAllBytes(stuBadge);
             Charset charset = Charset.forName("UTF-8");
@@ -25,6 +27,8 @@ public class StuBadge {
         }
         catch (Exception e) {
             System.out.println(e.toString());
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
         }
         badge = ret;
     }
