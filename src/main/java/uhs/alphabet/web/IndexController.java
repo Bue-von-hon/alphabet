@@ -1,6 +1,8 @@
 package uhs.alphabet.web;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -31,7 +33,7 @@ public class IndexController {
 
     private final PersonService personService;
     private final BoardService boardService;
-
+    private final ResourceLoader resourceLoader;
     public String getUserIp() throws Exception {
 
         HttpServletRequest request =
@@ -222,7 +224,7 @@ public class IndexController {
             handle = personDtos.get(0).getHandle();
             name = personDtos.get(0).getName();
         }
-        StuBadge badge = new StuBadge(name, handle);
+        StuBadge badge = new StuBadge(name, handle, resourceLoader);
         return new ResponseEntity<String>(badge.getBadge(), HttpStatus.OK);
     }
 
