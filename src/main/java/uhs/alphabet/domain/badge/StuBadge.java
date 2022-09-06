@@ -1,19 +1,11 @@
 package uhs.alphabet.domain.badge;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
-import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 public class StuBadge {
     private final String name;
