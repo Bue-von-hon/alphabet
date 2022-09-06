@@ -1,14 +1,12 @@
 package uhs.alphabet.domain.badge;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -29,14 +27,13 @@ public class StuBadge {
         this.loader = loader;
         String ret = "";
         try {
-            Resource resource = loader.getResource("classpath:static/badge/stuBadge");
-            File file = resource.getFile();
-            FileReader reader = new FileReader(file);
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            String tmp;
-            while ((tmp = bufferedReader.readLine()) != null) {
-                ret+=tmp;
-            }
+            Resource resource = loader.getResource("classpath:/static/badge/stuBadge");
+            InputStream in = resource.getInputStream();
+            byte[] bytes = new byte[15024];
+            int read = in.read(bytes);
+            ByteBuffer buffer = ByteBuffer.wrap(bytes);
+            Charset charset = Charset.forName("UTF-8");
+            ret = charset.decode(buffer).toString();
             ret = ret.replaceAll("\\{(name)}", name).replaceAll("\\{(handle)}", handle);
         }
         catch (Exception e) {
