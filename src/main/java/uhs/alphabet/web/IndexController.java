@@ -33,7 +33,6 @@ public class IndexController {
 
     private final PersonService personService;
     private final BoardService boardService;
-    private final ResourceLoader resourceLoader;
     public String getUserIp() throws Exception {
 
         HttpServletRequest request =
@@ -224,8 +223,7 @@ public class IndexController {
             handle = personDtos.get(0).getHandle();
             name = personDtos.get(0).getName();
         }
-        StuBadge badge = new StuBadge(name, handle, resourceLoader);
-        return new ResponseEntity<String>(badge.getBadge(), HttpStatus.OK);
+        return new ResponseEntity<String>(StuBadge.of(name, handle), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/getCF", method = RequestMethod.GET, produces = "image/svg+xml", params = "handle")
