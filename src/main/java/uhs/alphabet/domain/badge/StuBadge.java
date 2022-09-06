@@ -29,7 +29,7 @@ public class StuBadge {
         try {
             Resource resource = loader.getResource("classpath:/static/badge/stuBadge");
             InputStream in = resource.getInputStream();
-            byte[] bytes = new byte[15024];
+            byte[] bytes = in.readAllBytes();
             int read = in.read(bytes);
             ByteBuffer buffer = ByteBuffer.wrap(bytes);
             Charset charset = Charset.forName("UTF-8");
