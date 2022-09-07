@@ -1,42 +1,48 @@
 package uhs.alphabet.domain.badge;
 
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-
+import org.springframework.core.io.ClassPathResource;
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 
 public class StuBadge {
-    private final String name;
-    private final String handle;
-    private final String badge;
-    private final ResourceLoader loader;
-
-    public StuBadge(final String name, final String handle, ResourceLoader loader) {
-        this.name = name;
-        this.handle = handle;
-        this.loader = loader;
+    private static final Charset charset = Charset.forName("UTF-8");
+    private static final String data;
+    static {
+        ClassPathResource classPathResource = new ClassPathResource("/static/badge/stuBadge");
         String ret = "";
         try {
-            Resource resource = loader.getResource("classpath:/static/badge/stuBadge");
-            InputStream in = resource.getInputStream();
-            byte[] bytes = in.readAllBytes();
-            int read = in.read(bytes);
-            ByteBuffer buffer = ByteBuffer.wrap(bytes);
-            Charset charset = Charset.forName("UTF-8");
-            ret = charset.decode(buffer).toString();
-            ret = ret.replaceAll("\\{(name)}", name).replaceAll("\\{(handle)}", handle);
+            File file = classPathResource.getFile();
+            FileReader fileReader = new FileReader(file);
+            CharBuffer charBuffer = CharBuffer.allocate((int) file.length());
+            int read = fileReader.read(charBuffer);
+            charBuffer.flip();
+            ret = charBuffer.toString();
+            fileReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (Exception e) {
-            System.out.println(e.toString());
-            System.out.println(e.getMessage());
-            System.out.println(e.getStackTrace());
-        }
-        badge = ret;
+        data = ret;
     }
-
-    public String getBadge() {
-        return badge;
+    public static String of2(final String name, final String handle) {
+        return data
+                .replaceAll("\\{(name)}", name)
+                .replaceAll("\\{(handle)}", handle);
+    }
+    public static String of1(final String name, final String handle) {
+       String badge = "";
+       ClassPathResource classPathResource = new ClassPathResource("/static/badge/stuBadge");
+       try (InputStream in = classPathResource.getInputStream()) {
+           byte[] bytes = in.readAllBytes();
+           int read = in.read(bytes);
+           ByteBuffer buffer = ByteBuffer.wrap(bytes);
+           badge = charset.decode(buffer).toString();
+           badge = badge.replaceAll("\\{(name)}", name).replaceAll("\\{(handle)}", handle);
+       }
+       catch (Exception e) {
+           System.out.println(e.getMessage());
+       }
+       return badge;
     }
 }
