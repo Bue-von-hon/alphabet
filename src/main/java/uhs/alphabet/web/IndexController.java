@@ -223,7 +223,7 @@ public class IndexController {
             handle = personDtos.get(0).getHandle();
             name = personDtos.get(0).getName();
         }
-        return new ResponseEntity<String>(StuBadge.of2(name, handle), HttpStatus.OK);
+        return new ResponseEntity<String>(StuBadge.of1(name, handle), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/getCF", method = RequestMethod.GET, produces = "image/svg+xml", params = "handle")
