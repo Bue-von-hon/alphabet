@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" width="353" height="134">
+<defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="30%" y2="0%">
+      <stop offset="0%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(255,0,0);stop-opacity:1" />
+    </linearGradient>
+  </defs><g>
+	<rect width="30" height="40" fill="#c4e693" stroke-width="2" stroke="#111111" x="10" y="15"></rect>
+	<rect width="60" height="40" fill="#ffc519" stroke-width="2" stroke="#111111" x="100" y="15"></rect>
+	<rect width="30" height="60" fill="#fffa78" stroke-width="2" stroke="#111111" x="40" y="35"></rect>
+	<rect width="90" height="20" fill="#3cfbff" stroke-width="2" stroke="#111111" x="10" y="95"></rect>
+	<rect width="30" height="40" fill="#111111" stroke-width="2" stroke="#111111" x="70" y="15"></rect>
+	<rect width="30" height="40" fill="#ff5675" stroke-width="2" stroke="#111111" x="130" y="55"></rect>
+	<rect width="30" height="20" fill="#c4e693" stroke-width="2" stroke="#111111" x="100" y="95"></rect>
+	<rect width="30" height="20" fill="none" stroke-width="2" stroke="#111111" x="40" y="15"></rect>
+	<rect width="30" height="40" fill="none" stroke-width="2" stroke="#111111" x="10" y="55"></rect>
+	<rect width="60" height="40" fill="none" stroke-width="2" stroke="#111111" x="70" y="55"></rect>
+	<rect width="30" height="20" fill="none" stroke-width="2" stroke="#111111" x="130" y="95"></rect>
+</g>
+<rect id="colorR" width="130" height="40" fill="{color}" x="200" y="55" rx="10" ry="10"></rect>
+<text id="handle" font-size="20" x="210" y="55" fill="white">
+	<tspan dy="26" x="210.0109466053608">{handle}</tspan>
+</text>
+<text font-size="20" x="160" y="5">
+	<tspan dy="26" x="210.921875">ALPHABET</tspan>
+</text>
+<rect width="350" height="131" fill="none" stroke="#111111" rx="20" ry="20" stroke-width="3" x="1" y="1"></rect>
+</svg>

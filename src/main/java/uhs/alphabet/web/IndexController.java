@@ -17,6 +17,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import uhs.alphabet.annotation.Timer;
 import uhs.alphabet.config.auth.LoginUser;
 import uhs.alphabet.config.auth.dto.SessionUser;
+import uhs.alphabet.domain.badge.CfBadge;
 import uhs.alphabet.domain.badge.StuBadge;
 import uhs.alphabet.domain.dto.BoardDto;
 import uhs.alphabet.domain.dto.PersonDto;
@@ -230,37 +231,6 @@ public class IndexController {
     @ResponseBody
     public ResponseEntity<String> getCF(@RequestParam("handle") String handle) {
         String data = "";
-        String preSvg = "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:svgjs=\"http://svgjs.com/svgjs\" width=\"353\" height=\"134\">\n" +
-                "<defs>\n" +
-                "    <linearGradient id=\"grad1\" x1=\"0%\" y1=\"0%\" x2=\"30%\" y2=\"0%\">\n" +
-                "      <stop offset=\"0%\" style=\"stop-color:rgb(0,0,0);stop-opacity:1\" />\n" +
-                "      <stop offset=\"100%\" style=\"stop-color:rgb(255,0,0);stop-opacity:1\" />\n" +
-                "    </linearGradient>\n" +
-                "  </defs>" +
-                "<g>\n" +
-                "\t<rect width=\"30\" height=\"40\" fill=\"#c4e693\" stroke-width=\"2\" stroke=\"#111111\" x=\"10\" y=\"15\"></rect>\n" +
-                "\t<rect width=\"60\" height=\"40\" fill=\"#ffc519\" stroke-width=\"2\" stroke=\"#111111\" x=\"100\" y=\"15\"></rect>\n" +
-                "\t<rect width=\"30\" height=\"60\" fill=\"#fffa78\" stroke-width=\"2\" stroke=\"#111111\" x=\"40\" y=\"35\"></rect>\n" +
-                "\t<rect width=\"90\" height=\"20\" fill=\"#3cfbff\" stroke-width=\"2\" stroke=\"#111111\" x=\"10\" y=\"95\"></rect>\n" +
-                "\t<rect width=\"30\" height=\"40\" fill=\"#111111\" stroke-width=\"2\" stroke=\"#111111\" x=\"70\" y=\"15\"></rect>\n" +
-                "\t<rect width=\"30\" height=\"40\" fill=\"#ff5675\" stroke-width=\"2\" stroke=\"#111111\" x=\"130\" y=\"55\"></rect>\n" +
-                "\t<rect width=\"30\" height=\"20\" fill=\"#c4e693\" stroke-width=\"2\" stroke=\"#111111\" x=\"100\" y=\"95\"></rect>\n" +
-                "\t<rect width=\"30\" height=\"20\" fill=\"none\" stroke-width=\"2\" stroke=\"#111111\" x=\"40\" y=\"15\"></rect>\n" +
-                "\t<rect width=\"30\" height=\"40\" fill=\"none\" stroke-width=\"2\" stroke=\"#111111\" x=\"10\" y=\"55\"></rect>\n" +
-                "\t<rect width=\"60\" height=\"40\" fill=\"none\" stroke-width=\"2\" stroke=\"#111111\" x=\"70\" y=\"55\"></rect>\n" +
-                "\t<rect width=\"30\" height=\"20\" fill=\"none\" stroke-width=\"2\" stroke=\"#111111\" x=\"130\" y=\"95\"></rect>\n" +
-                "</g>\n" +
-                "<rect id=\"colorR\" width=\"130\" height=\"40\" fill=\"";
-        String middleSvg = "\" x=\"200\" y=\"55\" rx=\"10\" ry=\"10\"></rect>\n" +
-                "<text id=\"handle\" font-size=\"20\" x=\"210\" y=\"55\" fill=\"white\">\n" +
-                "\t<tspan dy=\"26\" x=\"210.0109466053608\">";
-        String postSvg = "</tspan>\n" +
-                "</text>\n" +
-                "<text font-size=\"20\" x=\"160\" y=\"5\">\n" +
-                "\t<tspan dy=\"26\" x=\"210.921875\">ALPHABET</tspan>\n" +
-                "</text>\n" +
-                "<rect width=\"350\" height=\"131\" fill=\"none\" stroke=\"#111111\" rx=\"20\" ry=\"20\" stroke-width=\"3\" x=\"1\" y=\"1\"></rect>\n" +
-                "</svg>";
         String color = "blue";
         ArrayList<String> colList = new ArrayList<String>(Arrays.asList("grey", "green", "cyan", "blue", "violet", "orange", "red", "url(#grad1)"));
         String baseUrl = "https://codeforces.com/api/user.info?handles=";
@@ -298,8 +268,7 @@ public class IndexController {
         } else {
             color = colList.get(0).toString();
         }
-
-        return new ResponseEntity<String>(preSvg + color + middleSvg + handle + postSvg, HttpStatus.OK);
+        return new ResponseEntity<String>(CfBadge.of(handle, color), HttpStatus.OK);
     }
 
 
