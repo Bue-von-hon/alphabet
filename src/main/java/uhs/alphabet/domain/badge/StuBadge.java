@@ -14,12 +14,12 @@ public class StuBadge {
         String ret = "";
         try {
             File file = classPathResource.getFile();
-            FileReader fileReader = new FileReader(file);
-            CharBuffer charBuffer = CharBuffer.allocate((int) file.length());
-            int read = fileReader.read(charBuffer);
-            charBuffer.flip();
-            ret = charBuffer.toString();
-            fileReader.close();
+            try (FileReader fileReader = new FileReader(file)) {
+                CharBuffer charBuffer = CharBuffer.allocate((int) file.length());
+                int read = fileReader.read(charBuffer);
+                charBuffer.flip();
+                ret = charBuffer.toString();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
