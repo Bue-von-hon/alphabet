@@ -23,8 +23,7 @@ public class CfBadge {
         badge = charset.decode(buffer).toString();
     }
 
-    public static String of(String handle, String color) {
+    public static String of(final String handle, final String color) {
         return badge.replaceAll("\\{(handle)}", handle).replaceAll("\\{(color)}", color);
-
     }
 }
