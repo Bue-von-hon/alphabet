@@ -2,10 +2,14 @@ package uhs.alphabet.domain.badge;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.netty.buffer.ByteBufInputStream;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.mockito.Mockito;
 
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -21,14 +25,15 @@ public class CfUserTest {
     @DisplayName("")
     public void test1() {
         try {
-            String query = "buevonhun";
-            URL url = new URL("https://codeforces.com/api/user.info?handles="+query);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            // 3초 타임 아웃
-            urlConnection.setReadTimeout(3000);
-            InputStream inputStream = urlConnection.getInputStream();
-            byte[] bytes = inputStream.readAllBytes();
+            String data = "{\"status\":\"OK\",\"result\":[{\"country\":\"South Korea\",\"lastOnlineTimeSeconds\":1662843288,\"rating\":1005,\"friendOfCount\":1,\"titlePhoto\":\"//userpic.codeforces.org/no-title.jpg\",\"handle\":\"BueVonHun\",\"avatar\":\"//userpic.codeforces.org/no-avatar.jpg\",\"contribution\":0,\"organization\":\"hyupsunguniversity\",\"rank\":\"newbie\",\"maxRating\":1189,\"registrationTimeSeconds\":1590993904,\"maxRank\":\"newbie\"}]}";
+            HttpURLConnection mockConnection = Mockito.mock(HttpURLConnection.class);
             Charset charset = Charset.forName("UTF-8");
+            byte[] testBytes = data.getBytes(charset);
+            InputStream in = new ByteArrayInputStream(testBytes);
+            Mockito.when(mockConnection.getInputStream()).thenReturn(in);
+
+            InputStream inputStream = mockConnection.getInputStream();
+            byte[] bytes = inputStream.readAllBytes();
             ByteBuffer buffer = ByteBuffer.wrap(bytes);
             String s = charset.decode(buffer).toString();
 
