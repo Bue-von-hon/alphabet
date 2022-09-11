@@ -2,27 +2,23 @@ package uhs.alphabet.domain.badge;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.netty.buffer.ByteBufInputStream;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.mockito.Mockito;
 
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CfUserTest {
     @Test
-    @DisplayName("")
+    @DisplayName("외부api를 통해 가져온 정보를 올바르세 파싱하는지 테스트")
     public void test1() {
         try {
             String data = "{\"status\":\"OK\",\"result\":[{\"country\":\"South Korea\",\"lastOnlineTimeSeconds\":1662843288,\"rating\":1005,\"friendOfCount\":1,\"titlePhoto\":\"//userpic.codeforces.org/no-title.jpg\",\"handle\":\"BueVonHun\",\"avatar\":\"//userpic.codeforces.org/no-avatar.jpg\",\"contribution\":0,\"organization\":\"hyupsunguniversity\",\"rank\":\"newbie\",\"maxRating\":1189,\"registrationTimeSeconds\":1590993904,\"maxRank\":\"newbie\"}]}";

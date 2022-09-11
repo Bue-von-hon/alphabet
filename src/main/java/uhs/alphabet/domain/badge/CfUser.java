@@ -48,7 +48,7 @@ public class CfUser {
             String s = charset.decode(buffer).toString();
             Map<String, Object> stringObjectMap = mapper.readValue(s, new TypeReference<Map<String, Object>>() {});
             ArrayList<HashMap<String, Object>> result = (ArrayList<HashMap<String, Object>>) stringObjectMap.get("result");
-            HashMap<String, Object> map= result.get(0);
+            HashMap<String, Object> map = result.get(0);
             rank = (String) map.get("rank");
             rank = rank.toLowerCase();
         }
