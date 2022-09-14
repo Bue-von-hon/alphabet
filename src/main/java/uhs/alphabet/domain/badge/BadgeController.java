@@ -1,6 +1,8 @@
 package uhs.alphabet.domain.badge;
 
 import lombok.RequiredArgsConstructor;
+import org.ehcache.Cache;
+import org.ehcache.CacheManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,9 +14,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BadgeController {
     private final PersonService personService;
+    private final CacheManager cacheManager;
 
     @GetMapping(value = "/stubadge")
-    public String a(@RequestParam("stuid") String stuid) {
+    public String stubadge(@RequestParam("stuid") String stuid) {
         List<PersonDto> personDtos = personService.searchPerson(stuid);
         String handle = "None";
         String name = "None";
@@ -26,8 +29,13 @@ public class BadgeController {
     }
 
     @GetMapping("/cfbadge")
-    public String b(@RequestParam("handle") String handle) {
-        CfUser cfUser = CfUser.of(handle);
+    public String cfbadge(@RequestParam("handle") String handle) {
+        Cache<String, CfUser> codeforcesCache = cacheManager.getCache("codeforcesCache", String.class, CfUser.class);
+        CfUser cfUser = codeforcesCache.get(handle);
+        if (cfUser == null) {
+            cfUser = CfUser.of(handle);
+            codeforcesCache.put(handle, cfUser);
+        }
         return CfBadge.of(cfUser.getHandle(), cfUser.getColor());
     }
 }
