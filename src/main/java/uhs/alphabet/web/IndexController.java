@@ -214,12 +214,12 @@ public class IndexController {
         return "/board";
     }
 
-    @RequestMapping(value = "/api/getSVG", method = RequestMethod.GET, produces = "image/svg+xml", params = "stuID")
+    @GetMapping("/api/getSVG")
     public String getSVG(@RequestParam("stuID") String stuID) {
-        return "forward:/stubadge";
+        return "forward:/stubadge?stuid="+stuID;
     }
 
-    @RequestMapping(value = "/api/getCF", method = RequestMethod.GET, produces = "image/svg+xml", params = "handle")
+    @GetMapping("/api/getCF")
     public String getCF(@RequestParam("handle") String handle) {
         return "forward:/cfbadge";
     }
