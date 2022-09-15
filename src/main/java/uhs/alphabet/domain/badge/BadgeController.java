@@ -16,6 +16,10 @@ public class BadgeController {
     private final PersonService personService;
     private final CacheManager cacheManager;
 
+    private boolean isValidCFUser(CfUser user) {
+        if (user == null) return false;
+        return true;
+    }
     @GetMapping(value = "/stubadge", produces = "image/svg+xml")
     public String stubadge(@RequestParam("stuid") String stuid) {
         List<PersonDto> personDtos = personService.searchPerson(stuid);
@@ -32,10 +36,10 @@ public class BadgeController {
     public String cfbadge(@RequestParam("handle") String handle) {
         Cache<String, CfUser> codeforcesCache = cacheManager.getCache("codeforcesCache", String.class, CfUser.class);
         CfUser cfUser = codeforcesCache.get(handle);
-        if (cfUser == null) {
-            cfUser = CfUser.of(handle);
-            codeforcesCache.put(handle, cfUser);
-        }
+        if (isValidCFUser(cfUser)) return CfBadge.of(cfUser.getHandle(), cfUser.getColor());
+
+        cfUser = CfUser.of(handle);
+        codeforcesCache.put(handle, cfUser);
         return CfBadge.of(cfUser.getHandle(), cfUser.getColor());
     }
 }
