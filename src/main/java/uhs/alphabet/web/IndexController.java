@@ -215,7 +215,7 @@ public class IndexController {
     }
 
     @RequestMapping(value = "/api/getSVG", method = RequestMethod.GET, produces = "image/svg+xml", params = "stuID")
-    public String getSVG(@RequestParam("stuID") String stuID, Model model) {
+    public String getSVG(@RequestParam("stuID") String stuID) {
         return "forward:/stubadge";
     }
 
