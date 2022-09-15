@@ -16,7 +16,7 @@ public class BadgeController {
     private final PersonService personService;
     private final CacheManager cacheManager;
 
-    @GetMapping(value = "/stubadge")
+    @GetMapping(value = "/stubadge", produces = "image/svg+xml")
     public String stubadge(@RequestParam("stuid") String stuid) {
         List<PersonDto> personDtos = personService.searchPerson(stuid);
         String handle = "None";
@@ -28,7 +28,7 @@ public class BadgeController {
         return StuBadge.of1(name, handle);
     }
 
-    @GetMapping("/cfbadge")
+    @GetMapping(value = "/cfbadge", produces = "image/svg+xml")
     public String cfbadge(@RequestParam("handle") String handle) {
         Cache<String, CfUser> codeforcesCache = cacheManager.getCache("codeforcesCache", String.class, CfUser.class);
         CfUser cfUser = codeforcesCache.get(handle);
