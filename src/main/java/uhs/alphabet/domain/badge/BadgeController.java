@@ -25,7 +25,7 @@ public class BadgeController {
             handle = personDtos.get(0).getHandle();
             name = personDtos.get(0).getName();
         }
-        return StuBadge.of2(name, handle);
+        return StuBadge.of1(name, handle);
     }
 
     @GetMapping("/cfbadge")
