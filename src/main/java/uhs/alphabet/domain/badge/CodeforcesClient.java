@@ -12,7 +12,7 @@ public class CodeforcesClient {
     public static String getData(String handle) {
         String data = "";
         try {
-            URL url = new URL(codeforcesUserInfoUrl+ handle);
+            URL url = new URL(codeforcesUserInfoUrl + handle);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             // 3초 타임 아웃
             urlConnection.setReadTimeout(3000);
