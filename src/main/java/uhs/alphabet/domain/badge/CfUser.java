@@ -28,13 +28,10 @@ public class CfUser {
     }
 
     public static CfUser of(final String handle) {
-        String rank = "";
         String data = CodeforcesClient.getData(handle);
-        rank = CodeforcesMapper.getRank(data).toLowerCase();
-
+        String rank = CodeforcesMapper.getRank(data).toLowerCase();
         String color = colorMap.get(rank);
-        if (!isExistColor(color)) color = "grey";
-
+        if (!isExistColor(color)) return new CfUser(handle, "grey");
         return new CfUser(handle, color);
     }
 
