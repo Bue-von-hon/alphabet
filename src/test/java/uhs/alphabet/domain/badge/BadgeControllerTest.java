@@ -58,6 +58,7 @@ public class BadgeControllerTest {
     private MockMvc mockMvc;
 
     private static MockedStatic<CfUser> cfUserMockedStatic;
+
     @BeforeAll
     public static void setup() {
         cfUserMockedStatic = mockStatic(CfUser.class);
@@ -70,25 +71,23 @@ public class BadgeControllerTest {
                 .build();
         personDtoList.add(personDto1);
 
-        ClassPathResource classPathResource = new ClassPathResource("/static/badge/stuBadge");
+        ClassPathResource classPathResource = new ClassPathResource("/static/badge/jackLiamstuBadge");
         try (InputStream in = classPathResource.getInputStream()) {
             byte[] bytes = in.readAllBytes();
             int read = in.read(bytes);
             ByteBuffer buffer = ByteBuffer.wrap(bytes);
             stubadge = charset.decode(buffer).toString();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-        classPathResource = new ClassPathResource("/static/badge/cfBadge");
+        classPathResource = new ClassPathResource("/static/badge/jackBlueCfBadge");
         ByteBuffer buffer = null;
         try (InputStream in = classPathResource.getInputStream()) {
             byte[] bytes = in.readAllBytes();
             int read = in.read(bytes);
             buffer = ByteBuffer.wrap(bytes);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.toString());
         }
         cfbadge = charset.decode(buffer).toString();
@@ -99,22 +98,24 @@ public class BadgeControllerTest {
         cfUserMockedStatic.close();
     }
 
+    @BeforeEach
+    public void init() {
+        Cache<String, CfUser> codeforcesCache = cacheManager.getCache("codeforcesCache", String.class, CfUser.class);
+        codeforcesCache.clear();
+    }
+
     @Test
     @WithMockUser(roles = "USER")
     @DisplayName("학생 뱃지 정보 가져오는지 테스트")
     public void test1() throws Exception {
         Mockito.when(personService.searchPerson(anyString())).thenReturn(personDtoList);
         mockMvc.perform(
-                    get("/stubadge")
-                    .param("stuid", "1234")
+                        get("/stubadge")
+                                .param("stuid", "1234")
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(content().string(
-                        stubadge
-                        .replaceAll("\\{(name)}", "liam")
-                        .replaceAll("\\{(handle)}", "jack"))
-                );
+                .andExpect(content().string(stubadge));
     }
 
     @Test
@@ -123,29 +124,21 @@ public class BadgeControllerTest {
     public void test2() throws Exception {
         Mockito.when(CfUser.of(anyString())).thenReturn(new CfUser("jack", "blue"));
         mockMvc.perform(
-                get("/cfbadge")
-                        .param("handle", "jack"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(content().string(
-                        cfbadge.replaceAll("\\{(handle)}", "jack").replaceAll("\\{(color)}", "blue")
-                ));
-    }
-
-    @Test
-    @WithMockUser
-    @DisplayName("코드포스 뱃지 캐싱 테스트")
-    public void test3() throws Exception {
-        Mockito.when(CfUser.of(anyString())).thenReturn(new CfUser("jack", "blue"));
-        mockMvc.perform(
                         get("/cfbadge")
                                 .param("handle", "jack"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(content().string(
-                        cfbadge.replaceAll("\\{(handle)}", "jack").replaceAll("\\{(color)}", "blue")
-                ));
+                .andExpect(content().string(cfbadge));
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("코드포스 유저 캐싱 테스트")
+    public void test3() throws Exception {
         Cache<String, CfUser> codeforcesCache = cacheManager.getCache("codeforcesCache", String.class, CfUser.class);
+        Assertions.assertEquals(false, codeforcesCache.containsKey("jack"));
+        CfUser user = new CfUser("jack", "blue");
+        codeforcesCache.put("jack", user);
         Assertions.assertEquals(true, codeforcesCache.containsKey("jack"));
     }
 }
