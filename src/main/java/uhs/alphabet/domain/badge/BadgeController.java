@@ -6,14 +6,11 @@ import org.ehcache.CacheManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import uhs.alphabet.domain.dto.PersonDto;
-import uhs.alphabet.domain.service.PersonService;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 public class BadgeController {
-    private final PersonService personService;
+    private final BadgeService badgeService;
     private final CacheManager cacheManager;
 
     private boolean isValidCFUser(CfUser user) {
@@ -22,14 +19,9 @@ public class BadgeController {
     }
     @GetMapping(value = "/stubadge", produces = "image/svg+xml")
     public String stubadge(@RequestParam("stuid") String stuid) {
-        List<PersonDto> personDtos = personService.searchPerson(stuid);
-        String handle = "None";
-        String name = "None";
-        if (!personDtos.isEmpty()) {
-            handle = personDtos.get(0).getHandle();
-            name = personDtos.get(0).getName();
-        }
-        return StuBadge.of1(name, handle);
+        StudentBadgeUser user = badgeService.searchStudent(stuid);
+        if (user == null) return StuBadge.of1("None", "None");
+        return StuBadge.of1(user.getName(), user.getHandle());
     }
 
     @GetMapping(value = "/cfbadge", produces = "image/svg+xml")
