@@ -4,8 +4,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class CodeforceBadgeFactory {
 
-    public String getBadge(String handle, String color, BadgeStream badgeStream) {
-        String badge = badgeStream.getBadge();
+    public String getBadge(String handle, String color, CodeforcesBadgeFileStream badgeFileStream) {
+        String badge = badgeFileStream.getBadge();
         return badge
                 .replaceAll("\\{(handle)}", handle)
                 .replaceAll("\\{(color)}", color);

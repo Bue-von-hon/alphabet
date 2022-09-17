@@ -6,9 +6,8 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
-public class BadgeFileStream implements BadgeStream{
+public class CodeforcesBadgeFileStream {
     private static final Charset charset = Charset.forName("UTF-8");
-    @Override
     public String getBadge() {
         ClassPathResource classPathResource = new ClassPathResource("/static/badge/cfBadge");
         ByteBuffer buffer = null;

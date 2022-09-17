@@ -4,11 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.ehcache.Cache;
 import org.ehcache.CacheManager;
 import org.springframework.stereotype.Service;
-import uhs.alphabet.domain.badge.codeforces.BadgeFileStream;
-import uhs.alphabet.domain.badge.codeforces.BadgeStream;
+import uhs.alphabet.domain.badge.codeforces.CodeforcesBadgeFileStream;
 import uhs.alphabet.domain.badge.codeforces.CodeforceBadgeFactory;
 import uhs.alphabet.domain.badge.codeforces.util.CodeForcesRank;
-import uhs.alphabet.domain.badge.codeforces.util.CodeforcesClient;
+import uhs.alphabet.domain.badge.codeforces.util.CodeforcesHttpClient;
 import uhs.alphabet.domain.badge.codeforces.util.CodeforcesMapper;
 
 import java.util.HashMap;
@@ -19,7 +18,7 @@ import java.util.Map;
 public class BadgeService {
     private final BadgeRepository badgeRepository;
     private final CodeforceBadgeFactory codeforceBadgeFactory;
-    private final CodeforcesClient codeforcesClient;
+    private final CodeforcesHttpClient codeforcesClient;
     private final CodeforcesMapper codeforcesMapper;
     private final CacheManager cacheManager;
 
@@ -44,7 +43,7 @@ public class BadgeService {
     public String  makeCodeforcesBadge(String handle) {
         Cache<String, String> codeforcesCache = cacheManager.getCache("codeforcesCache", String.class, String.class);
         if (codeforcesCache.containsKey(handle)) return codeforcesCache.get(handle);
-        BadgeStream badgeFileStream = new BadgeFileStream();
+        CodeforcesBadgeFileStream badgeFileStream = new CodeforcesBadgeFileStream();
         String data = codeforcesClient.getData(handle);
         String rank = codeforcesMapper.getRank(data);
         String badge = codeforceBadgeFactory.getBadge(handle, colorMap.get(rank), badgeFileStream);
