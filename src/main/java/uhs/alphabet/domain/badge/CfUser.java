@@ -1,8 +1,7 @@
 package uhs.alphabet.domain.badge;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import uhs.alphabet.domain.badge.codeforces.CodeforcesMapper;
 
-import java.nio.charset.Charset;
 import java.util.*;
 
 public class CfUser {
@@ -29,7 +28,7 @@ public class CfUser {
 
     public static CfUser of(final String handle) {
         String data = CodeforcesClient.getData(handle);
-        String rank = CodeforcesMapper.getRank(data).toLowerCase();
+        String rank = CodeforcesMapper.getRank(data);
         String color = colorMap.get(rank);
         if (!isExistColor(color)) return new CfUser(handle, "grey");
         return new CfUser(handle, color);
