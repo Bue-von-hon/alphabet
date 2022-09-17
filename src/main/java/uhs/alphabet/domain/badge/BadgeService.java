@@ -46,7 +46,7 @@ public class BadgeService {
         CodeforcesBadgeFileStream badgeFileStream = new CodeforcesBadgeFileStream();
         String data = codeforcesClient.getData(handle);
         String rank = codeforcesMapper.getRank(data);
-        String badge = codeforceBadgeFactory.getBadge(handle, colorMap.get(rank), badgeFileStream);
+        String badge = codeforceBadgeFactory.makeBadge(handle, colorMap.get(rank), badgeFileStream);
         codeforcesCache.put(handle, badge);
         return badge;
     }
