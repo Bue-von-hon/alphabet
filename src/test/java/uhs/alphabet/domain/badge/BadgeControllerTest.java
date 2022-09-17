@@ -17,11 +17,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import uhs.alphabet.domain.badge.codeforces.CodeforceBadgeFactory;
 
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mockStatic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -46,17 +48,17 @@ public class BadgeControllerTest {
     @Autowired
     private CacheManager cacheManager;
     @MockBean
+    private CodeforceBadgeFactory codeforceBadgeFactory;
+    @MockBean
     private BadgeService badgeService;
     @MockBean
     private JpaMetamodelMappingContext jpaMetamodelMappingContext;
     @Autowired
     private MockMvc mockMvc;
 
-    private static MockedStatic<CfUser> cfUserMockedStatic;
 
     @BeforeAll
     public static void setup() {
-        cfUserMockedStatic = mockStatic(CfUser.class);
         ClassPathResource classPathResource = new ClassPathResource("/static/badge/jackLiamstuBadge");
         try (InputStream in = classPathResource.getInputStream()) {
             byte[] bytes = in.readAllBytes();
@@ -79,14 +81,9 @@ public class BadgeControllerTest {
         cfbadge = charset.decode(buffer).toString();
     }
 
-    @AfterAll
-    public static void terminate() {
-        cfUserMockedStatic.close();
-    }
-
     @BeforeEach
     public void init() {
-        Cache<String, CfUser> codeforcesCache = cacheManager.getCache("codeforcesCache", String.class, CfUser.class);
+        Cache<String, String> codeforcesCache = cacheManager.getCache("codeforcesCache", String.class, String.class);
         codeforcesCache.clear();
     }
 
@@ -108,7 +105,7 @@ public class BadgeControllerTest {
     @WithMockUser
     @DisplayName("코드포스 뱃지 정보 가져오는 테스트")
     public void test2() throws Exception {
-        Mockito.when(CfUser.of(anyString())).thenReturn(new CfUser("jack", "blue"));
+        Mockito.when(badgeService.makeCodeforcesBadge(anyString())).thenReturn(cfbadge);
         mockMvc.perform(
                         get("/cfbadge")
                                 .param("handle", "jack"))
@@ -121,10 +118,9 @@ public class BadgeControllerTest {
     @WithMockUser
     @DisplayName("코드포스 유저 캐싱 테스트")
     public void test3() throws Exception {
-        Cache<String, CfUser> codeforcesCache = cacheManager.getCache("codeforcesCache", String.class, CfUser.class);
+        Cache<String, String> codeforcesCache = cacheManager.getCache("codeforcesCache", String.class, String.class);
         Assertions.assertEquals(false, codeforcesCache.containsKey("jack"));
-        CfUser user = new CfUser("jack", "blue");
-        codeforcesCache.put("jack", user);
+        codeforcesCache.put("jack", cfbadge);
         Assertions.assertEquals(true, codeforcesCache.containsKey("jack"));
     }
 }

@@ -1,4 +1,4 @@
-package uhs.alphabet.domain.badge;
+package uhs.alphabet.domain.badge.codeforces.util;
 
 public enum CodeForcesRank {
     Legendary_Grandmaster("Legendary Grandmaster"),
