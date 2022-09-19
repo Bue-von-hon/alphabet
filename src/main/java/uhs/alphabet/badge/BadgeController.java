@@ -1,4 +1,4 @@
-package uhs.alphabet.domain.badge;
+package uhs.alphabet.badge;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

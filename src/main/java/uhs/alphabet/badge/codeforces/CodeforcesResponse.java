@@ -1,4 +1,4 @@
-package uhs.alphabet.domain.badge.codeforces;
+package uhs.alphabet.badge.codeforces;
 
 import java.util.List;
 

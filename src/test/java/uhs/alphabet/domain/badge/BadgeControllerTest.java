@@ -4,20 +4,22 @@ import org.ehcache.Cache;
 import org.ehcache.CacheManager;
 
 import org.junit.jupiter.api.*;
-import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.security.test.context.support.WithMockUser;
+import uhs.alphabet.badge.BadgeController;
+import uhs.alphabet.badge.BadgeService;
+import uhs.alphabet.badge.StudentBadgeUser;
 import uhs.alphabet.config.CacheConfig;
 import uhs.alphabet.config.auth.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import uhs.alphabet.domain.badge.codeforces.CodeforceBadgeFactory;
+import uhs.alphabet.badge.codeforces.CodeforceBadgeFactory;
 
 import java.io.InputStream;
 import java.nio.ByteBuffer;

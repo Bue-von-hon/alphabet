@@ -1,4 +1,4 @@
-package uhs.alphabet.domain.badge.codeforces.util;
+package uhs.alphabet.badge.codeforces.util;
 
 import org.springframework.stereotype.Component;
 

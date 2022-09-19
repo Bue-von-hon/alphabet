@@ -1,4 +1,4 @@
-package uhs.alphabet.domain.badge;
+package uhs.alphabet.badge;
 
 public class StudentBadgeUser {
     private final String name;

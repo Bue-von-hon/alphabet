@@ -1,4 +1,4 @@
-package uhs.alphabet.domain.badge;
+package uhs.alphabet.badge;
 
 import org.springframework.core.io.ClassPathResource;
 import java.io.*;
