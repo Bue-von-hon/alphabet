@@ -3,12 +3,17 @@ package uhs.alphabet.badge;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
+
 @RestController
 @RequiredArgsConstructor
+@Validated
 public class BadgeController {
     private final BadgeService badgeService;
 
@@ -21,7 +26,7 @@ public class BadgeController {
 
     @GetMapping(value = "/cfbadge", produces = "image/svg+xml")
     @Cacheable( cacheNames = "codeforcesCache")
-    public String getCodeforcesBadge(@RequestParam("handle") String handle) {
+    public String getCodeforcesBadge(@RequestParam("handle") @Valid @Size(min = 2, max = 24) String handle) {
         String badge = badgeService.makeCodeforcesBadge(handle);
         return badge;
     }
