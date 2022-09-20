@@ -13,12 +13,12 @@ public class BadgeService {
     private final BadgeRepository badgeRepository;
     private final CodeforcesHttpClient codeforcesClient;
     private final CodeforcesMapper codeforcesMapper;
-    public StudentBadgeUser searchStudent(String stuid) {
+    public StudentBadgeUser searchStudent(final String stuid) {
         StudentBadgeUser student = badgeRepository.findByStunum(stuid);
         return student;
     }
 
-    public String  makeCodeforcesBadge(String handle) {
+    public String  makeCodeforcesBadge(final String handle) {
         CodeForcesBadge badge = new CodeForcesBadge(handle, codeforcesMapper, codeforcesClient);
         return badge.getBadge();
     }

@@ -9,7 +9,7 @@ public class CodeForcesBadge {
     private final CodeforcesMapper codeforcesMapper;
     private final CodeforcesClient codeforcesClient;
 
-    public CodeForcesBadge(String handle, CodeforcesMapper codeforcesMapper, CodeforcesClient codeforcesClient) {
+    public CodeForcesBadge(final String handle, final CodeforcesMapper codeforcesMapper, final CodeforcesClient codeforcesClient) {
         this.handle = handle;
         this.codeforcesMapper = codeforcesMapper;
         this.codeforcesClient = codeforcesClient;
