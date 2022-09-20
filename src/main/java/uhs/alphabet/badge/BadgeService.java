@@ -3,8 +3,8 @@ package uhs.alphabet.badge;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
+import uhs.alphabet.badge.codeforces.CodeForcesBadge;
 import uhs.alphabet.badge.codeforces.CodeforcesBadgeFileStream;
-import uhs.alphabet.badge.codeforces.CodeforceBadgeFactory;
 import uhs.alphabet.badge.codeforces.util.CodeForcesRank;
 import uhs.alphabet.badge.codeforces.util.CodeforcesHttpClient;
 import uhs.alphabet.badge.codeforces.util.CodeforcesMapper;
@@ -13,7 +13,6 @@ import uhs.alphabet.badge.codeforces.util.CodeforcesMapper;
 @RequiredArgsConstructor
 public class BadgeService {
     private final BadgeRepository badgeRepository;
-    private final CodeforceBadgeFactory codeforceBadgeFactory;
     private final CodeforcesHttpClient codeforcesClient;
     private final CodeforcesMapper codeforcesMapper;
     public StudentBadgeUser searchStudent(String stuid) {
@@ -25,7 +24,7 @@ public class BadgeService {
         String data = codeforcesClient.getData(handle);
         String rank = codeforcesMapper.getRank(data);
         CodeforcesBadgeFileStream badgeFileStream = new CodeforcesBadgeFileStream();
-        String badge = codeforceBadgeFactory.makeBadge(handle, CodeForcesRank.getRank2Color(rank), badgeFileStream);
-        return badge;
+        CodeForcesBadge badge = new CodeForcesBadge(handle, CodeForcesRank.getRank2Color(rank), badgeFileStream);
+        return badge.getBadge();
     }
 }
