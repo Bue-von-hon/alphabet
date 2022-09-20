@@ -4,8 +4,6 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
 import uhs.alphabet.badge.codeforces.CodeForcesBadge;
-import uhs.alphabet.badge.codeforces.CodeforcesBadgeFileStream;
-import uhs.alphabet.badge.codeforces.util.CodeForcesRank;
 import uhs.alphabet.badge.codeforces.util.CodeforcesHttpClient;
 import uhs.alphabet.badge.codeforces.util.CodeforcesMapper;
 
@@ -21,10 +19,7 @@ public class BadgeService {
     }
 
     public String  makeCodeforcesBadge(String handle) {
-        String data = codeforcesClient.getData(handle);
-        String rank = codeforcesMapper.getRank(data);
-        CodeforcesBadgeFileStream badgeFileStream = new CodeforcesBadgeFileStream();
-        CodeForcesBadge badge = new CodeForcesBadge(handle, CodeForcesRank.getRank2Color(rank), badgeFileStream);
+        CodeForcesBadge badge = new CodeForcesBadge(handle, codeforcesMapper, codeforcesClient);
         return badge.getBadge();
     }
 }
