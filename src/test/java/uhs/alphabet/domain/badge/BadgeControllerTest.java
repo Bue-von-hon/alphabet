@@ -51,8 +51,6 @@ public class BadgeControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
-
-
     @BeforeAll
     public static void setup() {
         ClassPathResource classPathResource = new ClassPathResource("/static/badge/jackLiamstuBadge");

@@ -18,8 +18,8 @@ import java.time.Duration;
 @Configuration
 public class CacheConfig {
     @Bean
-    public CacheManager EhcacheManager() {
-        CacheConfiguration<String, String> cachecConfig = CacheConfigurationBuilder
+    public CacheManager ehcacheManager() {
+        CacheConfiguration<String, String> cacheConfig = CacheConfigurationBuilder
                 .newCacheConfigurationBuilder(String.class,
                         String.class,
                         ResourcePoolsBuilder.newResourcePoolsBuilder()
@@ -31,8 +31,10 @@ public class CacheConfig {
         CachingProvider cachingProvider = Caching.getCachingProvider();
         CacheManager cacheManager = cachingProvider.getCacheManager();
 
-        javax.cache.configuration.Configuration<String, String > configuration = Eh107Configuration.fromEhcacheCacheConfiguration(cachecConfig);
-        cacheManager.createCache("codeforcesCache", configuration);
+        javax.cache.configuration.Configuration<String, String > configuration = Eh107Configuration.fromEhcacheCacheConfiguration(cacheConfig);
+        if (cacheManager.getCache("codeforcesCache") == null) {
+            cacheManager.createCache("codeforcesCache", configuration);
+        }
         return cacheManager;
     }
 
