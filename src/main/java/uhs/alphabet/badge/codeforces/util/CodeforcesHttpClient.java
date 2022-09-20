@@ -1,33 +1,29 @@
 package uhs.alphabet.badge.codeforces.util;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+import uhs.alphabet.badge.codeforces.dto.CodeforcesResponse;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.ByteBuffer;
+import java.net.URI;
 import java.nio.charset.Charset;
 
 @Component
 public class CodeforcesHttpClient implements CodeforcesClient {
-    private static final String codeforcesUserInfoUrl = "https://codeforces.com/api/user.info?handles=";
+    private static final String CodeforcesUrl = "https://codeforces.com";
+    private static final String UserInfoPath = "/api/user.info";
     private static final Charset charset = Charset.forName("UTF-8");
     @Override
-    public String getData(String handle) {
-        String data = "";
-        try {
-            URL url = new URL(codeforcesUserInfoUrl + handle);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            // 3초 타임 아웃
-            urlConnection.setReadTimeout(3000);
-            InputStream inputStream = urlConnection.getInputStream();
-            byte[] bytes = inputStream.readAllBytes();
-            ByteBuffer buffer = ByteBuffer.wrap(bytes);
-            data = charset.decode(buffer).toString();
-            inputStream.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
-        }
-        return data;
+    public CodeforcesResponse getData(String handle) {
+        URI uri = UriComponentsBuilder.fromUriString(CodeforcesUrl)
+                .path(UserInfoPath)
+                .queryParam("handles", handle)
+                .encode()
+                .build()
+                .toUri();
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<CodeforcesResponse> response = restTemplate.getForEntity(uri, CodeforcesResponse.class);
+        return response.getBody();
     }
 }

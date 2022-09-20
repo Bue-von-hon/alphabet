@@ -1,5 +1,7 @@
 package uhs.alphabet.badge.codeforces.util;
 
+import uhs.alphabet.badge.codeforces.dto.CodeforcesResponse;
+
 public interface CodeforcesClient {
-    String getData(String handle);
+    CodeforcesResponse getData(String handle);
 }
