@@ -1,8 +1,5 @@
 package uhs.alphabet.domain.badge;
 
-import org.ehcache.Cache;
-import org.ehcache.CacheManager;
-
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,9 +22,7 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.mockStatic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -47,8 +42,6 @@ public class BadgeControllerTest {
     private static String cfbadge;
     private String contentType = "image/svg+xml;charset=UTF-8";
 
-    @Autowired
-    private CacheManager cacheManager;
     @MockBean
     private CodeforceBadgeFactory codeforceBadgeFactory;
     @MockBean
@@ -57,6 +50,7 @@ public class BadgeControllerTest {
     private JpaMetamodelMappingContext jpaMetamodelMappingContext;
     @Autowired
     private MockMvc mockMvc;
+
 
 
     @BeforeAll
@@ -81,12 +75,6 @@ public class BadgeControllerTest {
             System.out.println(e.toString());
         }
         cfbadge = charset.decode(buffer).toString();
-    }
-
-    @BeforeEach
-    public void init() {
-        Cache<String, String> codeforcesCache = cacheManager.getCache("codeforcesCache", String.class, String.class);
-        codeforcesCache.clear();
     }
 
     @Test
@@ -116,13 +104,4 @@ public class BadgeControllerTest {
                 .andExpect(content().string(cfbadge));
     }
 
-    @Test
-    @WithMockUser
-    @DisplayName("코드포스 유저 캐싱 테스트")
-    public void test3() throws Exception {
-        Cache<String, String> codeforcesCache = cacheManager.getCache("codeforcesCache", String.class, String.class);
-        Assertions.assertEquals(false, codeforcesCache.containsKey("jack"));
-        codeforcesCache.put("jack", cfbadge);
-        Assertions.assertEquals(true, codeforcesCache.containsKey("jack"));
-    }
 }
