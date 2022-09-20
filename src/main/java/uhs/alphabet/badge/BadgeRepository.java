@@ -1,4 +1,4 @@
-package uhs.alphabet.domain.badge;
+package uhs.alphabet.badge;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import uhs.alphabet.domain.entity.PersonEntity;

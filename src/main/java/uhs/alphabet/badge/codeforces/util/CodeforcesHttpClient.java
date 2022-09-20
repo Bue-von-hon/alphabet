@@ -1,4 +1,6 @@
-package uhs.alphabet.domain.badge;
+package uhs.alphabet.badge.codeforces.util;
+
+import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -6,10 +8,12 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
-public class CodeforcesClient {
+@Component
+public class CodeforcesHttpClient implements CodeforcesClient {
     private static final String codeforcesUserInfoUrl = "https://codeforces.com/api/user.info?handles=";
     private static final Charset charset = Charset.forName("UTF-8");
-    public static String getData(String handle) {
+    @Override
+    public String getData(String handle) {
         String data = "";
         try {
             URL url = new URL(codeforcesUserInfoUrl + handle);
@@ -20,6 +24,7 @@ public class CodeforcesClient {
             byte[] bytes = inputStream.readAllBytes();
             ByteBuffer buffer = ByteBuffer.wrap(bytes);
             data = charset.decode(buffer).toString();
+            inputStream.close();
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }

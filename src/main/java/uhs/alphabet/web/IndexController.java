@@ -1,24 +1,16 @@
 package uhs.alphabet.web;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationContext;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.util.DefaultUriBuilderFactory;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import uhs.alphabet.annotation.Timer;
 import uhs.alphabet.config.auth.LoginUser;
 import uhs.alphabet.config.auth.dto.SessionUser;
-import uhs.alphabet.domain.badge.CfBadge;
-import uhs.alphabet.domain.badge.StuBadge;
 import uhs.alphabet.domain.dto.BoardDto;
 import uhs.alphabet.domain.dto.PersonDto;
 import uhs.alphabet.domain.service.BoardService;
