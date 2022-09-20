@@ -4,32 +4,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum CodeForcesRank {
-    Legendary_Grandmaster("Legendary Grandmaster", "url(#grad1)"),
-    International_Grandmaster("International Grandmaster", "red"),
-    Grandmaster("Grandmaster", "red"),
-    International_Master("International Master", "orange"),
-    Master("Master", "orange"),
-    Candidata_Master("Candidata Master", "violet"),
-    Expert("Expert", "blue"),
-    Specialist("Specialist", "cyan"),
-    Pupil("Pupil", "green"),
-    Newbie("Newbie", "grey");
+    Legendary_Grandmaster("legendary grandmaster", "url(#grad1)"),
+    International_Grandmaster("international grandmaster", "red"),
+    Grandmaster("grandmaster", "red"),
+    International_Master("international master", "orange"),
+    Master("master", "orange"),
+    Candidate_Master("candidate master", "violet"),
+    Expert("expert", "blue"),
+    Specialist("specialist", "cyan"),
+    Pupil("pupil", "green"),
+    Newbie("newbie", "grey");
 
     private String rank;
     private String color;
     private static Map<String, String > colorMap;
     static {
         colorMap = new HashMap<>();
-        colorMap.put(Legendary_Grandmaster.rank.toLowerCase(), Legendary_Grandmaster.color);
-        colorMap.put(International_Grandmaster.rank.toLowerCase(), International_Grandmaster.color);
-        colorMap.put(Grandmaster.rank.toLowerCase(), Grandmaster.color);
-        colorMap.put(International_Master.rank.toLowerCase(), International_Master.color);
-        colorMap.put(Master.rank.toLowerCase(), Master.color);
-        colorMap.put(Candidata_Master.rank.toLowerCase(), Candidata_Master.color);
-        colorMap.put(Expert.rank.toLowerCase(), Legendary_Grandmaster.color);
-        colorMap.put(Specialist.rank.toLowerCase(), Specialist.color);
-        colorMap.put(Pupil.rank.toLowerCase(), Pupil.color);
-        colorMap.put(Newbie.rank.toLowerCase(), Newbie.color);
+        colorMap.put(Legendary_Grandmaster.rank, Legendary_Grandmaster.color);
+        colorMap.put(International_Grandmaster.rank, International_Grandmaster.color);
+        colorMap.put(Grandmaster.rank, Grandmaster.color);
+        colorMap.put(International_Master.rank, International_Master.color);
+        colorMap.put(Master.rank, Master.color);
+        colorMap.put(Candidate_Master.rank, Candidate_Master.color);
+        colorMap.put(Expert.rank, Legendary_Grandmaster.color);
+        colorMap.put(Specialist.rank, Specialist.color);
+        colorMap.put(Pupil.rank, Pupil.color);
+        colorMap.put(Newbie.rank, Newbie.color);
     }
 
     CodeForcesRank(String rank, String color) {
