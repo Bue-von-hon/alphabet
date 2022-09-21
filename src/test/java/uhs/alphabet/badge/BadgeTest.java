@@ -3,7 +3,6 @@ package uhs.alphabet.badge;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import uhs.alphabet.badge.StuBadge;
 
 public class BadgeTest {
 
