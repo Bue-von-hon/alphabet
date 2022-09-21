@@ -7,13 +7,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 import uhs.alphabet.badge.codeforces.dto.CodeforcesResponse;
 
 import java.net.URI;
-import java.nio.charset.Charset;
 
 @Component
 public class CodeforcesHttpClient implements CodeforcesClient {
     private static final String CodeforcesUrl = "https://codeforces.com";
     private static final String UserInfoPath = "/api/user.info";
-    private static final Charset charset = Charset.forName("UTF-8");
     @Override
     public CodeforcesResponse getData(String handle) {
         URI uri = UriComponentsBuilder.fromUriString(CodeforcesUrl)
