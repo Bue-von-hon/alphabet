@@ -1,4 +1,4 @@
-package uhs.alphabet.domain.badge;
+package uhs.alphabet.badge;
 
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
