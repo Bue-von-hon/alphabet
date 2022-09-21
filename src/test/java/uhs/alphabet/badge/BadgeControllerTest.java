@@ -102,16 +102,17 @@ public class BadgeControllerTest {
     public void test3() throws Exception {
         String shorthandle = "a";
         String LongHandle = "0123456789012345678901234"; // 25글자
+        String errorMsg = "getCodeforcesBadge.handle: size must be between 2 and 24";
 
         mockMvc.perform(
                 get("/cfbadge")
                         .param("handle", shorthandle)
-        ).andExpect(content().string("getCodeforcesBadge.handle: size must be between 2 and 24"));
+        ).andExpect(content().string(errorMsg));
 
         mockMvc.perform(
                 get("/cfbadge")
                         .param("handle", LongHandle)
-        ).andExpect(content().string("getCodeforcesBadge.handle: size must be between 2 and 24"));
+        ).andExpect(content().string(errorMsg));
     }
 
     @Test
