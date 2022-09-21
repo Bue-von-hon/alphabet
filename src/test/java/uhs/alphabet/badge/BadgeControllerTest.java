@@ -87,7 +87,7 @@ public class BadgeControllerTest {
     @WithMockUser
     @DisplayName("코드포스 뱃지 정보 가져오는 테스트")
     public void test2() throws Exception {
-        Mockito.when(badgeService.makeCodeforcesBadge(anyString())).thenReturn(cfbadge);
+        Mockito.when(badgeService.getCodeforcesBadge(anyString())).thenReturn(cfbadge);
         mockMvc.perform(
                         get("/cfbadge")
                                 .param("handle", "jack"))
@@ -121,7 +121,7 @@ public class BadgeControllerTest {
     public void test4() throws Exception {
         String invalidHandle = "noBody";
         String errorMsg = "400 : [{\"status\":\"FAILED\",\"comment\":\"handles: User with handle noBody not found\"}]";
-        Mockito.when(badgeService.makeCodeforcesBadge(anyString())).thenThrow(new RestClientException(errorMsg));
+        Mockito.when(badgeService.getCodeforcesBadge(anyString())).thenThrow(new RestClientException(errorMsg));
 
         mockMvc.perform(
                 get("/cfbadge")

@@ -39,7 +39,7 @@ public class BadgeController {
     @GetMapping(value = "/cfbadge", produces = "image/svg+xml")
     @Cacheable( cacheNames = "codeforcesCache")
     public String getCodeforcesBadge(@RequestParam("handle") @Valid @Size(min = 2, max = 24) String handle) {
-        String badge = badgeService.makeCodeforcesBadge(handle);
+        String badge = badgeService.getCodeforcesBadge(handle);
         return badge;
     }
 }

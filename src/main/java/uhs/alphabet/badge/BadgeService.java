@@ -16,7 +16,7 @@ public class BadgeService {
         return student;
     }
 
-    public String  makeCodeforcesBadge(final String handle) {
+    public String getCodeforcesBadge(final String handle) {
         CodeForcesBadge badge = new CodeForcesBadge(handle, codeforcesClient);
         return badge.getBadge();
     }
