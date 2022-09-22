@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 * */
 @Getter
 public class SearchBoardDTO {
-    private final Long board_id;
+    private final Long boardId;
     @NotBlank
     private final String title;
     @NotBlank
@@ -26,8 +26,8 @@ public class SearchBoardDTO {
     private final String ip;
     private final String writer;
 
-    public SearchBoardDTO(Long board_id, String title, String content, String pw, int count, String created_time, LocalDateTime modified_time, boolean visible, String ip, String writer) {
-        this.board_id = board_id;
+    public SearchBoardDTO(Long boardId, String title, String content, String pw, int count, String created_time, LocalDateTime modified_time, boolean visible, String ip, String writer) {
+        this.boardId = boardId;
         this.title = title;
         this.content = content;
         this.pw = pw;
