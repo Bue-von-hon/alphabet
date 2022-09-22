@@ -21,12 +21,12 @@ public class BadgeController {
     private final BadgeService badgeService;
 
     @ExceptionHandler
-    public String CodeforcesRequestFail(RestClientException e) {
+    public String codeforcesRequestFail(RestClientException e) {
         return e.getMessage();
     }
 
     @ExceptionHandler
-    public String InvalidUser(ConstraintViolationException e) {
+    public String invalidUser(ConstraintViolationException e) {
         return e.getMessage();
     }
     @GetMapping(value = "/stubadge", produces = "image/svg+xml")
