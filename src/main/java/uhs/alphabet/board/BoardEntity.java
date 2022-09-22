@@ -57,7 +57,13 @@ public class BoardEntity extends TimeEntity {
     public SearchBoardDTO getSearchBoardDTO() {
         LocalDateTime time = getCreatedTime();
         String formatDateTime = time.format(formatter);
-        return new SearchBoardDTO(board_id, title, content, pw, count, formatDateTime, getModified_time(), visible, ip, writer);
+        return new SearchBoardDTO.SearchBoardDTOBuilder(board_id)
+                .setTitle(title)
+                .setCount(count)
+                .setCreatedTime(formatDateTime)
+                .setVisible(visible)
+                .setWrite(writer)
+                .build();
     }
 
 }
