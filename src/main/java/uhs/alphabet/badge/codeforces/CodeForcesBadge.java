@@ -1,24 +1,13 @@
 package uhs.alphabet.badge.codeforces;
 
-import uhs.alphabet.badge.codeforces.dto.CodeforcesResponse;
-import uhs.alphabet.badge.codeforces.util.CodeForcesRank;
-import uhs.alphabet.badge.codeforces.util.CodeforcesClient;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CodeForcesBadge {
-    private final String handle;
-    private final CodeforcesClient codeforcesClient;
-
-    public CodeForcesBadge(final String handle, final CodeforcesClient codeforcesClient) {
-        this.handle = handle;
-        this.codeforcesClient = codeforcesClient;
-    }
-
-    public String getBadge() {
-        CodeforcesResponse codeforcesResponse = codeforcesClient.getCodeforcesResponse(handle);
-        String rank = codeforcesResponse.getRank();
-        String color = CodeForcesRank.getRank2Color(rank);
-        CodeforcesBadgeFileStream codeforcesBadgeFileStream = new CodeforcesBadgeFileStream();
-        return codeforcesBadgeFileStream.getBadge()
+    private static CodeforcesBadgeFileStream codeforcesBadgeFileStream = new CodeforcesBadgeFileStream();
+    private static final String badge = codeforcesBadgeFileStream.getBadge();
+    public String getBadge(String handle, String color) {
+        return badge
                 .replaceAll("\\{(handle)}", handle)
                 .replaceAll("\\{(color)}", color);
     }
