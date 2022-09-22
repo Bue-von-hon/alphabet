@@ -119,13 +119,13 @@ public class BoardService {
     @Timer
     public List<BoardDto> searchPosts(String keyword) {
         List<BoardEntity> boardEntities = boardRepository.findByTitleContaining(keyword);
-        List<BoardDto> boardDtos = new ArrayList<>();
-        if (boardEntities.isEmpty()) return boardDtos;
 
+        if (boardEntities.isEmpty()) return Collections.EMPTY_LIST;
+
+        List<BoardDto> boardDtos = new ArrayList<>();
         boardEntities.forEach(entity -> {
             boardDtos.add(convertEntityToDto(entity));
         });
-
 
         return boardDtos;
     }
