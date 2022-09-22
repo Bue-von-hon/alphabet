@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import uhs.alphabet.domain.dto.PersonDto;
 import uhs.alphabet.domain.entity.PersonEntity;
-import uhs.alphabet.domain.repository.BoardRepository;
+import uhs.alphabet.board.BoardRepository;
 import uhs.alphabet.domain.repository.PersonRepository;
 
 import java.util.List;

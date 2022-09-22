@@ -1,6 +1,6 @@
-package uhs.alphabet.domain.repository;
+package uhs.alphabet.board;
 
-import uhs.alphabet.domain.entity.BoardEntity;
+import uhs.alphabet.board.BoardEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

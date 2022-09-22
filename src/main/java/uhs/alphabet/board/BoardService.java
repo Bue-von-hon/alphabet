@@ -1,4 +1,4 @@
-package uhs.alphabet.domain.service;
+package uhs.alphabet.board;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,9 +11,9 @@ import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import uhs.alphabet.annotation.Timer;
-import uhs.alphabet.domain.dto.BoardDto;
-import uhs.alphabet.domain.entity.BoardEntity;
-import uhs.alphabet.domain.repository.BoardRepository;
+import uhs.alphabet.board.BoardDto;
+import uhs.alphabet.board.BoardEntity;
+import uhs.alphabet.board.BoardRepository;
 
 @RequiredArgsConstructor
 @Service
@@ -162,26 +162,6 @@ public class BoardService {
             if ((curPageBlockNum-1)*BLOCK_PAGE_NUM_COUNT+1+i > totalLastPageNum) continue;
             pageList.add((curPageBlockNum-1)*BLOCK_PAGE_NUM_COUNT+1+i);
         }
-
-
-
-////        Double postsTotalCount = Double.valueOf(this.getBoardCount());
-//
-
-//
-//        // 현재 페이지를 기준으로 블럭의 마지막 페이지 번호 계산
-//        Integer blockLastPageNum = (totalLastPageNum > curPageNum + BLOCK_PAGE_NUM_COUNT)
-//                ? curPageNum + BLOCK_PAGE_NUM_COUNT
-//                : totalLastPageNum;
-//
-//        // 페이지 시작 번호 조정
-//        curPageNum = (curPageNum <= 3) ? 1 : curPageNum - 2;
-//
-//        // 페이지 번호 할당
-//        for (int val = curPageNum, idx = 0; val <= blockLastPageNum; val++, idx++) {
-//            if (idx>5) break;
-//            pageList.add(val);
-//        }
 
         return pageList;
     }

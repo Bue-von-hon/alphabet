@@ -1,6 +1,7 @@
-package uhs.alphabet.domain.entity;
+package uhs.alphabet.board;
 
 import lombok.*;
+import uhs.alphabet.domain.entity.TimeEntity;
 
 import javax.persistence.*;
 
