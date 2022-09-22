@@ -119,29 +119,14 @@ public class BoardService {
     public List<BoardDto> searchPosts(String keyword) {
         List<BoardEntity> boardEntities = boardRepository.findByTitleContaining(keyword);
         List<BoardDto> boardDtos = new ArrayList<>();
-
         if (boardEntities.isEmpty()) return boardDtos;
 
-        for (BoardEntity boardEntity : boardEntities) {
-            boardDtos.add(this.convertEntityToDto(boardEntity));
-        }
+        boardEntities.forEach(entity -> {
+            boardDtos.add(convertEntityToDto(entity));
+        });
 
         return boardDtos;
     }
-
-//    @Transactional
-//    @Timer
-//    public List<BoardDto> searchPosts2(String keyword) {
-//        Optional<BoardEntity> byTitleContaining2 = boardRepository2.findByTitleContaining(keyword);
-//        if (byTitleContaining2.isEmpty()) throw new RuntimeException("해당 제목을 가진 게시글을 찾을 수 없습니다.");
-//
-//        List<BoardDto> boardDtos = new ArrayList<>();
-//        byTitleContaining2.stream().forEach(o -> {
-//            BoardDto boardDto = this.convertEntityToDto(o);
-//            boardDtos.add(boardDto);
-//        });
-//        return boardDtos;
-//    }
 
     @Transactional
     @Timer
