@@ -101,7 +101,7 @@ public class BoardService {
     @Transactional
     @Timer
     public List<BoardDto> searchPosts(String keyword) {
-        List<BoardEntity> boardEntities = boardRepository.findByTitleContaining(keyword);
+        List<BoardEntity> boardEntities = boardRepository.findAllByTitle(keyword);
 
         if (boardEntities.isEmpty()) return Collections.EMPTY_LIST;
 
@@ -113,7 +113,7 @@ public class BoardService {
     @Transactional
     @Timer
     public List<SearchBoardDTO> searchPosts2(String keyword) {
-        List<BoardEntity> boardEntities = boardRepository.findByTitleContaining(keyword);
+        List<BoardEntity> boardEntities = boardRepository.findAllByTitle(keyword);
         if (boardEntities.isEmpty()) return Collections.EMPTY_LIST;
 
         return boardEntities.stream()
