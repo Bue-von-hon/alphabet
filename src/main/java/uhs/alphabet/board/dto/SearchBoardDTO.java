@@ -18,24 +18,24 @@ public class SearchBoardDTO {
     private final String content;
     @NotBlank
     @Size(min = 4, max = 6)
-    private final String pw;
+    private final String password;
     private final int count;
     private final String created_time;
     private final LocalDateTime modified_time;
     private final boolean visible;
-    private final String ip;
+    private final String ipAddrres;
     private final String writer;
 
-    public SearchBoardDTO(Long boardId, String title, String content, String pw, int count, String created_time, LocalDateTime modified_time, boolean visible, String ip, String writer) {
+    public SearchBoardDTO(Long boardId, String title, String content, String password, int count, String created_time, LocalDateTime modified_time, boolean visible, String ipAddrres, String writer) {
         this.boardId = boardId;
         this.title = title;
         this.content = content;
-        this.pw = pw;
+        this.password = password;
         this.count = count;
         this.created_time = created_time;
         this.modified_time = modified_time;
         this.visible = visible;
-        this.ip = ip;
+        this.ipAddrres = ipAddrres;
         this.writer = writer;
     }
 }
