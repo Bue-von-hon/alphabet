@@ -11,9 +11,6 @@ import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import uhs.alphabet.annotation.Timer;
-import uhs.alphabet.board.BoardDto;
-import uhs.alphabet.board.BoardEntity;
-import uhs.alphabet.board.BoardRepository;
 
 @RequiredArgsConstructor
 @Service
@@ -131,6 +128,20 @@ public class BoardService {
 
         return boardDtos;
     }
+
+//    @Transactional
+//    @Timer
+//    public List<BoardDto> searchPosts2(String keyword) {
+//        Optional<BoardEntity> byTitleContaining2 = boardRepository2.findByTitleContaining(keyword);
+//        if (byTitleContaining2.isEmpty()) throw new RuntimeException("해당 제목을 가진 게시글을 찾을 수 없습니다.");
+//
+//        List<BoardDto> boardDtos = new ArrayList<>();
+//        byTitleContaining2.stream().forEach(o -> {
+//            BoardDto boardDto = this.convertEntityToDto(o);
+//            boardDtos.add(boardDto);
+//        });
+//        return boardDtos;
+//    }
 
     @Transactional
     @Timer
