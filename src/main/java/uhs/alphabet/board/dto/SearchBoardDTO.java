@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 * DB에서 어플리케이션으로 board 정보를 가져올때 사용하는 DTO
 * */
 @Getter
-public class searchBoardDTO {
+public class SearchBoardDTO {
     private final Long board_id;
     @NotBlank
     private final String title;
@@ -26,7 +26,7 @@ public class searchBoardDTO {
     private final String ip;
     private final String writer;
 
-    public searchBoardDTO(Long board_id, String title, String content, String pw, int count, String created_time, LocalDateTime modified_time, boolean visible, String ip, String writer) {
+    public SearchBoardDTO(Long board_id, String title, String content, String pw, int count, String created_time, LocalDateTime modified_time, boolean visible, String ip, String writer) {
         this.board_id = board_id;
         this.title = title;
         this.content = content;

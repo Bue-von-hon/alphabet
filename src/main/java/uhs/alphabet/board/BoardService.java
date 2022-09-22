@@ -11,7 +11,7 @@ import java.util.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import uhs.alphabet.annotation.Timer;
-import uhs.alphabet.board.dto.searchBoardDTO;
+import uhs.alphabet.board.dto.SearchBoardDTO;
 
 @RequiredArgsConstructor
 @Service
@@ -132,9 +132,9 @@ public class BoardService {
 
     @Transactional
     @Timer
-    public List<searchBoardDTO> searchPosts2(String keyword) {
+    public List<SearchBoardDTO> searchPosts2(String keyword) {
         List<BoardEntity> boardEntities = boardRepository.findByTitleContaining(keyword);
-        List<searchBoardDTO> searchBoardDTOS = new ArrayList<>();
+        List<SearchBoardDTO> searchBoardDTOS = new ArrayList<>();
         if (boardEntities.isEmpty()) return searchBoardDTOS;
 
         boardEntities.forEach(entity -> {
