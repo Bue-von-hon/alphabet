@@ -13,7 +13,7 @@ public class CodeforcesHttpClient implements CodeforcesClient {
     private static final String CODEFORCES_URL = "https://codeforces.com";
     private static final String USER_INFO_PATH = "/api/user.info";
     @Override
-    public CodeforcesResponse getData(String handle) {
+    public CodeforcesResponse getCodeforcesResponse(String handle) {
         URI uri = UriComponentsBuilder.fromUriString(CODEFORCES_URL)
                 .path(USER_INFO_PATH)
                 .queryParam("handles", handle)

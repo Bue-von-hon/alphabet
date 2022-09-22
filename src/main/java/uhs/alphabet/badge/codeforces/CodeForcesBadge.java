@@ -14,7 +14,7 @@ public class CodeForcesBadge {
     }
 
     public String getBadge() {
-        CodeforcesResponse codeforcesResponse = codeforcesClient.getData(handle);
+        CodeforcesResponse codeforcesResponse = codeforcesClient.getCodeforcesResponse(handle);
         String rank = codeforcesResponse.getRank();
         String color = CodeForcesRank.getRank2Color(rank);
         CodeforcesBadgeFileStream codeforcesBadgeFileStream = new CodeforcesBadgeFileStream();
