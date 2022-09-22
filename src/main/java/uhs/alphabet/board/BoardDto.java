@@ -2,6 +2,7 @@ package uhs.alphabet.board;
 
 import lombok.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -53,5 +54,23 @@ public class BoardDto {
         this.writer = writer;
         this.ip = ip;
         this.visible = visible;
+    }
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static BoardDto convertEntityToDto(final BoardEntity boardEntity) {
+        LocalDateTime time = boardEntity.getCreatedTime();
+        String formatDateTime = time.format(formatter);
+        return BoardDto.builder()
+                .board_id(boardEntity.getBoard_id())
+                .title(boardEntity.getTitle())
+                .content(boardEntity.getContent())
+                .pw(boardEntity.getPw())
+                .count(boardEntity.getCount())
+                .visible(boardEntity.isVisible())
+                .writer(boardEntity.getWriter())
+                .created_time(formatDateTime)
+                .ip(boardEntity.getIp())
+                .modified_time(boardEntity.getModified_time())
+                .build();
     }
 }

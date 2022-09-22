@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,24 +23,6 @@ public class BoardService {
     private static final int PAGE_POST_COUNT = 4;       // 한 페이지에 존재하는 게시글 수
     private int totalPageCount = -1; // 조회 가능한 전체 게시글의 수
 
-    private BoardDto convertEntityToDto(BoardEntity boardEntity) {
-        LocalDateTime time = boardEntity.getCreatedTime();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formatDateTime = time.format(formatter);
-        return BoardDto.builder()
-                .board_id(boardEntity.getBoard_id())
-                .title(boardEntity.getTitle())
-                .content(boardEntity.getContent())
-                .pw(boardEntity.getPw())
-                .count(boardEntity.getCount())
-                .visible(boardEntity.isVisible())
-                .writer(boardEntity.getWriter())
-                .created_time(formatDateTime)
-                .ip(boardEntity.getIp())
-                .modified_time(boardEntity.getModified_time())
-                .build();
-    }
-
     @Transactional
     @Timer
     public List<BoardDto> getBoardList(Integer pageNum) {
@@ -48,7 +31,7 @@ public class BoardService {
         List<BoardDto> boardDtos = new ArrayList<>();
         if (boardEntities.isEmpty()) return boardDtos;
         for (BoardEntity boardEntity : boardEntities) {
-            if (boardEntity.isVisible()) boardDtos.add(this.convertEntityToDto(boardEntity));
+            if (boardEntity.isVisible()) boardDtos.add(BoardDto.convertEntityToDto(boardEntity));
         }
 
         return boardDtos;
@@ -92,7 +75,7 @@ public class BoardService {
         BoardEntity boardEntity = boardEntityWrapper.get();
         LocalDateTime time = boardEntity.getCreatedTime();
         String formatDateTime = time.format(formatter);
-        BoardDto boardDto = this.convertEntityToDto(boardEntity);
+        BoardDto boardDto = BoardDto.convertEntityToDto(boardEntity);
 
         return boardDto;
     }
@@ -122,26 +105,20 @@ public class BoardService {
 
         if (boardEntities.isEmpty()) return Collections.EMPTY_LIST;
 
-        List<BoardDto> boardDtos = new ArrayList<>();
-        boardEntities.forEach(entity -> {
-            boardDtos.add(convertEntityToDto(entity));
-        });
-
-        return boardDtos;
+        return boardEntities.stream()
+                .map(BoardDto::convertEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Transactional
     @Timer
     public List<SearchBoardDTO> searchPosts2(String keyword) {
         List<BoardEntity> boardEntities = boardRepository.findByTitleContaining(keyword);
-        List<SearchBoardDTO> searchBoardDTOS = new ArrayList<>();
-        if (boardEntities.isEmpty()) return searchBoardDTOS;
+        if (boardEntities.isEmpty()) return Collections.EMPTY_LIST;
 
-        boardEntities.forEach(entity -> {
-            searchBoardDTOS.add(entity.getSearchBoardDTO());
-        });
-
-        return searchBoardDTOS;
+        return boardEntities.stream()
+                .map(BoardEntity::getSearchBoardDTO)
+                .collect(Collectors.toList());
     }
 
     @Transactional
