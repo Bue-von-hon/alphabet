@@ -10,12 +10,12 @@ import java.net.URI;
 
 @Component
 public class CodeforcesHttpClient implements CodeforcesClient {
-    private static final String CodeforcesUrl = "https://codeforces.com";
-    private static final String UserInfoPath = "/api/user.info";
+    private static final String CODEFORCES_URL = "https://codeforces.com";
+    private static final String USER_INFO_PATH = "/api/user.info";
     @Override
     public CodeforcesResponse getData(String handle) {
-        URI uri = UriComponentsBuilder.fromUriString(CodeforcesUrl)
-                .path(UserInfoPath)
+        URI uri = UriComponentsBuilder.fromUriString(CODEFORCES_URL)
+                .path(USER_INFO_PATH)
                 .queryParam("handles", handle)
                 .encode()
                 .build()
