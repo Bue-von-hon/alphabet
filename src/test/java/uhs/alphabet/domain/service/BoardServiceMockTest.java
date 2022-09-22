@@ -7,7 +7,9 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import uhs.alphabet.domain.dto.BoardDto;
+import uhs.alphabet.board.BoardDto;
+import uhs.alphabet.board.BoardService;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -19,7 +21,7 @@ public class BoardServiceMockTest {
 
     @Test
     public void saveBoardTest() {
-        BoardDto boardDto = uhs.alphabet.domain.dto.BoardDto.builder()
+        BoardDto boardDto = BoardDto.builder()
                 .title("saveTestTitle")
                 .content("saveTestContent")
                 .pw("1234")

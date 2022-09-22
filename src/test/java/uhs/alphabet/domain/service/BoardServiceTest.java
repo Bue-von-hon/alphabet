@@ -6,13 +6,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import uhs.alphabet.domain.dto.BoardDto;
-import uhs.alphabet.domain.entity.BoardEntity;
-import uhs.alphabet.domain.repository.BoardRepository;
+import uhs.alphabet.board.BoardDto;
+import uhs.alphabet.board.BoardRepository;
+import uhs.alphabet.board.BoardService;
 import uhs.alphabet.domain.repository.PersonRepository;
 
 import java.util.ArrayList;

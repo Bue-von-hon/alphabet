@@ -1,9 +1,8 @@
-package uhs.alphabet.domain.dto;
+package uhs.alphabet.board;
 
 import lombok.*;
 import java.time.LocalDateTime;
 
-import uhs.alphabet.domain.entity.BoardEntity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 

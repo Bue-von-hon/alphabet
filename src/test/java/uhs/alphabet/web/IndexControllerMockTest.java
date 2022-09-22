@@ -17,9 +17,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import uhs.alphabet.config.auth.SecurityConfig;
-import uhs.alphabet.domain.dto.BoardDto;
+import uhs.alphabet.board.BoardDto;
 import uhs.alphabet.domain.dto.PersonDto;
-import uhs.alphabet.domain.service.BoardService;
+import uhs.alphabet.board.BoardService;
 import uhs.alphabet.domain.service.PersonService;
 
 import java.time.LocalDateTime;

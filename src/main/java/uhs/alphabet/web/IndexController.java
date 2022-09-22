@@ -11,9 +11,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import uhs.alphabet.annotation.Timer;
 import uhs.alphabet.config.auth.LoginUser;
 import uhs.alphabet.config.auth.dto.SessionUser;
-import uhs.alphabet.domain.dto.BoardDto;
+import uhs.alphabet.board.BoardDto;
 import uhs.alphabet.domain.dto.PersonDto;
-import uhs.alphabet.domain.service.BoardService;
+import uhs.alphabet.board.BoardService;
 import uhs.alphabet.domain.service.PersonService;
 
 import javax.servlet.http.HttpServletRequest;

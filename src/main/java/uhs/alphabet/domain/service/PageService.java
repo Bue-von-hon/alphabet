@@ -43,9 +43,6 @@ public class PageService {
             return pageDto;
         }
         PageEntity pageEntity = pageEntityOptional.get();
-        // 필요 없는 부분일지도?
-//        LocalDateTime time = pageEntity.getCreatedTime();
-//        String formatDateTime = time.format(formatter);
         pageDto = this.convertEntitytoDto(pageEntity);
         return  pageDto;
     }
