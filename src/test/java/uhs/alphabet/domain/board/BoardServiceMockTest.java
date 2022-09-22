@@ -1,4 +1,4 @@
-package uhs.alphabet.domain.service;
+package uhs.alphabet.domain.board;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
