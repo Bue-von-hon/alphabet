@@ -1,12 +1,13 @@
 package uhs.alphabet.badge.students;
 
 import org.springframework.core.io.ClassPathResource;
-import java.io.*;
+
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
 public class StudentBadge {
-    private static final Charset charset = Charset.forName("UTF-8");
+    private static final Charset CHARSET = Charset.forName("UTF-8");
     private static final String badge;
     static {
         String data = "";
@@ -15,7 +16,7 @@ public class StudentBadge {
             byte[] bytes = in.readAllBytes();
             int read = in.read(bytes);
             ByteBuffer buffer = ByteBuffer.wrap(bytes);
-            data = charset.decode(buffer).toString();
+            data = CHARSET.decode(buffer).toString();
         }
         catch (Exception e) {
             System.out.println(e.getMessage());
