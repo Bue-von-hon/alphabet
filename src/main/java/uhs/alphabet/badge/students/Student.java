@@ -1,10 +1,10 @@
-package uhs.alphabet.badge;
+package uhs.alphabet.badge.students;
 
-public class StudentBadgeUser {
+public class Student {
     private final String name;
     private final String handle;
 
-    public StudentBadgeUser(String name, String handle) {
+    public Student(String name, String handle) {
         this.name = name;
         this.handle = handle;
     }

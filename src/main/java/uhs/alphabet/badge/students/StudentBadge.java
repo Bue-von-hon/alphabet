@@ -1,12 +1,11 @@
-package uhs.alphabet.badge;
+package uhs.alphabet.badge.students;
 
 import org.springframework.core.io.ClassPathResource;
 import java.io.*;
 import java.nio.ByteBuffer;
-import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 
-public class StuBadge {
+public class StudentBadge {
     private static final Charset charset = Charset.forName("UTF-8");
     private static final String badge;
     static {

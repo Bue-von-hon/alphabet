@@ -3,7 +3,7 @@ package uhs.alphabet.domain.badge;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import uhs.alphabet.badge.StuBadge;
+import uhs.alphabet.badge.students.StudentBadge;
 
 public class BadgeTest {
 
@@ -12,7 +12,7 @@ public class BadgeTest {
     public void test1() {
         String name = "hong";
         String handle = "blue";
-        String badge = StuBadge.of(name, handle);
+        String badge = StudentBadge.of(name, handle);
         Assertions.assertNotNull(badge);
         Assertions.assertEquals(true, badge.contains(name));
         Assertions.assertEquals(true, badge.contains(handle));
