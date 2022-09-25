@@ -8,41 +8,22 @@ import java.nio.charset.Charset;
 
 public class StuBadge {
     private static final Charset charset = Charset.forName("UTF-8");
-    private static final String data;
+    private static final String badge;
     static {
+        String data = "";
         ClassPathResource classPathResource = new ClassPathResource("/static/badge/stuBadge");
-        String ret = "";
-        try {
-            File file = classPathResource.getFile();
-            try (FileReader fileReader = new FileReader(file)) {
-                CharBuffer charBuffer = CharBuffer.allocate((int) file.length());
-                int read = fileReader.read(charBuffer);
-                charBuffer.flip();
-                ret = charBuffer.toString();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        try (InputStream in = classPathResource.getInputStream()) {
+            byte[] bytes = in.readAllBytes();
+            int read = in.read(bytes);
+            ByteBuffer buffer = ByteBuffer.wrap(bytes);
+            data = charset.decode(buffer).toString();
         }
-        data = ret;
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        badge=data;
     }
-    public static String of2(final String name, final String handle) {
-        return data
-                .replaceAll("\\{(name)}", name)
-                .replaceAll("\\{(handle)}", handle);
-    }
-    public static String of1(final String name, final String handle) {
-       String badge = "";
-       ClassPathResource classPathResource = new ClassPathResource("/static/badge/stuBadge");
-       try (InputStream in = classPathResource.getInputStream()) {
-           byte[] bytes = in.readAllBytes();
-           int read = in.read(bytes);
-           ByteBuffer buffer = ByteBuffer.wrap(bytes);
-           badge = charset.decode(buffer).toString();
-           badge = badge.replaceAll("\\{(name)}", name).replaceAll("\\{(handle)}", handle);
-       }
-       catch (Exception e) {
-           System.out.println(e.getMessage());
-       }
-       return badge;
+    public static String of(final String name, final String handle) {
+        return badge.replaceAll("\\{(name)}", name).replaceAll("\\{(handle)}", handle);
     }
 }
