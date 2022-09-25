@@ -13,7 +13,7 @@ public class BadgeController {
     private final BadgeService badgeService;
     @GetMapping(value = "/stubadge", produces = "image/svg+xml")
     public String stubadge(@RequestParam("stuid") String stuid) {
-        return badgeService.getStudentBadgeByHandle(stuid);
+        return badgeService.getStudentBadgeById(stuid);
     }
 
     @GetMapping(value = "/cfbadge", produces = "image/svg+xml")
