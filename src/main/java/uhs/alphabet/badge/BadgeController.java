@@ -11,12 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class BadgeController {
     private final BadgeService badgeService;
-
     @GetMapping(value = "/stubadge", produces = "image/svg+xml")
     public String stubadge(@RequestParam("stuid") String stuid) {
-        StudentBadgeUser user = badgeService.searchStudent(stuid);
-        if (user == null) return StuBadge.of1("None", "None");
-        return StuBadge.of1(user.getName(), user.getHandle());
+        return badgeService.getStudentBadgeByHandle(stuid);
     }
 
     @GetMapping(value = "/cfbadge", produces = "image/svg+xml")

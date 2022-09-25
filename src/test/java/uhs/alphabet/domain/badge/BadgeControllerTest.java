@@ -9,13 +9,14 @@ import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.security.test.context.support.WithMockUser;
 import uhs.alphabet.badge.BadgeController;
 import uhs.alphabet.badge.BadgeService;
-import uhs.alphabet.badge.StudentBadgeUser;
+import uhs.alphabet.badge.students.Student;
 import uhs.alphabet.config.CacheConfig;
 import uhs.alphabet.config.auth.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import uhs.alphabet.domain.repository.PersonRepository;
 
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -44,6 +45,8 @@ public class BadgeControllerTest {
     private BadgeService badgeService;
     @MockBean
     private JpaMetamodelMappingContext jpaMetamodelMappingContext;
+    @MockBean
+    private PersonRepository personRepository;
     @Autowired
     private MockMvc mockMvc;
 
@@ -75,7 +78,7 @@ public class BadgeControllerTest {
     @WithMockUser(roles = "USER")
     @DisplayName("학생 뱃지 정보 가져오는지 테스트")
     public void test1() throws Exception {
-        Mockito.when(badgeService.searchStudent(anyString())).thenReturn(new StudentBadgeUser("liam", "jack"));
+        Mockito.when(badgeService.getStudentBadgeByHandle(anyString())).thenReturn(stubadge);
         mockMvc.perform(
                         get("/stubadge")
                                 .param("stuid", "1234")
