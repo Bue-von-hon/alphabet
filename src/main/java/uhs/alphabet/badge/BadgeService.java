@@ -17,7 +17,6 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class BadgeService {
-    private final BadgeRepository badgeRepository;
     private final PersonRepository personRepository;
     private final CodeforcesHttpClient codeforcesClient;
     private final CodeforcesMapper codeforcesMapper;
