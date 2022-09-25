@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface PersonRepository extends JpaRepository<PersonEntity, Long>{
     List<PersonEntity> findByStunumContaining(String stunum);
+    PersonEntity findByStunum(String stunum);
 }
