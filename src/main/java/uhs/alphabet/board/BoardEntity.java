@@ -1,9 +1,12 @@
 package uhs.alphabet.board;
 
 import lombok.*;
+import uhs.alphabet.board.dto.SearchBoardDTO;
 import uhs.alphabet.domain.entity.TimeEntity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -38,6 +41,7 @@ public class BoardEntity extends TimeEntity {
     @Column
     private String writer;
 
+    private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
     @Builder
     public BoardEntity(Long board_id, String title, String content, String pw, int count, String ip, boolean visible, String writer) {
         this.board_id = board_id;
@@ -50,5 +54,16 @@ public class BoardEntity extends TimeEntity {
         this.writer = writer;
     }
 
+    public SearchBoardDTO getSearchBoardDTO() {
+        LocalDateTime time = getCreatedTime();
+        String formatDateTime = time.format(formatter);
+        return new SearchBoardDTO.SearchBoardDTOBuilder(board_id)
+                .setTitle(title)
+                .setCount(count)
+                .setCreatedTime(formatDateTime)
+                .setVisible(visible)
+                .setWrite(writer)
+                .build();
+    }
 
 }
