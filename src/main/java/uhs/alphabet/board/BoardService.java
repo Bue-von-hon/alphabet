@@ -1,8 +1,11 @@
 package uhs.alphabet.board;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import uhs.alphabet.annotation.Timer;
 import uhs.alphabet.board.dto.SearchBoardDTO;
+import uhs.alphabet.board.spec.BoardSpec;
 
 @RequiredArgsConstructor
 @Service
@@ -35,6 +39,16 @@ public class BoardService {
         }
 
         return boardDtos;
+    }
+
+    @Transactional
+    @Timer
+    public List<BoardDto> getBoardList2(Integer pageNum) {
+        Specification<BoardEntity> visibleSpec = BoardSpec.canVisible();
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<BoardEntity> page = boardRepository.findAllByTitle(visibleSpec, pageable);
+        List<BoardEntity> content = page.getContent();
+        return null;
     }
 
     @Transactional
