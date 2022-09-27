@@ -6,9 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.webservices.client.WebServiceClientTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import uhs.alphabet.board.BoardDto;
 import uhs.alphabet.board.BoardRepository;
@@ -16,8 +14,6 @@ import uhs.alphabet.board.BoardService;
 import uhs.alphabet.board.dto.SearchBoardDTO;
 import uhs.alphabet.domain.repository.PersonRepository;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
