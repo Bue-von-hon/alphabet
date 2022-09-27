@@ -177,16 +177,6 @@ public class IndexController {
         return "test";
     }
 
-    @GetMapping("/board")
-    @Timer
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "1") Integer pageNum) {
-        List<SearchBoardDTO> boardList = boardService.getBoardList(pageNum);
-        ArrayList<Integer> pageList = boardService.getPageList(pageNum);
-        model.addAttribute("pageList", pageList);
-        model.addAttribute("boardList", boardList);
-        return "board";
-    }
-
     @GetMapping("/board/{no}")
     @Timer
     public String detail(@PathVariable("no") Long no, Model model) {
