@@ -11,27 +11,28 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import uhs.alphabet.annotation.Timer;
 import uhs.alphabet.board.dto.SearchBoardDTO;
-import uhs.alphabet.board.spec.BoardSpec;
+
+import static uhs.alphabet.board.spec.BoardSpec.canVisible;
 
 @RequiredArgsConstructor
 @Service
 public class BoardService {
 
     private final BoardRepository boardRepository;
-    private static final int BLOCK_PAGE_NUM_COUNT = 5;  // 블럭에 존재하는 페이지 번호 수
+    private static final int BLOCK_PAGE_COUNT = 5;  // 블럭에 존재하는 페이지 번호 수
     private static final int PAGE_POST_COUNT = 4;       // 한 페이지에 존재하는 게시글 수
-    private int totalPageCount = -1; // 조회 가능한 전체 게시글의 수
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Transactional
     @Timer
     public List<SearchBoardDTO> getBoardList(Integer pageNum) {
-        Specification<BoardEntity> visibleSpec = BoardSpec.canVisible();
+        Specification<BoardEntity> visibleSpec = canVisible();
         Pageable pageable = PageRequest.of(getPage(pageNum), PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdTime"));
         Page<BoardEntity> page = boardRepository.findAll(visibleSpec, pageable);
 
@@ -60,7 +61,6 @@ public class BoardService {
         if (boardDto.getTitle().equals("")) {
             return -1L;
         }
-        if (boardDto.isVisible()) totalPageCount++;
         return boardRepository.save(boardDto.toEntity()).getBoard_id();
     }
 
@@ -105,13 +105,11 @@ public class BoardService {
         BoardEntity boardEntity = boardEntityOptional.get();
         if (boardEntity.getPw().toString().equals(pw)) {
             boardRepository.deleteById(id);
-            totalPageCount--;
         }
     }
 
     @Transactional
     public void deletePostAll() {
-        totalPageCount=-1;
         boardRepository.deleteAll();
     }
 
@@ -145,25 +143,47 @@ public class BoardService {
     }
 
     public List<Integer> getPageList(Integer curPageNum) {
-        Specification<BoardEntity> visibleSpec = BoardSpec.canVisible();
+        Specification<BoardEntity> visibleSpec = canVisible();
         Pageable pageable = PageRequest.of(getPage(curPageNum), PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdTime"));
         Page<BoardEntity> page = boardRepository.findAll(visibleSpec, pageable);
 
-        if (page.isEmpty()) return Collections.EMPTY_LIST;
         int totalPages = page.getTotalPages();
-        List<Integer> a = new ArrayList<>();
-        if (a.size()!=5 && curPageNum-2 > 0) a.add(curPageNum-2);
-        if (a.size()!=5 && curPageNum-1 > 0) a.add(curPageNum-1);
-        if (a.size()!=5 && curPageNum > 0) a.add(curPageNum);
-        if (a.size()!=5 && curPageNum+1 <= totalPages) a.add(curPageNum+1);
-        if (a.size()!=5 && curPageNum+2 <= totalPages) a.add(curPageNum+2);
-        if (a.size()!=5 && curPageNum+3 <= totalPages) a.add(curPageNum+3);
-        if (a.size()!=5 && curPageNum+4 <= totalPages) a.add(curPageNum+4);
-        if (a.size()!=5 && curPageNum-3 > 0) a.add(curPageNum-3);
-        if (a.size()!=5 && curPageNum-4 > 0) a.add(curPageNum-4);
+        if (isZero(totalPages)) return Collections.emptyList();
 
-        List<Integer> collect = a.stream().sorted().collect(Collectors.toList());
-        return collect;
+        List<Integer> pageNumbers = getPageNumbers(totalPages);
+        if (!pageNumbers.isEmpty()) return pageNumbers;
+
+        pageNumbers = getPageNumbers(curPageNum, totalPages);
+        return pageNumbers.stream().sorted().collect(Collectors.toList());
+    }
+
+    private static boolean isZero(int totalPages) {
+        return totalPages == 0;
+    }
+
+    private static List<Integer> getPageNumbers(Integer curPageNum, int totalPages) {
+        List<Integer> ret = new ArrayList<>();
+        ret.add(curPageNum);
+        int l = curPageNum;
+        int r = curPageNum;
+        while (ret.size() != BLOCK_PAGE_COUNT) {
+            if (r + 1 <= totalPages) ret.add(r + 1);
+            if (l - 1 > 0) ret.add(l - 1);
+            r++;
+            l--;
+        }
+        return ret;
+    }
+
+    private static List<Integer> getPageNumbers(int totalPages) {
+        if (isOverThanBlockNumber(totalPages)) return Collections.emptyList();
+        List<Integer> ret = new ArrayList<>();
+        IntStream.range(1, totalPages +1).forEach(ret::add);
+        return ret;
+    }
+
+    private static boolean isOverThanBlockNumber(int totalPages) {
+        return totalPages > BLOCK_PAGE_COUNT;
     }
 
 }
