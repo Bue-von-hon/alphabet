@@ -26,6 +26,7 @@ public class BoardService {
     private static final int BLOCK_PAGE_NUM_COUNT = 5;  // 블럭에 존재하는 페이지 번호 수
     private static final int PAGE_POST_COUNT = 4;       // 한 페이지에 존재하는 게시글 수
     private int totalPageCount = -1; // 조회 가능한 전체 게시글의 수
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Transactional
     @Timer
@@ -45,11 +46,12 @@ public class BoardService {
     @Timer
     public List<SearchBoardDTO> getBoardList2(Integer pageNum) {
         Specification<BoardEntity> visibleSpec = BoardSpec.canVisible();
-        Pageable pageable = PageRequest.of(pageNum-1, 10);
+        Pageable pageable = PageRequest.of(getPage(pageNum), 10);
         Page<BoardEntity> page = boardRepository.findAll(visibleSpec, pageable);
+
         List<BoardEntity> content = page.getContent();
         if (content.isEmpty()) return Collections.EMPTY_LIST;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
         return content.stream()
                 .map(entity -> SearchBoardDTO.builder(entity.getBoard_id())
                         .setCreatedTime(entity.getCreatedTime().format(formatter))
@@ -59,6 +61,10 @@ public class BoardService {
                         .setTitle(entity.getTitle())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    private static int getPage(Integer pageNum) {
+        return pageNum - 1;
     }
 
     @Transactional

@@ -3,6 +3,7 @@ package uhs.alphabet.domain.board;
 import org.junit.After;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -234,6 +235,7 @@ public class BoardServiceTest {
     }
 
     @Test
+    @DisplayName("getBoardList2 테스트")
     public void getBoardListTest2() {
         int BLOCK_PAGE_NUM_COUNT = 5;  // 블럭에 존재하는 페이지 번호 수
         int PAGE_POST_COUNT = 4;       // 한 페이지에 존재하는 게시글 수
