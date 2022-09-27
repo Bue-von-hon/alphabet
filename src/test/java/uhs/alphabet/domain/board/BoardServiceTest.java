@@ -204,11 +204,8 @@ public class BoardServiceTest {
     }
 
     @Test
-    public void getBoardListTest() {
-        int BLOCK_PAGE_NUM_COUNT = 5;  // 블럭에 존재하는 페이지 번호 수
-        int PAGE_POST_COUNT = 4;       // 한 페이지에 존재하는 게시글 수
-        List<BoardDto> boardDtos = boardService.getBoardList(1);
-        Assertions.assertEquals(0, boardDtos.size());
+    @DisplayName("확인 가능한 게시글 3개와 불가능한 게시글 1개를 저장하는 테스트")
+    public void test3() {
         BoardDto boardDto = BoardDto.builder()
                 .title("searchPostTestTitle")
                 .content("searchPostTestContent")
@@ -217,53 +214,52 @@ public class BoardServiceTest {
                 .visible(true)
                 .ip("ip")
                 .build();
-        boardService.saveBoard(boardDto);
-        boardDtos = boardService.getBoardList(1);
-        Assertions.assertEquals(1, boardDtos.size());
 
-        for (int i = 0; i < 3; i++) boardService.saveBoard(boardDto);
-        boardDtos = boardService.getBoardList(1);
-        Assertions.assertEquals(PAGE_POST_COUNT, boardDtos.size());
-
-        // 한 페이지에 있는 4개의 게시글 중 1개가 visible=false인 경우
-        boardDto.setVisible(false);
-        boardService.saveBoard(boardDto);
-        boardDto.setVisible(true);
-        for (int i = 0; i < 3; i++) boardService.saveBoard(boardDto);
-        boardDtos = boardService.getBoardList(2);
-        Assertions.assertEquals(PAGE_POST_COUNT-1, boardDtos.size());
-    }
-
-    @Test
-    @DisplayName("getBoardList2 테스트")
-    public void getBoardListTest2() {
-        int BLOCK_PAGE_NUM_COUNT = 5;  // 블럭에 존재하는 페이지 번호 수
-        int PAGE_POST_COUNT = 4;       // 한 페이지에 존재하는 게시글 수
-        List<SearchBoardDTO> boardList = boardService.getBoardList2(1);
-        Assertions.assertEquals(0, boardList.size());
-        BoardDto boardDto = BoardDto.builder()
-                .title("searchPostTestTitle")
-                .content("searchPostTestContent")
-                .pw("1234")
-                .writer("writer")
-                .visible(true)
-                .ip("ip")
-                .build();
-        boardService.saveBoard(boardDto);
-        boardList = boardService.getBoardList2(1);
-        Assertions.assertEquals(1, boardList.size());
-
-        for (int i = 0; i < 3; i++) boardService.saveBoard(boardDto);
-        boardList = boardService.getBoardList2(1);
-        Assertions.assertEquals(PAGE_POST_COUNT, boardList.size());
-
-        // 한 페이지에 있는 4개의 게시글 중 1개가 visible=false인 경우
         boardService.deletePostAll();
         boardDto.setVisible(false);
         boardService.saveBoard(boardDto);
         boardDto.setVisible(true);
         for (int i = 0; i < 3; i++) boardService.saveBoard(boardDto);
-        boardList = boardService.getBoardList2(1);
-        Assertions.assertEquals(PAGE_POST_COUNT-1, boardList.size());
+        List<SearchBoardDTO> boardList = boardService.getBoardList2(1);
+        Assertions.assertEquals(3, boardList.size());
+    }
+
+    @Test
+    @DisplayName("4개의 게시글을 저장하고 한 페이지에서 보이는지 테스트")
+    public void test4() {
+        BoardDto boardDto = BoardDto.builder()
+                .title("searchPostTestTitle")
+                .content("searchPostTestContent")
+                .pw("1234")
+                .writer("writer")
+                .visible(true)
+                .ip("ip")
+                .build();
+        for (int i = 0; i < 4; i++) boardService.saveBoard(boardDto);
+        List<SearchBoardDTO> boardList = boardService.getBoardList2(1);
+        Assertions.assertEquals(4, boardList.size());
+    }
+
+    @Test
+    @DisplayName("하나의 게시글을 저장하고 한 페이지에서 보이는지 테스트")
+    public void test5() {
+        BoardDto boardDto = BoardDto.builder()
+                .title("searchPostTestTitle")
+                .content("searchPostTestContent")
+                .pw("1234")
+                .writer("writer")
+                .visible(true)
+                .ip("ip")
+                .build();
+        boardService.saveBoard(boardDto);
+        List<SearchBoardDTO> boardList = boardService.getBoardList2(1);
+        Assertions.assertEquals(1, boardList.size());
+    }
+
+    @Test
+    @DisplayName("게시글이 없을때 한 페이지에 게시글이 없는지 테스트")
+    public void test6() {
+        List<SearchBoardDTO> boardList = boardService.getBoardList2(1);
+        Assertions.assertEquals(0, boardList.size());
     }
 }
