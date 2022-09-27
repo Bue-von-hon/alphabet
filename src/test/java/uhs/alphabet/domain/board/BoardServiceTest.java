@@ -220,7 +220,7 @@ public class BoardServiceTest {
         boardService.saveBoard(boardDto);
         boardDto.setVisible(true);
         for (int i = 0; i < 3; i++) boardService.saveBoard(boardDto);
-        List<SearchBoardDTO> boardList = boardService.getBoardList2(1);
+        List<SearchBoardDTO> boardList = boardService.getBoardList(1);
         Assertions.assertEquals(3, boardList.size());
     }
 
@@ -236,7 +236,7 @@ public class BoardServiceTest {
                 .ip("ip")
                 .build();
         for (int i = 0; i < 4; i++) boardService.saveBoard(boardDto);
-        List<SearchBoardDTO> boardList = boardService.getBoardList2(1);
+        List<SearchBoardDTO> boardList = boardService.getBoardList(1);
         Assertions.assertEquals(4, boardList.size());
     }
 
@@ -252,14 +252,14 @@ public class BoardServiceTest {
                 .ip("ip")
                 .build();
         boardService.saveBoard(boardDto);
-        List<SearchBoardDTO> boardList = boardService.getBoardList2(1);
+        List<SearchBoardDTO> boardList = boardService.getBoardList(1);
         Assertions.assertEquals(1, boardList.size());
     }
 
     @Test
     @DisplayName("게시글이 없을때 한 페이지에 게시글이 없는지 테스트")
     public void test6() {
-        List<SearchBoardDTO> boardList = boardService.getBoardList2(1);
+        List<SearchBoardDTO> boardList = boardService.getBoardList(1);
         Assertions.assertEquals(0, boardList.size());
     }
 }

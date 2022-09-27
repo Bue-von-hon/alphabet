@@ -9,6 +9,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import uhs.alphabet.annotation.Timer;
+import uhs.alphabet.board.dto.SearchBoardDTO;
 import uhs.alphabet.config.auth.LoginUser;
 import uhs.alphabet.config.auth.dto.SessionUser;
 import uhs.alphabet.board.BoardDto;
@@ -19,6 +20,7 @@ import uhs.alphabet.domain.service.PersonService;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Controller
@@ -107,7 +109,7 @@ public class IndexController {
 
     @PostMapping("/post")
     @Timer
-    public String post(@Valid BoardDto boardDto, @LoginUser SessionUser user, Errors errors) throws Exception {
+    public String post(BoardDto boardDto, @LoginUser SessionUser user, Errors errors) throws Exception {
         if (errors.hasErrors()) return "redirect:/board";
         String ip = getUserIp();
         boardDto.setIp(ip);
@@ -178,7 +180,7 @@ public class IndexController {
     @GetMapping("/board")
     @Timer
     public String list(Model model, @RequestParam(value = "page", defaultValue = "1") Integer pageNum) {
-        List<BoardDto> boardList = boardService.getBoardList(pageNum);
+        List<SearchBoardDTO> boardList = boardService.getBoardList(pageNum);
         ArrayList<Integer> pageList2 = boardService.getPageList(pageNum);
         model.addAttribute("pageList", pageList2);
         model.addAttribute("boardList", boardList);
@@ -202,7 +204,15 @@ public class IndexController {
     @Timer
     public String search(@RequestParam(value = "keyword") String keyword, Model model) {
         List<BoardDto> boardList = boardService.searchPosts(keyword);
-        model.addAttribute("boardList", boardList);
+        List<SearchBoardDTO> collect = boardList.stream().map(boardDto -> SearchBoardDTO.builder(boardDto.getBoard_id())
+                        .setWrite(boardDto.getWriter())
+                        .setVisible(boardDto.isVisible())
+                        .setCount(boardDto.getCount())
+                        .setCreatedTime(boardDto.getCreated_time())
+                        .setTitle(boardDto.getTitle())
+                        .build())
+                .collect(Collectors.toList());
+        model.addAttribute("boardList", collect);
         return "/board";
     }
 

@@ -30,21 +30,7 @@ public class BoardService {
 
     @Transactional
     @Timer
-    public List<BoardDto> getBoardList(Integer pageNum) {
-        Page<BoardEntity> page = boardRepository.findAll(PageRequest.of(pageNum-1, PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "visible", "createdTime")));
-        List<BoardEntity> boardEntities = page.getContent();
-        List<BoardDto> boardDtos = new ArrayList<>();
-        if (boardEntities.isEmpty()) return boardDtos;
-        for (BoardEntity boardEntity : boardEntities) {
-            if (boardEntity.isVisible()) boardDtos.add(BoardDto.convertEntityToDto(boardEntity));
-        }
-
-        return boardDtos;
-    }
-
-    @Transactional
-    @Timer
-    public List<SearchBoardDTO> getBoardList2(Integer pageNum) {
+    public List<SearchBoardDTO> getBoardList(Integer pageNum) {
         Specification<BoardEntity> visibleSpec = BoardSpec.canVisible();
         Pageable pageable = PageRequest.of(getPage(pageNum), 4, Sort.by(Sort.Direction.DESC, "createdTime"));
         Page<BoardEntity> page = boardRepository.findAll(visibleSpec, pageable);
