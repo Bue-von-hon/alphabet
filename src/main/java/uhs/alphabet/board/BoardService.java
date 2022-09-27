@@ -43,12 +43,22 @@ public class BoardService {
 
     @Transactional
     @Timer
-    public List<BoardDto> getBoardList2(Integer pageNum) {
+    public List<SearchBoardDTO> getBoardList2(Integer pageNum) {
         Specification<BoardEntity> visibleSpec = BoardSpec.canVisible();
-        Pageable pageable = PageRequest.of(0, 10);
-        Page<BoardEntity> page = boardRepository.findAllByTitle(visibleSpec, pageable);
+        Pageable pageable = PageRequest.of(pageNum-1, 10);
+        Page<BoardEntity> page = boardRepository.findAll(visibleSpec, pageable);
         List<BoardEntity> content = page.getContent();
-        return null;
+        if (content.isEmpty()) return Collections.EMPTY_LIST;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return content.stream()
+                .map(entity -> SearchBoardDTO.builder(entity.getBoard_id())
+                        .setCreatedTime(entity.getCreatedTime().format(formatter))
+                        .setCount(entity.getCount())
+                        .setVisible(entity.isVisible())
+                        .setWrite(entity.getWriter())
+                        .setTitle(entity.getTitle())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     @Transactional

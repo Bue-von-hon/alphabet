@@ -1,5 +1,6 @@
 package uhs.alphabet.board.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
@@ -17,7 +18,7 @@ public class SearchBoardDTO {
     private final boolean visible;
     private final String writer;
 
-    public SearchBoardDTO(SearchBoardDTOBuilder builder) {
+    public SearchBoardDTO(Builder builder) {
         this.boardId = builder.boardId;
         this.title = builder.title;
         this.visible = builder.visible;
@@ -26,7 +27,10 @@ public class SearchBoardDTO {
         this.writer = builder.writer;
     }
 
-    public static class SearchBoardDTOBuilder {
+    public static Builder builder(Long id) {
+        return new Builder(id);
+    }
+    public static class Builder {
         private final Long boardId; // 필수값
 
         private String title;
@@ -34,32 +38,31 @@ public class SearchBoardDTO {
         private String createdTime;
         private boolean visible;
         private String writer;
-
-        public SearchBoardDTOBuilder(Long boardId) {
+        public Builder(Long boardId) {
             this.boardId = boardId;
         }
 
-        public SearchBoardDTOBuilder setTitle(String title) {
+        public Builder setTitle(String title) {
             this.title = title;
             return this;
         }
 
-        public SearchBoardDTOBuilder setCount(int count) {
+        public Builder setCount(int count) {
             this.count = count;
             return this;
         }
 
-        public SearchBoardDTOBuilder setCreatedTime(String createdTime) {
+        public Builder setCreatedTime(String createdTime) {
             this.createdTime = createdTime;
             return this;
         }
 
-        public SearchBoardDTOBuilder setVisible(boolean visible) {
+        public Builder setVisible(boolean visible) {
             this.visible = visible;
             return this;
         }
 
-        public SearchBoardDTOBuilder setWrite(String writer) {
+        public Builder setWrite(String writer) {
             this.writer = writer;
             return this;
         }

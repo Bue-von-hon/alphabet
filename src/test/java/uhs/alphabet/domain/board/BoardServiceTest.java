@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Import;
 import uhs.alphabet.board.BoardDto;
 import uhs.alphabet.board.BoardRepository;
 import uhs.alphabet.board.BoardService;
+import uhs.alphabet.board.dto.SearchBoardDTO;
 import uhs.alphabet.domain.repository.PersonRepository;
 
 import java.util.ArrayList;
@@ -230,5 +231,37 @@ public class BoardServiceTest {
         for (int i = 0; i < 3; i++) boardService.saveBoard(boardDto);
         boardDtos = boardService.getBoardList(2);
         Assertions.assertEquals(PAGE_POST_COUNT-1, boardDtos.size());
+    }
+
+    @Test
+    public void getBoardListTest2() {
+        int BLOCK_PAGE_NUM_COUNT = 5;  // 블럭에 존재하는 페이지 번호 수
+        int PAGE_POST_COUNT = 4;       // 한 페이지에 존재하는 게시글 수
+        List<SearchBoardDTO> boardList = boardService.getBoardList2(1);
+        Assertions.assertEquals(0, boardList.size());
+        BoardDto boardDto = BoardDto.builder()
+                .title("searchPostTestTitle")
+                .content("searchPostTestContent")
+                .pw("1234")
+                .writer("writer")
+                .visible(true)
+                .ip("ip")
+                .build();
+        boardService.saveBoard(boardDto);
+        boardList = boardService.getBoardList2(1);
+        Assertions.assertEquals(1, boardList.size());
+
+        for (int i = 0; i < 3; i++) boardService.saveBoard(boardDto);
+        boardList = boardService.getBoardList2(1);
+        Assertions.assertEquals(PAGE_POST_COUNT, boardList.size());
+
+        // 한 페이지에 있는 4개의 게시글 중 1개가 visible=false인 경우
+        boardService.deletePostAll();
+        boardDto.setVisible(false);
+        boardService.saveBoard(boardDto);
+        boardDto.setVisible(true);
+        for (int i = 0; i < 3; i++) boardService.saveBoard(boardDto);
+        boardList = boardService.getBoardList2(1);
+        Assertions.assertEquals(PAGE_POST_COUNT-1, boardList.size());
     }
 }
