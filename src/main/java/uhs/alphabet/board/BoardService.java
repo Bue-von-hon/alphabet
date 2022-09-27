@@ -79,7 +79,7 @@ public class BoardService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Optional<BoardEntity> boardEntityWrapper = boardRepository.findById(id);
         if (boardEntityWrapper.isEmpty()) {
-            BoardDto tmp = BoardDto.builder()
+            return BoardDto.builder()
                     .title("None")
                     .content("None")
                     .created_time(LocalDateTime.now().format(formatter))
@@ -87,14 +87,9 @@ public class BoardService {
                     .board_id(-1L)
                     .pw("1234")
                     .build();
-            return tmp;
         }
         BoardEntity boardEntity = boardEntityWrapper.get();
-        LocalDateTime time = boardEntity.getCreatedTime();
-        String formatDateTime = time.format(formatter);
-        BoardDto boardDto = BoardDto.convertEntityToDto(boardEntity);
-
-        return boardDto;
+        return BoardDto.convertEntityToDto(boardEntity);
     }
 
     @Transactional
