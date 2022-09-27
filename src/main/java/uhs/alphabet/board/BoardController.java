@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import uhs.alphabet.annotation.Timer;
 import uhs.alphabet.board.dto.SearchBoardDTO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,7 +19,7 @@ public class BoardController {
     @Timer
     public String list(Model model, @RequestParam(value = "page", defaultValue = "1") Integer pageNum) {
         List<SearchBoardDTO> boardList = boardService.getBoardList(pageNum);
-        ArrayList<Integer> pageList = boardService.getPageList(pageNum);
+        List<Integer> pageList = boardService.getPageList(pageNum);
         model.addAttribute("pageList", pageList);
         model.addAttribute("boardList", boardList);
         return "board";

@@ -35,6 +35,7 @@ public class BoardService {
         Pageable pageable = PageRequest.of(getPage(pageNum), PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdTime"));
         Page<BoardEntity> page = boardRepository.findAll(visibleSpec, pageable);
 
+        int totalPages = page.getTotalPages();
         List<BoardEntity> content = page.getContent();
         if (content.isEmpty()) return Collections.EMPTY_LIST;
 
@@ -143,32 +144,26 @@ public class BoardService {
         return boardRepository.count();
     }
 
-    public ArrayList<Integer> getPageList(Integer curPageNum) {
-        int cnt = 0; // 총 게시글의 수
-        ArrayList<Integer> pageList = new ArrayList<Integer>();
-        if (totalPageCount==-1) {
-            // 총 게시글 갯수
-            List<BoardEntity> page = boardRepository.findAll();
-            for (BoardEntity tmp : page) {
-                if (tmp.isVisible()) cnt++;
-            }
-            totalPageCount=cnt;
-        }
-        else cnt = totalPageCount;
+    public List<Integer> getPageList(Integer curPageNum) {
+        Specification<BoardEntity> visibleSpec = BoardSpec.canVisible();
+        Pageable pageable = PageRequest.of(getPage(curPageNum), PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdTime"));
+        Page<BoardEntity> page = boardRepository.findAll(visibleSpec, pageable);
 
-        Double postsTotalCount = Double.valueOf(cnt);
-        // 총 게시글 기준으로 계산한 마지막 페이지 번호 계산 (올림으로 계산)
-        Integer totalLastPageNum = (int)(Math.ceil((postsTotalCount/PAGE_POST_COUNT)));
+        if (page.isEmpty()) return Collections.EMPTY_LIST;
+        int totalPages = page.getTotalPages();
+        List<Integer> a = new ArrayList<>();
+        if (a.size()!=5 && curPageNum-2 > 0) a.add(curPageNum-2);
+        if (a.size()!=5 && curPageNum-1 > 0) a.add(curPageNum-1);
+        if (a.size()!=5 && curPageNum > 0) a.add(curPageNum);
+        if (a.size()!=5 && curPageNum+1 <= totalPages) a.add(curPageNum+1);
+        if (a.size()!=5 && curPageNum+2 <= totalPages) a.add(curPageNum+2);
+        if (a.size()!=5 && curPageNum+3 <= totalPages) a.add(curPageNum+3);
+        if (a.size()!=5 && curPageNum+4 <= totalPages) a.add(curPageNum+4);
+        if (a.size()!=5 && curPageNum-3 > 0) a.add(curPageNum-3);
+        if (a.size()!=5 && curPageNum-4 > 0) a.add(curPageNum-4);
 
-        int curPageBlockNum = 0; // 현재 페이지가 몇번째 block에 속하는지
-        curPageBlockNum = (int) Math.floor((curPageNum-1)/BLOCK_PAGE_NUM_COUNT) + 1;
-
-        for (int i = 0; i < BLOCK_PAGE_NUM_COUNT; i++) {
-            if ((curPageBlockNum-1)*BLOCK_PAGE_NUM_COUNT+1+i > totalLastPageNum) continue;
-            pageList.add((curPageBlockNum-1)*BLOCK_PAGE_NUM_COUNT+1+i);
-        }
-
-        return pageList;
+        List<Integer> collect = a.stream().sorted().collect(Collectors.toList());
+        return collect;
     }
 
 }
