@@ -18,14 +18,14 @@
             <tbody id="tbody">
             {{#boardList}}
                 <tr>
-                    <td class="board_list">{{board_id}}</td>
+                    <td class="board_list">{{boardId}}</td>
                     <th>
-                        <a href="/board/{{& board_id }}">
+                        <a href="/board/{{& boardId }}">
                             {{title}}
                         </a>
                     </th>
                     <td>{{writer}}</td>
-                    <td class="over_hidden">{{created_time}}</td>
+                    <td class="over_hidden">{{createdTime}}</td>
                 </tr>
             {{/boardList}}
             </tbody>
@@ -33,7 +33,7 @@
         <ul class="board_ul_phone">
             {{#boardList}}
                 <li class="board_li_phone">
-                    <a href="/board/{{& board_id }}">
+                    <a href="/board/{{& boardId }}">
                         <div class="board_div_phone">
                             {{title}}
                         </div>
@@ -41,7 +41,7 @@
                     <br>
                     {{writer}}
                     <br>
-                    {{created_time}}
+                    {{createdTime}}
                 </li>
             {{/boardList}}
         </ul>
