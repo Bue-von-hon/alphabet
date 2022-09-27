@@ -32,7 +32,7 @@ public class BoardService {
     @Timer
     public List<SearchBoardDTO> getBoardList(Integer pageNum) {
         Specification<BoardEntity> visibleSpec = BoardSpec.canVisible();
-        Pageable pageable = PageRequest.of(getPage(pageNum), 4, Sort.by(Sort.Direction.DESC, "createdTime"));
+        Pageable pageable = PageRequest.of(getPage(pageNum), PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdTime"));
         Page<BoardEntity> page = boardRepository.findAll(visibleSpec, pageable);
 
         List<BoardEntity> content = page.getContent();

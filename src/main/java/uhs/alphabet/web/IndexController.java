@@ -181,8 +181,8 @@ public class IndexController {
     @Timer
     public String list(Model model, @RequestParam(value = "page", defaultValue = "1") Integer pageNum) {
         List<SearchBoardDTO> boardList = boardService.getBoardList(pageNum);
-        ArrayList<Integer> pageList2 = boardService.getPageList(pageNum);
-        model.addAttribute("pageList", pageList2);
+        ArrayList<Integer> pageList = boardService.getPageList(pageNum);
+        model.addAttribute("pageList", pageList);
         model.addAttribute("boardList", boardList);
         return "board";
     }
