@@ -36,7 +36,6 @@ public class BoardService {
         Pageable pageable = PageRequest.of(getPage(pageNum), PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdTime"));
         Page<BoardEntity> page = boardRepository.findAll(visibleSpec, pageable);
 
-        int totalPages = page.getTotalPages();
         List<BoardEntity> content = page.getContent();
         if (content.isEmpty()) return Collections.EMPTY_LIST;
 
