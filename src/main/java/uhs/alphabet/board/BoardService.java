@@ -16,6 +16,7 @@ import java.util.stream.IntStream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import uhs.alphabet.annotation.Timer;
+import uhs.alphabet.board.dto.BoardDto;
 import uhs.alphabet.board.dto.SearchBoardDTO;
 
 import static uhs.alphabet.board.spec.BoardSpec.canVisible;
