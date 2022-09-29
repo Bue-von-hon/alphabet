@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import uhs.alphabet.domain.repository.PersonRepository;
 
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -43,8 +42,6 @@ public class BadgeControllerTest {
     private BadgeService badgeService;
     @MockBean
     private JpaMetamodelMappingContext jpaMetamodelMappingContext;
-    @MockBean
-    private PersonRepository personRepository;
     @Autowired
     private MockMvc mockMvc;
 
