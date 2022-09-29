@@ -15,8 +15,8 @@ public class BadgeTest {
         String handle = "blue";
         String badge = StudentBadge.of(name, handle);
         Assertions.assertNotNull(badge);
-        Assertions.assertEquals(true, badge.contains(name));
-        Assertions.assertEquals(true, badge.contains(handle));
+        Assertions.assertTrue(badge.contains(name));
+        Assertions.assertTrue(badge.contains(handle));
     }
 
     @Test
