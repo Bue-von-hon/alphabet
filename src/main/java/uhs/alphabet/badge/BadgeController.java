@@ -19,7 +19,6 @@ public class BadgeController {
     @GetMapping(value = "/cfbadge", produces = "image/svg+xml")
     @Cacheable( cacheNames = "codeforcesCache")
     public String getCodeforcesBadge(@RequestParam("handle") String handle) {
-        String badge = badgeService.makeCodeforcesBadge(handle);
-        return badge;
+        return badgeService.makeCodeforcesBadge(handle);
     }
 }
