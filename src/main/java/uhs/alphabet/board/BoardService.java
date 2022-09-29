@@ -1,40 +1,58 @@
 package uhs.alphabet.board;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import uhs.alphabet.annotation.Timer;
+import uhs.alphabet.board.dto.BoardDto;
 import uhs.alphabet.board.dto.SearchBoardDTO;
+
+import static uhs.alphabet.board.spec.BoardSpec.canVisible;
 
 @RequiredArgsConstructor
 @Service
 public class BoardService {
 
     private final BoardRepository boardRepository;
-    private static final int BLOCK_PAGE_NUM_COUNT = 5;  // 블럭에 존재하는 페이지 번호 수
+    private static final int BLOCK_PAGE_COUNT = 5;  // 블럭에 존재하는 페이지 번호 수
     private static final int PAGE_POST_COUNT = 4;       // 한 페이지에 존재하는 게시글 수
-    private int totalPageCount = -1; // 조회 가능한 전체 게시글의 수
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Transactional
     @Timer
-    public List<BoardDto> getBoardList(Integer pageNum) {
-        Page<BoardEntity> page = boardRepository.findAll(PageRequest.of(pageNum-1, PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "visible", "createdTime")));
-        List<BoardEntity> boardEntities = page.getContent();
-        List<BoardDto> boardDtos = new ArrayList<>();
-        if (boardEntities.isEmpty()) return boardDtos;
-        for (BoardEntity boardEntity : boardEntities) {
-            if (boardEntity.isVisible()) boardDtos.add(BoardDto.convertEntityToDto(boardEntity));
-        }
+    public List<SearchBoardDTO> getBoardList(Integer pageNum) {
+        Specification<BoardEntity> visibleSpec = canVisible();
+        Pageable pageable = PageRequest.of(getPage(pageNum), PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdTime"));
+        Page<BoardEntity> page = boardRepository.findAll(visibleSpec, pageable);
 
-        return boardDtos;
+        List<BoardEntity> content = page.getContent();
+        if (content.isEmpty()) return Collections.EMPTY_LIST;
+
+        return content.stream()
+                .map(entity -> SearchBoardDTO.builder(entity.getBoard_id())
+                        .setCreatedTime(entity.getCreatedTime().format(formatter))
+                        .setCount(entity.getCount())
+                        .setVisible(entity.isVisible())
+                        .setWrite(entity.getWriter())
+                        .setTitle(entity.getTitle())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
+    private static int getPage(Integer pageNum) {
+        return pageNum - 1;
     }
 
     @Transactional
@@ -43,7 +61,6 @@ public class BoardService {
         if (boardDto.getTitle().equals("")) {
             return -1L;
         }
-        if (boardDto.isVisible()) totalPageCount++;
         return boardRepository.save(boardDto.toEntity()).getBoard_id();
     }
 
@@ -62,7 +79,7 @@ public class BoardService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         Optional<BoardEntity> boardEntityWrapper = boardRepository.findById(id);
         if (boardEntityWrapper.isEmpty()) {
-            BoardDto tmp = BoardDto.builder()
+            return BoardDto.builder()
                     .title("None")
                     .content("None")
                     .created_time(LocalDateTime.now().format(formatter))
@@ -70,14 +87,9 @@ public class BoardService {
                     .board_id(-1L)
                     .pw("1234")
                     .build();
-            return tmp;
         }
         BoardEntity boardEntity = boardEntityWrapper.get();
-        LocalDateTime time = boardEntity.getCreatedTime();
-        String formatDateTime = time.format(formatter);
-        BoardDto boardDto = BoardDto.convertEntityToDto(boardEntity);
-
-        return boardDto;
+        return BoardDto.convertEntityToDto(boardEntity);
     }
 
     @Transactional
@@ -88,13 +100,11 @@ public class BoardService {
         BoardEntity boardEntity = boardEntityOptional.get();
         if (boardEntity.getPw().toString().equals(pw)) {
             boardRepository.deleteById(id);
-            totalPageCount--;
         }
     }
 
     @Transactional
     public void deletePostAll() {
-        totalPageCount=-1;
         boardRepository.deleteAll();
     }
 
@@ -127,32 +137,48 @@ public class BoardService {
         return boardRepository.count();
     }
 
-    public ArrayList<Integer> getPageList(Integer curPageNum) {
-        int cnt = 0; // 총 게시글의 수
-        ArrayList<Integer> pageList = new ArrayList<Integer>();
-        if (totalPageCount==-1) {
-            // 총 게시글 갯수
-            List<BoardEntity> page = boardRepository.findAll();
-            for (BoardEntity tmp : page) {
-                if (tmp.isVisible()) cnt++;
-            }
-            totalPageCount=cnt;
+    public List<Integer> getPageList(Integer curPageNum) {
+        Specification<BoardEntity> visibleSpec = canVisible();
+        Pageable pageable = PageRequest.of(getPage(curPageNum), PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdTime"));
+        Page<BoardEntity> page = boardRepository.findAll(visibleSpec, pageable);
+
+        int totalPages = page.getTotalPages();
+        if (isZero(totalPages)) return Collections.emptyList();
+
+        List<Integer> pageNumbers = getPageNumbers(totalPages);
+        if (!pageNumbers.isEmpty()) return pageNumbers;
+
+        pageNumbers = getPageNumbers(curPageNum, totalPages);
+        return pageNumbers.stream().sorted().collect(Collectors.toList());
+    }
+
+    private static boolean isZero(int totalPages) {
+        return totalPages == 0;
+    }
+
+    private static List<Integer> getPageNumbers(Integer curPageNum, int totalPages) {
+        List<Integer> ret = new ArrayList<>();
+        ret.add(curPageNum);
+        int l = curPageNum;
+        int r = curPageNum;
+        while (ret.size() != BLOCK_PAGE_COUNT) {
+            if (r + 1 <= totalPages) ret.add(r + 1);
+            if (l - 1 > 0) ret.add(l - 1);
+            r++;
+            l--;
         }
-        else cnt = totalPageCount;
+        return ret;
+    }
 
-        Double postsTotalCount = Double.valueOf(cnt);
-        // 총 게시글 기준으로 계산한 마지막 페이지 번호 계산 (올림으로 계산)
-        Integer totalLastPageNum = (int)(Math.ceil((postsTotalCount/PAGE_POST_COUNT)));
+    private static List<Integer> getPageNumbers(int totalPages) {
+        if (isOverThanBlockNumber(totalPages)) return Collections.emptyList();
+        List<Integer> ret = new ArrayList<>();
+        IntStream.range(1, totalPages +1).forEach(ret::add);
+        return ret;
+    }
 
-        int curPageBlockNum = 0; // 현재 페이지가 몇번째 block에 속하는지
-        curPageBlockNum = (int) Math.floor((curPageNum-1)/BLOCK_PAGE_NUM_COUNT) + 1;
-
-        for (int i = 0; i < BLOCK_PAGE_NUM_COUNT; i++) {
-            if ((curPageBlockNum-1)*BLOCK_PAGE_NUM_COUNT+1+i > totalLastPageNum) continue;
-            pageList.add((curPageBlockNum-1)*BLOCK_PAGE_NUM_COUNT+1+i);
-        }
-
-        return pageList;
+    private static boolean isOverThanBlockNumber(int totalPages) {
+        return totalPages > BLOCK_PAGE_COUNT;
     }
 
 }

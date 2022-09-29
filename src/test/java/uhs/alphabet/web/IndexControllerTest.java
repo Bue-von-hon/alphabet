@@ -12,7 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import uhs.alphabet.board.BoardDto;
+import uhs.alphabet.board.dto.BoardDto;
 import uhs.alphabet.board.BoardService;
 import uhs.alphabet.domain.service.PersonService;
 

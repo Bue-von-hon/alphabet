@@ -1,6 +1,8 @@
-package uhs.alphabet.board;
+package uhs.alphabet.board.dto;
 
 import lombok.*;
+import uhs.alphabet.board.BoardEntity;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
