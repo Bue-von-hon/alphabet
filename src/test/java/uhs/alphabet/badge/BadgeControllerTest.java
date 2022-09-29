@@ -1,4 +1,4 @@
-package uhs.alphabet.domain.badge;
+package uhs.alphabet.badge;
 
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
@@ -7,8 +7,6 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.security.test.context.support.WithMockUser;
-import uhs.alphabet.badge.BadgeController;
-import uhs.alphabet.badge.BadgeService;
 import uhs.alphabet.config.CacheConfig;
 import uhs.alphabet.config.auth.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
