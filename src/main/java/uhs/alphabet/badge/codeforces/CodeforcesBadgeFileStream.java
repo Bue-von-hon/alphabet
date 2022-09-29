@@ -1,11 +1,13 @@
 package uhs.alphabet.badge.codeforces;
 
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
+@Component
 public class CodeforcesBadgeFileStream {
     private static final Charset charset = Charset.forName("UTF-8");
     public String getBadge() {

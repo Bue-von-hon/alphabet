@@ -1,4 +1,4 @@
-package uhs.alphabet.badge.codeforces;
+package uhs.alphabet.badge.codeforces.dto;
 
 import java.util.List;
 
@@ -20,5 +20,9 @@ public class CodeforcesResponse {
 
     public void setResult(List<CodeforcesUser> result) {
         this.result = result;
+    }
+
+    public String  getRank() {
+        return result.get(0).getRank();
     }
 }
