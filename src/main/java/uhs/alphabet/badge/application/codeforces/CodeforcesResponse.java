@@ -1,6 +1,4 @@
-package uhs.alphabet.badge.application;
-
-import uhs.alphabet.badge.codeforces.dto.CodeforcesUser;
+package uhs.alphabet.badge.application.codeforces;
 
 import java.util.List;
 

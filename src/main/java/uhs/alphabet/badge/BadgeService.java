@@ -7,7 +7,6 @@ import uhs.alphabet.badge.adapter.RankWebSite;
 import uhs.alphabet.badge.adapter.RankedBadgeFile;
 import uhs.alphabet.badge.domain.RankedBadge;
 import uhs.alphabet.badge.domain.RankedBadgeRequest;
-import uhs.alphabet.badge.codeforces.CodeforcesBadgeMaster;
 import uhs.alphabet.badge.domain.Website;
 import uhs.alphabet.badge.students.StudentBadgeMaster;
 import uhs.alphabet.domain.entity.PersonEntity;
@@ -45,11 +44,6 @@ public class BadgeService {
     public String getStudentBadgeById(String stuid) {
         PersonEntity personEntity = personRepository.findByStunum(stuid);
         return StudentBadgeMaster.getBadgeByEntity(personEntity);
-    }
-
-    public String  makeCodeforcesBadge(final String handle) {
-        CodeforcesBadgeMaster codeforcesBadgeMaster = new CodeforcesBadgeMaster();
-        return codeforcesBadgeMaster.getBadgeByHandle(handle);
     }
 
     public String getRankedBadge(final RankedBadgeRequest request) {
