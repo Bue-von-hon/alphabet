@@ -8,7 +8,7 @@ import uhs.alphabet.badge.students.StudentBadge;
 public class BadgeTest {
 
     @Test
-    @DisplayName("of1 메소드를 이용하여 뱃지 생성 테스트")
+    @DisplayName("of 메소드를 이용하여 뱃지 생성 테스트")
     public void test1() {
         String name = "hong";
         String handle = "blue";
