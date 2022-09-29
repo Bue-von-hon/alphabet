@@ -49,7 +49,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-tomcat'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.5'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testCompile( 'org.springframework.boot:spring-boot-starter-test')
@@ -61,7 +60,7 @@ dependencies {
     runtime('org.springframework.boot:spring-boot-starter-mustache')
     runtime('org.springframework.boot:spring-boot-starter-oauth2-client')
     runtime('org.springframework.security:spring-security-test')
-    runtime group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.5'
+    runtime group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
     compile('org.springframework.boot:spring-boot-starter-tomcat')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.springframework.boot:spring-boot-starter-aop')
@@ -70,7 +69,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-mustache')
     compile('org.springframework.boot:spring-boot-starter-oauth2-client')
     compile('org.springframework.security:spring-security-test')
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.5'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
 
     // lombok
     implementation 'org.projectlombok:lombok:1.18.18'

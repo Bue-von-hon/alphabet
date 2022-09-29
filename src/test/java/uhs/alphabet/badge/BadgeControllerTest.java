@@ -1,4 +1,4 @@
-package uhs.alphabet.domain.badge;
+package uhs.alphabet.badge;
 
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
@@ -7,9 +7,7 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.security.test.context.support.WithMockUser;
-import uhs.alphabet.badge.BadgeController;
-import uhs.alphabet.badge.BadgeService;
-import uhs.alphabet.badge.StudentBadgeUser;
+import org.springframework.web.client.RestClientException;
 import uhs.alphabet.config.CacheConfig;
 import uhs.alphabet.config.auth.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,13 +87,46 @@ public class BadgeControllerTest {
     @WithMockUser
     @DisplayName("코드포스 뱃지 정보 가져오는 테스트")
     public void test2() throws Exception {
-        Mockito.when(badgeService.makeCodeforcesBadge(anyString())).thenReturn(cfbadge);
+        Mockito.when(badgeService.getCodeforcesBadge(anyString())).thenReturn(cfbadge);
         mockMvc.perform(
                         get("/cfbadge")
                                 .param("handle", "jack"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(content().string(cfbadge));
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("코드포스 유저 닉네임이 올바르지 않은 경우 처리하는 테스트")
+    public void test3() throws Exception {
+        String shorthandle = "a";
+        String LongHandle = "0123456789012345678901234"; // 25글자
+        String errorMsg = "getCodeforcesBadge.handle: size must be between 2 and 24";
+
+        mockMvc.perform(
+                get("/cfbadge")
+                        .param("handle", shorthandle)
+        ).andExpect(content().string(errorMsg));
+
+        mockMvc.perform(
+                get("/cfbadge")
+                        .param("handle", LongHandle)
+        ).andExpect(content().string(errorMsg));
+    }
+
+    @Test
+    @WithMockUser
+    @DisplayName("코드포스 api호출 실패시 처리하는 테스트")
+    public void test4() throws Exception {
+        String invalidHandle = "noBody";
+        String errorMsg = "400 : [{\"status\":\"FAILED\",\"comment\":\"handles: User with handle noBody not found\"}]";
+        Mockito.when(badgeService.getCodeforcesBadge(anyString())).thenThrow(new RestClientException(errorMsg));
+
+        mockMvc.perform(
+                get("/cfbadge")
+                        .param("handle", invalidHandle)
+        ).andExpect(content().string(errorMsg));
     }
 
 }
