@@ -13,7 +13,7 @@ class BadgeServiceTest {
     @Test
     @DisplayName("handle을 통해 뱃지 서비스가 호출되는지 테스트")
     public void test1() {
-        badgeService.getRankedBadge("a");
+        badgeService.getRankedBadge(anyString());
         verify(badgeService, times(1)).getRankedBadge(anyString());
     }
 }
