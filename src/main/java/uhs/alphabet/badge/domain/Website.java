@@ -1,5 +1,5 @@
 package uhs.alphabet.badge.domain;
 
 public enum Website {
-    CODEFORCES;
+    CODEFORCES, ATCODER, SOLVEDAC, BOJ;
 }

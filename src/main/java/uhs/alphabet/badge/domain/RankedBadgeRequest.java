@@ -1,7 +1,5 @@
 package uhs.alphabet.badge.domain;
 
-import uhs.alphabet.badge.domain.Website;
-
 public class RankedBadgeRequest {
     private final Website web;
     private final String handle;

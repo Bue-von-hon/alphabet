@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import uhs.alphabet.badge.codeforces.dto.CodeforcesResponse;
+import uhs.alphabet.badge.application.CodeforcesResponse;
 
 import java.net.URI;
 
