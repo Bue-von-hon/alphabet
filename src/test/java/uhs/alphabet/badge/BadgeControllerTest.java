@@ -1,4 +1,4 @@
-package uhs.alphabet.domain.badge;
+package uhs.alphabet.badge;
 
 import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
@@ -7,8 +7,6 @@ import org.springframework.context.annotation.FilterType;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.security.test.context.support.WithMockUser;
-import uhs.alphabet.badge.BadgeController;
-import uhs.alphabet.badge.BadgeService;
 import uhs.alphabet.config.CacheConfig;
 import uhs.alphabet.config.auth.SecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +19,7 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -91,7 +90,7 @@ public class BadgeControllerTest {
     @WithMockUser
     @DisplayName("코드포스 뱃지 정보 가져오는 테스트")
     public void test2() throws Exception {
-        Mockito.when(badgeService.makeCodeforcesBadge(anyString())).thenReturn(cfbadge);
+        Mockito.when(badgeService.getRankedBadge(any())).thenReturn(cfbadge);
         mockMvc.perform(
                         get("/cfbadge")
                                 .param("handle", "jack"))

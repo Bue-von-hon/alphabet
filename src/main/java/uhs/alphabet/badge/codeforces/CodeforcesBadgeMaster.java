@@ -2,8 +2,8 @@ package uhs.alphabet.badge.codeforces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import uhs.alphabet.badge.codeforces.dto.CodeforcesResponse;
-import uhs.alphabet.badge.codeforces.util.CodeForcesRank;
+import uhs.alphabet.badge.application.CodeforcesResponse;
+import uhs.alphabet.badge.application.CodeForcesRank;
 import uhs.alphabet.badge.codeforces.util.CodeforcesClient;
 
 @Component
