@@ -6,6 +6,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import uhs.alphabet.badge.domain.RankedBadgeRequest;
+import uhs.alphabet.badge.domain.Website;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,6 +21,7 @@ public class BadgeController {
     @GetMapping(value = "/cfbadge", produces = "image/svg+xml")
     @Cacheable( cacheNames = "codeforcesCache")
     public String getCodeforcesBadge(@RequestParam("handle") String handle) {
-        return badgeService.makeCodeforcesBadge(handle);
+        RankedBadgeRequest request = new RankedBadgeRequest(Website.CODEFORCES, handle);
+        return badgeService.getRankedBadge(request);
     }
 }

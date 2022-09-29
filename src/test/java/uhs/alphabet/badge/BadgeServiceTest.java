@@ -3,7 +3,6 @@ package uhs.alphabet.badge;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 
 class BadgeServiceTest {
@@ -13,7 +12,7 @@ class BadgeServiceTest {
     @Test
     @DisplayName("handle을 통해 뱃지 서비스가 호출되는지 테스트")
     public void test1() {
-        badgeService.getRankedBadge(anyString());
-        verify(badgeService, times(1)).getRankedBadge(anyString());
+        badgeService.getRankedBadge(any());
+        verify(badgeService, times(1)).getRankedBadge(any());
     }
 }
