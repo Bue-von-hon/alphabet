@@ -4,8 +4,6 @@ import org.junit.After;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import uhs.alphabet.board.BoardEntity;
-import uhs.alphabet.board.BoardRepository;
 import uhs.alphabet.domain.entity.PersonEntity;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,9 +11,6 @@ import java.util.List;
 
 @SpringBootTest
 public class RepositoryTest {
-
-    @Autowired
-    private BoardRepository boardRepository;
     @Autowired
     private PersonRepository personRepository;
 
@@ -25,67 +20,10 @@ public class RepositoryTest {
     @After
     public void cleanup() {
         personRepository.deleteAll();
-        boardRepository.deleteAll();
     }
     @BeforeEach
     public void cleanupEach() {
         personRepository.deleteAll();
-        boardRepository.deleteAll();
-    }
-
-    /*
-    * saveBoard을 테스트합니다
-    */
-    @Test
-    @DisplayName("saveBoard test 한번 저장")
-    public void saveBoard() {
-        BoardEntity entity = boardRepository.save(BoardEntity.builder()
-                .title("saveTestTitle")
-                .content("saveTestContent")
-                .pw("1234")
-                .visible(true)
-                .writer("writer")
-                .ip("ip")
-                .build()
-        );
-        now = LocalDateTime.now();
-        List<BoardEntity> boardEntityWrapper = boardRepository.findByTitleContaining("saveTestTitle");
-        BoardEntity boardEntityTest = boardEntityWrapper.get(0);
-
-        Assertions.assertEquals(1,boardEntityWrapper.size());
-        Assertions.assertEquals(entity.getTitle(), boardEntityTest.getTitle());
-        Assertions.assertEquals(entity.getContent(), boardEntityTest.getContent());
-        Assertions.assertEquals(entity.getPw(), boardEntityTest.getPw());
-        Assertions.assertEquals(entity.getWriter(), boardEntityTest.getWriter());
-        Assertions.assertEquals(entity.getIp(), boardEntityTest.getIp());
-        Assertions.assertEquals(entity.isVisible(), boardEntityTest.isVisible());
-        Assertions.assertEquals(now.format(formatter), boardEntityTest.getCreatedTime().format(formatter));
-        Assertions.assertEquals(now.format(formatter), boardEntityTest.getModified_time().format(formatter));
-    }
-
-    @Test
-    @DisplayName("게시글을 하나 저장하고, 다시 삭제하는 테스트")
-    public void deleteBoard() {
-        boardRepository.save(BoardEntity.builder()
-                .title("deleteTestTitle")
-                .content("deleteTestContent")
-                .pw("1234")
-                .visible(true)
-                .writer("writer1")
-                .ip("ip1")
-                .build()
-        );
-        now = LocalDateTime.now();
-        List<BoardEntity> boardEntities = boardRepository.findByTitleContaining("deleteTest");
-        int sz = boardEntities.size();
-        Assertions.assertEquals(sz, 1);
-
-        BoardEntity boardEntity = boardEntities.get(0);
-        boardRepository.deleteById(boardEntity.getBoard_id());
-
-        boardEntities = boardRepository.findByTitleContaining("deleteTest");
-        sz = boardEntities.size();
-        Assertions.assertEquals(sz, 0);
     }
 
     @Test
