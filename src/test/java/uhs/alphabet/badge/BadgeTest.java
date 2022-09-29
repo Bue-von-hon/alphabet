@@ -3,6 +3,7 @@ package uhs.alphabet.badge;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import uhs.alphabet.badge.domain.RankedBadge;
 import uhs.alphabet.badge.students.StudentBadge;
 
 public class BadgeTest {
@@ -16,5 +17,13 @@ public class BadgeTest {
         Assertions.assertNotNull(badge);
         Assertions.assertEquals(true, badge.contains(name));
         Assertions.assertEquals(true, badge.contains(handle));
+    }
+
+    @Test
+    @DisplayName("뱃지 객체의 getBadge 메소드 테스트")
+    public void test2() {
+        RankedBadge badge = new RankedBadge("handle={handle}, color={color}", "jack", "red");
+        String ret = badge.getBadge();
+        Assertions.assertEquals("handle=jack, color=red", ret);
     }
 }
