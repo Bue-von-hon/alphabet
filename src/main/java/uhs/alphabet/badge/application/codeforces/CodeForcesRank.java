@@ -1,4 +1,4 @@
-package uhs.alphabet.badge.application;
+package uhs.alphabet.badge.application.codeforces;
 
 import java.util.HashMap;
 import java.util.Map;
