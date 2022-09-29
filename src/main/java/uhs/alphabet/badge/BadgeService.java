@@ -21,4 +21,9 @@ public class BadgeService {
         CodeforcesBadgeMaster codeforcesBadgeMaster = new CodeforcesBadgeMaster();
         return codeforcesBadgeMaster.getBadgeByHandle(handle);
     }
+
+    public String getRankedBadge(final String handle) {
+        String badge = "";
+        return badge;
+    }
 }
