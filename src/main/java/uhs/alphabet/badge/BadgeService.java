@@ -29,13 +29,13 @@ public class BadgeService {
     @PostConstruct
     private void init() {
         webSiteMap = webSiteList.stream().collect(Collectors.toMap(
-                webSite -> webSite.getFrom(),
+                RankWebSite::getFrom,
                 webSite -> webSite,
                 (oldSite, newSite) -> newSite
         ));
 
         badgeFileMap = badgeFileList.stream().collect(Collectors.toMap(
-                file -> file.getFrom(),
+                RankedBadgeFile::getFrom,
                 file -> file,
                 (oldFile, newFile) -> newFile
         ));
