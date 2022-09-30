@@ -8,13 +8,16 @@ import uhs.alphabet.badge.adapter.RankedBadgeFile;
 import uhs.alphabet.badge.domain.RankedBadge;
 import uhs.alphabet.badge.domain.RankedBadgeRequest;
 import uhs.alphabet.badge.domain.Website;
-import uhs.alphabet.badge.students.StudentBadgeMaster;
+import uhs.alphabet.badge.students.Student;
+import uhs.alphabet.badge.students.StudentBadge;
+import uhs.alphabet.badge.students.StudentMapper;
 import uhs.alphabet.domain.entity.PersonEntity;
 import uhs.alphabet.domain.repository.PersonRepository;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,7 +46,14 @@ public class BadgeService {
 
     public String getStudentBadgeById(String stuid) {
         PersonEntity personEntity = personRepository.findByStunum(stuid);
-        return StudentBadgeMaster.getBadgeByEntity(personEntity);
+        StudentMapper mapper = StudentMapper.INSTANCE;
+        Optional<Student> user = Optional.ofNullable(mapper.toUser(personEntity));
+        if (user.isEmpty()) return StudentBadge.of("None", "None");
+        return StudentBadge.of(user.get().getName(), user.get().getHandle());
+    }
+
+    public String getTitleBadge(String id) {
+        return "";
     }
 
     public String getRankedBadge(final RankedBadgeRequest request) {
