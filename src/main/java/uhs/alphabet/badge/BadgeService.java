@@ -52,10 +52,6 @@ public class BadgeService {
         return StudentBadge.of(user.get().getName(), user.get().getHandle());
     }
 
-    public String getTitleBadge(String id) {
-        return "";
-    }
-
     public String getRankedBadge(final RankedBadgeRequest request) {
         RankWebSite rankWebSite = webSiteMap.get(request.getWeb());
         RankedBadgeFile rankedBadgeFile = badgeFileMap.get(request.getWeb());
