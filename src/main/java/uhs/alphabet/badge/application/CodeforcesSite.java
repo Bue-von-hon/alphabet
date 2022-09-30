@@ -1,4 +1,4 @@
-package uhs.alphabet.badge.application.codeforces;
+package uhs.alphabet.badge.application;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

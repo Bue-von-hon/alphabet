@@ -1,4 +1,4 @@
-package uhs.alphabet.badge.application.codeforces;
+package uhs.alphabet.badge.application;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
