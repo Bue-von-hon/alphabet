@@ -2,12 +2,14 @@ package uhs.alphabet.badge;
 
 import lombok.RequiredArgsConstructor;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 import uhs.alphabet.badge.domain.RankedBadgeRequest;
 import uhs.alphabet.badge.domain.Website;
+import uhs.alphabet.badge.students.StudentNumber;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
@@ -29,8 +31,10 @@ public class BadgeController {
         return e.getMessage();
     }
     @GetMapping(value = "/stubadge", produces = "image/svg+xml")
-    public String stubadge(@RequestParam("stuid") String stuid) {
-        return badgeService.getStudentBadgeById(stuid);
+    public String stubadge(@RequestParam("stuid") @Valid @Size(min = 8, max = 8) String stuid) {
+        StudentNumber studentNumber = new StudentNumber(stuid);
+        return badgeService.getStudentBadgeById2(studentNumber);
+        //return badgeService.getStudentBadgeById(stuid);
     }
 
     @GetMapping(value = "/cfbadge", produces = "image/svg+xml")
