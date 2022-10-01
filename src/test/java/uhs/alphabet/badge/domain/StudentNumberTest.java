@@ -3,7 +3,7 @@ package uhs.alphabet.badge.domain;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import uhs.alphabet.badge.students.StudentNumber;
+import uhs.alphabet.badge.students.domain.StudentNumber;
 
 public class StudentNumberTest {
 

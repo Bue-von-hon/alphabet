@@ -11,7 +11,7 @@ import uhs.alphabet.badge.domain.Website;
 import uhs.alphabet.badge.students.Student;
 import uhs.alphabet.badge.students.StudentBadge;
 import uhs.alphabet.badge.students.StudentMapper;
-import uhs.alphabet.badge.students.StudentNumber;
+import uhs.alphabet.badge.students.domain.StudentNumber;
 import uhs.alphabet.domain.entity.PersonEntity;
 import uhs.alphabet.domain.repository.PersonRepository;
 

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 import uhs.alphabet.badge.domain.RankedBadgeRequest;
 import uhs.alphabet.badge.domain.Website;
-import uhs.alphabet.badge.students.StudentNumber;
+import uhs.alphabet.badge.students.domain.StudentNumber;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
