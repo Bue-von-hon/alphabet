@@ -1,4 +1,4 @@
-package uhs.alphabet.badge.adapter;
+package uhs.alphabet.badge.application;
 
 import uhs.alphabet.badge.domain.Website;
 

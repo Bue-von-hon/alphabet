@@ -1,8 +1,8 @@
-package uhs.alphabet.badge.application;
+package uhs.alphabet.badge.adapter;
 
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
-import uhs.alphabet.badge.adapter.RankedBadgeFile;
+import uhs.alphabet.badge.application.RankedBadgeFile;
 import uhs.alphabet.badge.domain.Website;
 
 import java.io.InputStream;

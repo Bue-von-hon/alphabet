@@ -3,8 +3,8 @@ package uhs.alphabet.badge;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
-import uhs.alphabet.badge.adapter.RankWebSite;
-import uhs.alphabet.badge.adapter.RankedBadgeFile;
+import uhs.alphabet.badge.application.RankWebSite;
+import uhs.alphabet.badge.application.RankedBadgeFile;
 import uhs.alphabet.badge.domain.RankedBadge;
 import uhs.alphabet.badge.domain.RankedBadgeRequest;
 import uhs.alphabet.badge.domain.Website;
