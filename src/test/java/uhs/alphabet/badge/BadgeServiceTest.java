@@ -15,6 +15,4 @@ class BadgeServiceTest {
         badgeService.getRankedBadge(any());
         verify(badgeService, times(1)).getRankedBadge(any());
     }
-
-    // todo: 올바르지 않은 handle 입력 테스트
 }
