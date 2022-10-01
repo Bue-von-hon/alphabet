@@ -21,7 +21,7 @@ class BadgeServiceTest {
     @DisplayName("올바른 학번 입력 테스트")
     public void test2() {
         StudentNumber studentNumber = new StudentNumber("20221122");
-        badgeService.getStudentBadgeById2(studentNumber);
-        verify(badgeService, times(1)).getStudentBadgeById2(studentNumber);
+        badgeService.getStudentBadgeById(studentNumber);
+        verify(badgeService, times(1)).getStudentBadgeById(studentNumber);
     }
 }

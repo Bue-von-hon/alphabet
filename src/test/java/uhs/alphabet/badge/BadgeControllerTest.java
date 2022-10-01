@@ -19,7 +19,6 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -73,10 +72,10 @@ public class BadgeControllerTest {
     @WithMockUser(roles = "USER")
     @DisplayName("학생 뱃지 정보 가져오는지 테스트")
     public void test1() throws Exception {
-        Mockito.when(badgeService.getStudentBadgeById(anyString())).thenReturn(stubadge);
+        Mockito.when(badgeService.getStudentBadgeById(any())).thenReturn(stubadge);
         mockMvc.perform(
                         get("/stubadge")
-                                .param("stuid", "1234")
+                                .param("stuid", "20221122")
                 )
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

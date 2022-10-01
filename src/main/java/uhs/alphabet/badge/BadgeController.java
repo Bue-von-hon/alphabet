@@ -2,7 +2,6 @@ package uhs.alphabet.badge;
 
 import lombok.RequiredArgsConstructor;
 
-import org.hibernate.validator.constraints.Length;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,8 +32,7 @@ public class BadgeController {
     @GetMapping(value = "/stubadge", produces = "image/svg+xml")
     public String stubadge(@RequestParam("stuid") @Valid @Size(min = 8, max = 8) String stuid) {
         StudentNumber studentNumber = new StudentNumber(stuid);
-        return badgeService.getStudentBadgeById2(studentNumber);
-        //return badgeService.getStudentBadgeById(stuid);
+        return badgeService.getStudentBadgeById(studentNumber);
     }
 
     @GetMapping(value = "/cfbadge", produces = "image/svg+xml")
