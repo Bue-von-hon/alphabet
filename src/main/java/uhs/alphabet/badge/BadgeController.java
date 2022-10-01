@@ -4,10 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 import uhs.alphabet.badge.domain.RankedBadgeRequest;
 import uhs.alphabet.badge.domain.Website;

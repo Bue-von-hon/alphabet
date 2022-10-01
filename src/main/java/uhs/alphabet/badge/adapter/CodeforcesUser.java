@@ -1,4 +1,4 @@
-package uhs.alphabet.badge.application.codeforces;
+package uhs.alphabet.badge.adapter;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

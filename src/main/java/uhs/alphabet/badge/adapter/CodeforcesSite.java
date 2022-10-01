@@ -1,11 +1,11 @@
-package uhs.alphabet.badge.application.codeforces;
+package uhs.alphabet.badge.adapter;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import uhs.alphabet.badge.application.RankWebSite;
 import uhs.alphabet.badge.domain.Website;
-import uhs.alphabet.badge.adapter.RankWebSite;
 
 import java.net.URI;
 
