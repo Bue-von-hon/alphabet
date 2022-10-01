@@ -20,7 +20,7 @@ class BadgeServiceTest {
     @Test
     @DisplayName("올바른 학번 입력 테스트")
     public void test2() {
-        StudentNumber studentNumber = new StudentNumber("20221122");
+        StudentNumber studentNumber = StudentNumber.createByString("20221122");
         badgeService.getStudentBadgeById(studentNumber);
         verify(badgeService, times(1)).getStudentBadgeById(studentNumber);
     }

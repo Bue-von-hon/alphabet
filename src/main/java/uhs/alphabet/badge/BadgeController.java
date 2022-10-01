@@ -31,8 +31,7 @@ public class BadgeController {
     }
     @GetMapping(value = "/stubadge", produces = "image/svg+xml")
     public String stubadge(@RequestParam("stuid") @Valid @Size(min = 8, max = 8) String stuid) {
-        StudentNumber studentNumber = new StudentNumber(stuid);
-        return badgeService.getStudentBadgeById(studentNumber);
+        return badgeService.getStudentBadgeById(StudentNumber.createByString(stuid));
     }
 
     @GetMapping(value = "/cfbadge", produces = "image/svg+xml")
