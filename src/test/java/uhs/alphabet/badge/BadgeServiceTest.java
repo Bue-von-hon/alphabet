@@ -1,5 +1,6 @@
 package uhs.alphabet.badge;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import uhs.alphabet.badge.students.domain.StudentNumber;
@@ -12,16 +13,14 @@ class BadgeServiceTest {
 
     @Test
     @DisplayName("올바른 request 통해 ranking badge service 테스트")
-    public void test1() {
+    void test1() {
         badgeService.getRankedBadge(any());
         verify(badgeService, times(1)).getRankedBadge(any());
     }
 
     @Test
     @DisplayName("올바른 학번 입력 테스트")
-    public void test2() {
-        StudentNumber studentNumber = StudentNumber.createByString("20221122");
-        badgeService.getStudentBadgeById(studentNumber);
-        verify(badgeService, times(1)).getStudentBadgeById(studentNumber);
+    void test2() {
+        Assertions.assertDoesNotThrow(() -> StudentNumber.createByString("20221122"));
     }
 }
