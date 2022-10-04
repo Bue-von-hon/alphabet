@@ -46,7 +46,7 @@ public class BadgeService {
     }
 
     public String getStudentBadgeById(final StudentNumber studentNumber) {
-        PersonEntity personEntity = personRepository.findByStunum(studentNumber.getNumber());
+        PersonEntity personEntity = personRepository.findByStunum(studentNumber.getNumber().toString());
         StudentMapper mapper = StudentMapper.INSTANCE;
         Optional<Student> user = Optional.ofNullable(mapper.toUser(personEntity));
         if (user.isEmpty()) return StudentBadge.of("None", "None");
