@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import uhs.alphabet.board.dto.BoardDto;
 import uhs.alphabet.board.BoardRepository;
 import uhs.alphabet.board.BoardService;
+import uhs.alphabet.board.dto.BoardDto;
 import uhs.alphabet.board.dto.SearchBoardDTO;
 import uhs.alphabet.domain.repository.PersonRepository;
 
@@ -21,12 +21,18 @@ import java.util.stream.IntStream;
 @Import(BoardService.class)
 public class BoardServiceTest {
 
+    private static final BoardDto TEST_BOARDDTO = BoardDto.builder()
+            .title("TestTitle")
+            .content("TestContent")
+            .pw("1234")
+            .writer("writer")
+            .visible(true)
+            .ip("ip")
+            .build();
     @Autowired
     private BoardRepository boardRepository;
-
     @Autowired
     private PersonRepository personRepository;
-
     @Autowired
     private BoardService boardService;
 
@@ -36,21 +42,13 @@ public class BoardServiceTest {
         boardRepository.deleteAll();
         boardService.deletePostAll();
     }
+
     @BeforeEach
     public void cleanupEach() {
         personRepository.deleteAll();
         boardRepository.deleteAll();
         boardService.deletePostAll();
     }
-
-    private static final BoardDto TEST_BOARDDTO = BoardDto.builder()
-            .title("TestTitle")
-            .content("TestContent")
-            .pw("1234")
-            .writer("writer")
-            .visible(true)
-            .ip("ip")
-            .build();
 
     @Test
     public void saveBoardTest() {
@@ -62,6 +60,7 @@ public class BoardServiceTest {
                 .visible(true)
                 .ip("ip")
                 .build();
+
         Long id = boardService.saveBoard(boardDto);
         BoardDto boardDtoTest = boardService.getBoard(id);
         Assertions.assertEquals("None", boardDtoTest.getTitle());
