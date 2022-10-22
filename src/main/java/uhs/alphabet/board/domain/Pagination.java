@@ -3,16 +3,16 @@ package uhs.alphabet.board.domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class Pagenation {
+public class Pagination {
     private static final int BLOCK_PAGE_COUNT = 5;  // 블럭에 존재하는 페이지 번호 수
-    private static final int PAGE_POST_COUNT = 4;       // 한 페이지에 존재하는 게시글 수
     private static final List<Integer> EMPTY_PAGE_NUMBERS = Collections.EMPTY_LIST;
     private final int curPageNumber;
     private final int totalPages;
 
-    public Pagenation(int curPageNumber, int totalPages) {
+    public Pagination(int curPageNumber, int totalPages) {
         this.curPageNumber = curPageNumber;
         this.totalPages = totalPages;
     }
@@ -25,7 +25,7 @@ public class Pagenation {
         return totalPages == 0;
     }
 
-    public List<Integer> getPageNumebrs() {
+    public List<Integer> getPageNumbers() {
         if (isZero(totalPages)) return EMPTY_PAGE_NUMBERS;
 
         List<Integer> ret = new ArrayList<>();
@@ -42,6 +42,6 @@ public class Pagenation {
             r++;
             l--;
         }
-        return ret;
+        return ret.stream().sorted().collect(Collectors.toList());
     }
 }
