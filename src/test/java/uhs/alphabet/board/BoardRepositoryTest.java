@@ -1,4 +1,4 @@
-package uhs.alphabet.domain.board;
+package uhs.alphabet.board;
 
 import org.junit.After;
 import org.junit.jupiter.api.Assertions;
@@ -7,8 +7,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import uhs.alphabet.board.BoardEntity;
-import uhs.alphabet.board.BoardRepository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,16 +14,16 @@ import java.util.List;
 
 @DataJpaTest
 public class BoardRepositoryTest {
-    @Autowired
-    private BoardRepository boardRepository;
-
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final LocalDateTime now = LocalDateTime.now();
+    @Autowired
+    private BoardRepository boardRepository;
 
     @After
     public void cleanup() {
         boardRepository.deleteAll();
     }
+
     @BeforeEach
     public void cleanupEach() {
         boardRepository.deleteAll();

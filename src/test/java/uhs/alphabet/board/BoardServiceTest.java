@@ -1,4 +1,4 @@
-package uhs.alphabet.domain.board;
+package uhs.alphabet.board;
 
 import org.junit.After;
 import org.junit.jupiter.api.Assertions;
@@ -8,8 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import uhs.alphabet.board.BoardRepository;
-import uhs.alphabet.board.BoardService;
 import uhs.alphabet.board.dto.BoardDto;
 import uhs.alphabet.board.dto.SearchBoardDTO;
 import uhs.alphabet.domain.repository.PersonRepository;
