@@ -1,15 +1,14 @@
 package uhs.alphabet.domain.service;
 
-import org.junit.After;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import uhs.alphabet.board.BoardRepository;
 import uhs.alphabet.domain.dto.PersonDto;
 import uhs.alphabet.domain.entity.PersonEntity;
-import uhs.alphabet.board.BoardRepository;
 import uhs.alphabet.domain.repository.PersonRepository;
 
 import java.util.List;
@@ -25,11 +24,6 @@ public class PersonServiceTest {
     @Autowired
     private PersonService personService;
 
-    @After
-    public void cleanup() {
-        personRepository.deleteAll();
-        boardRepository.deleteAll();
-    }
     @BeforeEach
     public void cleanupEach() {
         personRepository.deleteAll();
@@ -46,9 +40,10 @@ public class PersonServiceTest {
                 .stunum("1234")
                 .build();
         personService.savePerson(personDto);
-        List<PersonEntity> personEntities =  personRepository.findAll();
+        List<PersonEntity> personEntities = personRepository.findAll();
         Assertions.assertEquals(1, personEntities.size());
     }
+
     @Test
     @DisplayName("savePerson 10번 테스트")
     public void savePersonTest10() {
@@ -60,7 +55,7 @@ public class PersonServiceTest {
                 .build();
 
         for (int i = 0; i < 10; i++) personService.savePerson(personDto);
-        List<PersonEntity> personEntities =  personRepository.findAll();
+        List<PersonEntity> personEntities = personRepository.findAll();
         Assertions.assertEquals(10, personEntities.size());
     }
 
@@ -70,6 +65,7 @@ public class PersonServiceTest {
         List<PersonDto> personDtos = personService.searchPerson("1234");
         Assertions.assertEquals(0, personDtos.size());
     }
+
     @Test
     @DisplayName("searchPersonTest 있는 경우")
     public void searchPersonTestExist() {

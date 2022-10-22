@@ -1,13 +1,11 @@
 package uhs.alphabet.board;
 
-import org.junit.After;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Import;
 import uhs.alphabet.board.dto.BoardDto;
 import uhs.alphabet.board.dto.SearchBoardDTO;
 import uhs.alphabet.domain.repository.PersonRepository;
@@ -16,8 +14,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 @SpringBootTest
-@Import(BoardService.class)
-public class BoardServiceTest {
+class BoardServiceTest {
 
     private static final BoardDto TEST_BOARDDTO = BoardDto.builder()
             .title("TestTitle")
@@ -34,13 +31,6 @@ public class BoardServiceTest {
     @Autowired
     private BoardService boardService;
 
-    @After
-    public void cleanup() {
-        personRepository.deleteAll();
-        boardRepository.deleteAll();
-        boardService.deletePostAll();
-    }
-
     @BeforeEach
     public void cleanupEach() {
         personRepository.deleteAll();
@@ -49,7 +39,7 @@ public class BoardServiceTest {
     }
 
     @Test
-    public void saveBoardTest() {
+    void saveBoardTest() {
         BoardDto boardDto = BoardDto.builder()
                 .title("")
                 .content("convertTestContent")

@@ -14,10 +14,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import uhs.alphabet.config.auth.SecurityConfig;
-import uhs.alphabet.board.dto.BoardDto;
-import uhs.alphabet.domain.dto.PersonDto;
 import uhs.alphabet.board.BoardService;
+import uhs.alphabet.board.dto.BoardDto;
+import uhs.alphabet.config.auth.SecurityConfig;
+import uhs.alphabet.domain.dto.PersonDto;
 import uhs.alphabet.domain.service.PersonService;
 
 import java.time.LocalDateTime;
@@ -25,17 +25,17 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(
         controllers = IndexController.class,
         excludeFilters = {
-        @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
-}
+                @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)
+        }
 )
 @Import({PersonService.class, BoardService.class})
 @MockBean(JpaMetamodelMappingContext.class)
-public class IndexControllerMockTest {
+class IndexControllerMockTest {
     @Autowired
     private MockMvc mockMvc;
     @MockBean
@@ -50,16 +50,18 @@ public class IndexControllerMockTest {
 
     @Test
     @WithMockUser(roles = "USER")
-    public void getTest() throws Exception {
+    void getTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/"))
                 .andExpect(status().isOk());
     }
+
     @Test
     @WithMockUser(roles = "USER")
     public void bobTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/bob"))
                 .andExpect(status().isOk());
     }
+
     @Test
     @WithMockUser(roles = "USER")
     public void introductionTest() throws Exception {
@@ -73,30 +75,35 @@ public class IndexControllerMockTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/history"))
                 .andExpect(status().isOk());
     }
+
     @Test
     @WithMockUser(roles = "USER")
     public void contactTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/contact"))
                 .andExpect(status().isOk());
     }
+
     @Test
     @WithMockUser(roles = "USER")
     public void mirrorTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/mirror"))
                 .andExpect(status().isOk());
     }
+
     @Test
     @WithMockUser(roles = "USER")
     public void journalTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/journal"))
                 .andExpect(status().isOk());
     }
+
     @Test
     @WithMockUser(roles = "USER")
     public void postTest() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get("/post"))
                 .andExpect(status().isOk());
     }
+
     @Test
     @WithMockUser(roles = "USER")
     public void howtouseTest() throws Exception {
@@ -122,12 +129,13 @@ public class IndexControllerMockTest {
         boardDtos.add(boardDto);
         Mockito.when(boardService.searchPosts(arg)).thenReturn(boardDtos);
         mockMvc.perform(MockMvcRequestBuilders.get("/board/search")
-                .param("keyword", arg)
-                .param("model", "")
-        )
+                        .param("keyword", arg)
+                        .param("model", "")
+                )
                 .andExpect(status().isOk());
 //                .andExpect(model().attribute("boardList", boardDtos.toString()));
     }
+
     @Test
     @WithMockUser(roles = "USER")
     public void detailTest() throws Exception {
@@ -144,8 +152,8 @@ public class IndexControllerMockTest {
                 .build();
         Mockito.when(boardService.getBoard(no)).thenReturn(boardDto);
         mockMvc.perform(MockMvcRequestBuilders.get("/board/{no}", no)
-                .param("model", "")
-        )
+                        .param("model", "")
+                )
 //                .andExpect(model().attribute("board", "asd"))
                 .andExpect(status().isOk());
     }
@@ -167,8 +175,8 @@ public class IndexControllerMockTest {
                 .build();
         Mockito.when(boardService.getBoard(no)).thenReturn(boardDto);
         mockMvc.perform(MockMvcRequestBuilders.get("/board/{no}", no)
-                .param("model", "")
-        )
+                        .param("model", "")
+                )
                 .andExpect(status().isOk());
     }
 
@@ -180,8 +188,8 @@ public class IndexControllerMockTest {
         String pw = "1234";
 
         mockMvc.perform(MockMvcRequestBuilders.get("/dodelete/{no}", no)
-                .param("model", "")
-        )
+                        .param("model", "")
+                )
                 .andExpect(status().isOk());
     }
 
@@ -193,12 +201,12 @@ public class IndexControllerMockTest {
         String pw = "1234";
 
         mockMvc.perform(MockMvcRequestBuilders.get("/doedit/{no}", no)
-                .param("model", "")
-        )
+                        .param("model", "")
+                )
                 .andExpect(status().isOk());
     }
 
-//    todo: 수정 시간과 생성 시간 데이터 타입이 다르다
+    //    todo: 수정 시간과 생성 시간 데이터 타입이 다르다
     @Test
     @WithMockUser(roles = "USER")
     public void listTest() throws Exception {
@@ -246,14 +254,15 @@ public class IndexControllerMockTest {
         Long no = 1L;
         String pw = "1234";
         mockMvc.perform(MockMvcRequestBuilders.get("/post/edit/{no}", no)
-                .param("pw", pw)
-        )
+                        .param("pw", pw)
+                )
                 .andExpect(status().isOk());
         mockMvc.perform(MockMvcRequestBuilders.get("/post/edit/{no}", no)
-                .param("pw", "1111")
-        )
+                        .param("pw", "1111")
+                )
                 .andExpect(status().is3xxRedirection());
     }
+
     @Test
     @WithMockUser(roles = "USER")
     public void getSVGTest() throws Exception {
@@ -269,8 +278,8 @@ public class IndexControllerMockTest {
         personDtos.add(personDto);
         Mockito.when(personService.searchPerson(stuID)).thenReturn(personDtos);
         mockMvc.perform(MockMvcRequestBuilders.request(HttpMethod.GET, "/api/getSVG")
-                .param("stuID", stuID)
-        )
+                        .param("stuID", stuID)
+                )
                 .andExpect(status().isOk());
     }
 }

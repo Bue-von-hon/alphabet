@@ -37,7 +37,7 @@ class PaginationTest {
 
     @Test
     @DisplayName("페이지가 10개일때, 현재 보여지는 페이지 블록이 5개인지 테스트")
-    public void test4() {
+    void test4() {
         Pagination pagination = new Pagination(1, 10);
         List<Integer> pageNumbers = pagination.getPageNumbers();
         Assertions.assertEquals(5, pageNumbers.size());
@@ -50,7 +50,7 @@ class PaginationTest {
 
     @Test
     @DisplayName("총 페이지가 10개이고, 현재 페이지가 3일때, 페이지 블록 = {1, 2, 3, 4, 5}")
-    public void test5() {
+    void test5() {
         Pagination pagination = new Pagination(3, 10);
         List<Integer> pageNumbers = pagination.getPageNumbers();
 
@@ -64,7 +64,7 @@ class PaginationTest {
 
     @Test
     @DisplayName("총 페이지가 10개이고, 현재 페이지가 5일때, 페이지 블록 = {3, 4, 5, 6, 7}")
-    public void test6() {
+    void test6() {
         Pagination pagination = new Pagination(5, 10);
         List<Integer> pageNumbers = pagination.getPageNumbers();
 
@@ -78,7 +78,7 @@ class PaginationTest {
 
     @Test
     @DisplayName("총 페이지가 10개이고, 현재 페이지가 10일때, 페이지 블록 = {6, 7, 8, 9, 10}")
-    public void test7() {
+    void test7() {
         Pagination pagination = new Pagination(10, 10);
         List<Integer> pageNumbers = pagination.getPageNumbers();
 

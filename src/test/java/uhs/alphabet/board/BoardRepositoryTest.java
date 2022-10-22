@@ -1,6 +1,5 @@
 package uhs.alphabet.board;
 
-import org.junit.After;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -19,11 +18,6 @@ public class BoardRepositoryTest {
     @Autowired
     private BoardRepository boardRepository;
 
-    @After
-    public void cleanup() {
-        boardRepository.deleteAll();
-    }
-
     @BeforeEach
     public void cleanupEach() {
         boardRepository.deleteAll();
@@ -31,7 +25,7 @@ public class BoardRepositoryTest {
 
     @Test
     @DisplayName("saveBoard test 한번 저장")
-    public void saveBoard() {
+    void saveBoard() {
         BoardEntity entity = boardRepository.save(BoardEntity.builder()
                 .title("saveTestTitle")
                 .content("saveTestContent")
@@ -42,7 +36,7 @@ public class BoardRepositoryTest {
                 .build()
         );
         List<BoardEntity> boardEntityWrapper = boardRepository.findByTitleContaining("saveTestTitle");
-        Assertions.assertEquals(false, boardEntityWrapper.isEmpty());
+        Assertions.assertFalse(boardEntityWrapper.isEmpty());
 
         BoardEntity boardEntityTest = boardEntityWrapper.get(0);
         Assertions.assertEquals(entity.getTitle(), boardEntityTest.getTitle());
