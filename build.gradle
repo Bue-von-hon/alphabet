@@ -112,6 +112,8 @@ dependencies {
     implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.5.2.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
 
+    testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter:0.3.1")
+
 }
 
 test {
