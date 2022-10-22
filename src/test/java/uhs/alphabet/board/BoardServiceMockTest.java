@@ -1,4 +1,4 @@
-package uhs.alphabet.domain.board;
+package uhs.alphabet.board;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -6,16 +6,13 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import uhs.alphabet.board.dto.BoardDto;
-import uhs.alphabet.board.BoardService;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
-@Import(BoardService.class)
-public class BoardServiceMockTest {
+class BoardServiceMockTest {
     @MockBean
     BoardService boardService;
 

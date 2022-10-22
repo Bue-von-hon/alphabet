@@ -52,7 +52,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.5'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testCompile( 'org.springframework.boot:spring-boot-starter-test')
     runtime('org.springframework.boot:spring-boot-starter-tomcat')
     runtime('org.springframework.boot:spring-boot-starter-web')
     runtime('org.springframework.boot:spring-boot-starter-aop')
@@ -95,8 +94,7 @@ dependencies {
     compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.12.RELEASE'
 
     // test
-    testImplementation group: 'junit', name: 'junit', version: '4.13.2'
-    testImplementation 'io.projectreactor:reactor-test'
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.1'
     testImplementation('org.mockito:mockito-inline:3.4.0')
 
     // jackson
@@ -121,8 +119,10 @@ test {
 }
 
 pitest {
-    targetClasses = ['uhs.alphabet.board.*']  //by default "${project.group}.*"
-    pitestVersion = '1.7.4' //not needed when a default PIT version should be used
+    //adds dependency to org.pitest:pitest-junit5-plugin and sets "testPlugin" to "junit5"
+    junit5PluginVersion = '1.0.0'
+    pitestVersion = '1.9.0'
+    targetClasses = ['uhs.alphabet.board.domain.*']  //by default "${project.group}.*"
     threads = 4
     outputFormats = ['XML', 'HTML']
     timestampedReports = false

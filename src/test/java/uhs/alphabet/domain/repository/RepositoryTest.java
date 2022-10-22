@@ -1,10 +1,13 @@
 package uhs.alphabet.domain.repository;
 
-import org.junit.After;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import uhs.alphabet.domain.entity.PersonEntity;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -17,10 +20,6 @@ public class RepositoryTest {
     private LocalDateTime now = LocalDateTime.now();
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    @After
-    public void cleanup() {
-        personRepository.deleteAll();
-    }
     @BeforeEach
     public void cleanupEach() {
         personRepository.deleteAll();

@@ -1,23 +1,25 @@
 package uhs.alphabet.board;
 
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 import uhs.alphabet.annotation.Timer;
+import uhs.alphabet.board.domain.Pagination;
 import uhs.alphabet.board.dto.BoardDto;
 import uhs.alphabet.board.dto.SearchBoardDTO;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static uhs.alphabet.board.spec.BoardSpec.canVisible;
 
@@ -25,10 +27,14 @@ import static uhs.alphabet.board.spec.BoardSpec.canVisible;
 @Service
 public class BoardService {
 
-    private final BoardRepository boardRepository;
     private static final int BLOCK_PAGE_COUNT = 5;  // 블럭에 존재하는 페이지 번호 수
     private static final int PAGE_POST_COUNT = 4;       // 한 페이지에 존재하는 게시글 수
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private final BoardRepository boardRepository;
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    private static int getPage(Integer pageNum) {
+        return pageNum - 1;
+    }
 
     @Transactional
     @Timer
@@ -49,10 +55,6 @@ public class BoardService {
                         .setTitle(entity.getTitle())
                         .build())
                 .collect(Collectors.toList());
-    }
-
-    private static int getPage(Integer pageNum) {
-        return pageNum - 1;
     }
 
     @Transactional
@@ -104,11 +106,6 @@ public class BoardService {
     }
 
     @Transactional
-    public void deletePostAll() {
-        boardRepository.deleteAll();
-    }
-
-    @Transactional
     @Timer
     public List<BoardDto> searchPosts(String keyword) {
         List<BoardEntity> boardEntities = boardRepository.findAllByTitle(keyword);
@@ -142,43 +139,7 @@ public class BoardService {
         Pageable pageable = PageRequest.of(getPage(curPageNum), PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdTime"));
         Page<BoardEntity> page = boardRepository.findAll(visibleSpec, pageable);
 
-        int totalPages = page.getTotalPages();
-        if (isZero(totalPages)) return Collections.emptyList();
-
-        List<Integer> pageNumbers = getPageNumbers(totalPages);
-        if (!pageNumbers.isEmpty()) return pageNumbers;
-
-        pageNumbers = getPageNumbers(curPageNum, totalPages);
-        return pageNumbers.stream().sorted().collect(Collectors.toList());
+        Pagination pagenation = new Pagination(curPageNum, page.getTotalPages());
+        return pagenation.getPageNumbers();
     }
-
-    private static boolean isZero(int totalPages) {
-        return totalPages == 0;
-    }
-
-    private static List<Integer> getPageNumbers(Integer curPageNum, int totalPages) {
-        List<Integer> ret = new ArrayList<>();
-        ret.add(curPageNum);
-        int l = curPageNum;
-        int r = curPageNum;
-        while (ret.size() != BLOCK_PAGE_COUNT) {
-            if (r + 1 <= totalPages) ret.add(r + 1);
-            if (l - 1 > 0) ret.add(l - 1);
-            r++;
-            l--;
-        }
-        return ret;
-    }
-
-    private static List<Integer> getPageNumbers(int totalPages) {
-        if (isOverThanBlockNumber(totalPages)) return Collections.emptyList();
-        List<Integer> ret = new ArrayList<>();
-        IntStream.range(1, totalPages +1).forEach(ret::add);
-        return ret;
-    }
-
-    private static boolean isOverThanBlockNumber(int totalPages) {
-        return totalPages > BLOCK_PAGE_COUNT;
-    }
-
 }

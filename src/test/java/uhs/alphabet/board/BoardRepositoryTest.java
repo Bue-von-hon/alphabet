@@ -1,14 +1,11 @@
-package uhs.alphabet.domain.board;
+package uhs.alphabet.board;
 
-import org.junit.After;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import uhs.alphabet.board.BoardEntity;
-import uhs.alphabet.board.BoardRepository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,16 +13,11 @@ import java.util.List;
 
 @DataJpaTest
 public class BoardRepositoryTest {
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private final LocalDateTime now = LocalDateTime.now();
     @Autowired
     private BoardRepository boardRepository;
 
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-    private final LocalDateTime now = LocalDateTime.now();
-
-    @After
-    public void cleanup() {
-        boardRepository.deleteAll();
-    }
     @BeforeEach
     public void cleanupEach() {
         boardRepository.deleteAll();
@@ -33,7 +25,7 @@ public class BoardRepositoryTest {
 
     @Test
     @DisplayName("saveBoard test 한번 저장")
-    public void saveBoard() {
+    void saveBoard() {
         BoardEntity entity = boardRepository.save(BoardEntity.builder()
                 .title("saveTestTitle")
                 .content("saveTestContent")
@@ -44,7 +36,7 @@ public class BoardRepositoryTest {
                 .build()
         );
         List<BoardEntity> boardEntityWrapper = boardRepository.findByTitleContaining("saveTestTitle");
-        Assertions.assertEquals(false, boardEntityWrapper.isEmpty());
+        Assertions.assertFalse(boardEntityWrapper.isEmpty());
 
         BoardEntity boardEntityTest = boardEntityWrapper.get(0);
         Assertions.assertEquals(entity.getTitle(), boardEntityTest.getTitle());
