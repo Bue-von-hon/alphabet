@@ -1,7 +1,5 @@
 package uhs.alphabet.board.domain;
 
-import org.springframework.data.domain.Page;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,11 +10,11 @@ public class Pagenation {
     private static final int PAGE_POST_COUNT = 4;       // 한 페이지에 존재하는 게시글 수
     private static final List<Integer> EMPTY_PAGE_NUMBERS = Collections.EMPTY_LIST;
     private final int curPageNumber;
-    private final Page<?> page;
+    private final int totalPages;
 
-    public Pagenation(int curPageNumber, Page<?> page) {
+    public Pagenation(int curPageNumber, int totalPages) {
         this.curPageNumber = curPageNumber;
-        this.page = page;
+        this.totalPages = totalPages;
     }
 
     private boolean isOverThanBlockNumber(int totalPages) {
@@ -28,7 +26,6 @@ public class Pagenation {
     }
 
     public List<Integer> getPageNumebrs() {
-        int totalPages = page.getTotalPages();
         if (isZero(totalPages)) return EMPTY_PAGE_NUMBERS;
 
         List<Integer> ret = new ArrayList<>();
