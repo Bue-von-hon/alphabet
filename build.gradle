@@ -4,6 +4,7 @@ plugins {
     id 'java'
     id 'jacoco'
     id "org.sonarqube" version "3.0"
+    id 'info.solidsoft.pitest' version '1.7.4'
 }
 
 group = 'UHS'
@@ -110,8 +111,17 @@ dependencies {
     // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
     implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.5.2.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
+
 }
 
 test {
     useJUnitPlatform()
+}
+
+pitest {
+    targetClasses = ['uhs.alphabet.board.*']  //by default "${project.group}.*"
+    pitestVersion = '1.7.4' //not needed when a default PIT version should be used
+    threads = 4
+    outputFormats = ['XML', 'HTML']
+    timestampedReports = false
 }
