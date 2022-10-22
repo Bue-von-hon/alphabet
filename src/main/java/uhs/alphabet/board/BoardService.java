@@ -106,11 +106,6 @@ public class BoardService {
     }
 
     @Transactional
-    public void deletePostAll() {
-        boardRepository.deleteAll();
-    }
-
-    @Transactional
     @Timer
     public List<BoardDto> searchPosts(String keyword) {
         List<BoardEntity> boardEntities = boardRepository.findAllByTitle(keyword);
