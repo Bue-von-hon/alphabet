@@ -37,10 +37,10 @@ public class Pagination {
         int l = curPageNumber;
         int r = curPageNumber;
         while (ret.size() != BLOCK_PAGE_COUNT) {
-            if (r + 1 <= totalPages) ret.add(r + 1);
-            if (l - 1 > 0) ret.add(l - 1);
             r++;
             l--;
+            if (r <= totalPages) ret.add(r);
+            if (l > 0) ret.add(l);
         }
         return ret.stream().sorted().collect(Collectors.toList());
     }

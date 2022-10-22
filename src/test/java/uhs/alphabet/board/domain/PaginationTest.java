@@ -89,4 +89,18 @@ class PaginationTest {
         Assertions.assertEquals(9, pageNumbers.get(3));
         Assertions.assertEquals(10, pageNumbers.get(4));
     }
+
+    @Test
+    @DisplayName("총 페이지가 10개이고, 현재 페이지가 9일때, 페이지 블록 = {6, 7, 8, 9, 10}")
+    void test8() {
+        Pagination pagination = new Pagination(9, 10);
+        List<Integer> pageNumbers = pagination.getPageNumbers();
+
+        Assertions.assertEquals(5, pageNumbers.size());
+        Assertions.assertEquals(6, pageNumbers.get(0));
+        Assertions.assertEquals(7, pageNumbers.get(1));
+        Assertions.assertEquals(8, pageNumbers.get(2));
+        Assertions.assertEquals(9, pageNumbers.get(3));
+        Assertions.assertEquals(10, pageNumbers.get(4));
+    }
 }
