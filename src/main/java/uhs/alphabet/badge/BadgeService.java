@@ -11,6 +11,7 @@ import uhs.alphabet.badge.domain.Website;
 import uhs.alphabet.badge.students.Student;
 import uhs.alphabet.badge.students.StudentBadge;
 import uhs.alphabet.badge.students.StudentMapper;
+import uhs.alphabet.badge.students.domain.StudentNumber;
 import uhs.alphabet.domain.entity.PersonEntity;
 import uhs.alphabet.domain.repository.PersonRepository;
 
@@ -44,8 +45,8 @@ public class BadgeService {
         ));
     }
 
-    public String getStudentBadgeById(String stuid) {
-        PersonEntity personEntity = personRepository.findByStunum(stuid);
+    public String getStudentBadgeById(final StudentNumber studentNumber) {
+        PersonEntity personEntity = personRepository.findByStunum(studentNumber.getNumber().toString());
         StudentMapper mapper = StudentMapper.INSTANCE;
         Optional<Student> user = Optional.ofNullable(mapper.toUser(personEntity));
         if (user.isEmpty()) return StudentBadge.of("None", "None");
@@ -53,8 +54,8 @@ public class BadgeService {
     }
 
     public String getRankedBadge(final RankedBadgeRequest request) {
-        RankWebSite rankWebSite = webSiteMap.get(request.getWeb());
-        RankedBadgeFile rankedBadgeFile = badgeFileMap.get(request.getWeb());
+        RankWebSite rankWebSite = webSiteMap.get(request.getWebsiteFromRequest());
+        RankedBadgeFile rankedBadgeFile = badgeFileMap.get(request.getWebsiteFromRequest());
         String rank = rankWebSite.getRank(request.getHandle());
         String color = rankWebSite.getColor(rank);
         String handle = request.getHandle();

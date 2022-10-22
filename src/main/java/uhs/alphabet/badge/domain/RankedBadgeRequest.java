@@ -9,7 +9,7 @@ public class RankedBadgeRequest {
         this.handle = handle;
     }
 
-    public Website getWeb() {
+    public Website getWebsiteFromRequest() {
         return web;
     }
 
