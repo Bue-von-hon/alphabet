@@ -1,13 +1,14 @@
 plugins {
-    id 'org.springframework.boot' version '2.4.2'
+    id 'org.springframework.boot' version '2.7.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
     id 'jacoco'
     id "org.sonarqube" version "3.0"
     id 'info.solidsoft.pitest' version '1.7.4'
+    id 'java-test-fixtures'
 }
 
-group = 'UHS'
+group = 'uhs'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -26,9 +27,10 @@ jacocoTestCoverageVerification {
     violationRules {
         rule {
             excludes = [
-                    '*.getSVG',
-                    '*.TimerAop',
-                    '*.apiController'
+                    '*.*getSVG',
+                    '*.*Aop',
+                    '*.*apiController',
+                    '*.*Spec*'
             ]
         }
     }
@@ -51,67 +53,36 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-tomcat'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '2.4.5'
+    implementation 'org.springframework.boot:spring-boot-starter-mustache:2.7.5'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-client:2.7.5'
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.7.5'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    runtime('org.springframework.boot:spring-boot-starter-tomcat')
-    runtime('org.springframework.boot:spring-boot-starter-web')
-    runtime('org.springframework.boot:spring-boot-starter-aop')
-    runtime('org.springframework.boot:spring-boot-starter-data-jpa')
-    runtime('org.springframework.session:spring-session-jdbc')
-    runtime('org.springframework.boot:spring-boot-starter-mustache')
-    runtime('org.springframework.boot:spring-boot-starter-oauth2-client')
-    runtime('org.springframework.security:spring-security-test')
-    runtime group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
-    compile('org.springframework.boot:spring-boot-starter-tomcat')
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.springframework.boot:spring-boot-starter-aop')
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
-    compile('org.springframework.session:spring-session-jdbc')
-    compile('org.springframework.boot:spring-boot-starter-mustache')
-    compile('org.springframework.boot:spring-boot-starter-oauth2-client')
-    compile('org.springframework.security:spring-security-test')
-    compile group: 'org.springframework.boot', name: 'spring-boot-starter-validation'
+    testImplementation 'org.springframework.security:spring-security-test:5.7.4'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.5'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.7.3'
+
 
     // lombok
-    implementation 'org.projectlombok:lombok:1.18.18'
+    implementation 'org.projectlombok:lombok:1.18.24'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
     // db
     implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.2'
-    testCompile('com.h2database:h2')
-    testRuntime('com.h2database:h2')
     testImplementation('com.h2database:h2')
-    runtime('com.h2database:h2')
-    runtime("org.mariadb.jdbc:mariadb-java-client")
-    runtime group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.2'
-    compile('com.h2database:h2')
-    compile("org.mariadb.jdbc:mariadb-java-client")
-    compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.2'
 
     // view
     implementation group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.12.RELEASE'
-    runtime group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.12.RELEASE'
-    compile group: 'org.thymeleaf', name: 'thymeleaf', version: '3.0.12.RELEASE'
-
-    // test
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.1'
-    testImplementation('org.mockito:mockito-inline:3.4.0')
 
     // jackson
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.13.4'
 
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-cache
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-cache', version: '2.7.3'
-
-    // https://mvnrepository.com/artifact/org.ehcache/ehcache
     implementation group: 'org.ehcache', name: 'ehcache', version: '3.10.1'
 
-    // https://mvnrepository.com/artifact/org.mapstruct/mapstruct
     implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.5.2.Final'
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.2.Final'
 
     testImplementation("com.navercorp.fixturemonkey:fixture-monkey-starter:0.3.1")
-
 }
 
 test {
@@ -127,3 +98,5 @@ pitest {
     outputFormats = ['XML', 'HTML']
     timestampedReports = false
 }
+bootJar { enabled = false }
+jar { enabled = true }
