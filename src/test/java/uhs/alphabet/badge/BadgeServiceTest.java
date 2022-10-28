@@ -1,26 +1,39 @@
 package uhs.alphabet.badge;
 
+import static org.mockito.Mockito.mock;
+
+import java.util.List;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import uhs.alphabet.badge.students.domain.StudentNumber;
-
-import static org.mockito.Mockito.*;
+import uhs.alphabet.badge.adapter.Codeforces900GreyNewbieRankWebSite;
+import uhs.alphabet.badge.adapter.CodeforcesBadgeFileFixture;
+import uhs.alphabet.badge.application.RankWebSite;
+import uhs.alphabet.badge.application.RankedBadgeFile;
+import uhs.alphabet.badge.domain.RankedBadgeRequest;
+import uhs.alphabet.badge.domain.Website;
+import uhs.alphabet.domain.repository.PersonRepository;
 
 class BadgeServiceTest {
 
-    private final BadgeService badgeService = mock(BadgeService.class);
+    static PersonRepository personRepository = mock(PersonRepository.class);
+    static RankWebSite rankWebSite = new Codeforces900GreyNewbieRankWebSite();
+    static RankedBadgeFile rankedBadgeFile = new CodeforcesBadgeFileFixture();
+    static private final BadgeService badgeService = new BadgeService(personRepository,
+        List.of(rankWebSite), List.of(rankedBadgeFile));
 
-    @Test
-    @DisplayName("올바른 request 통해 ranking badge service 테스트")
-    void test1() {
-        badgeService.getRankedBadge(any());
-        verify(badgeService, times(1)).getRankedBadge(any());
+    @BeforeAll
+    static void init() {
+        badgeService.init();
     }
 
     @Test
-    @DisplayName("올바른 학번 입력 테스트")
-    void test2() {
-        Assertions.assertDoesNotThrow(() -> StudentNumber.createByString("20221122"));
+    @DisplayName("handle=jack, Rank=newbie일때 grey색의 jack 뱃지가 리턴되는지 확인")
+    void test1() {
+        RankedBadgeRequest request = new RankedBadgeRequest(Website.CODEFORCES, "jack");
+        String rankedBadge = badgeService.getRankedBadge(request);
+        Assertions.assertTrue(rankedBadge.contains("jack"));
+        Assertions.assertTrue(rankedBadge.contains("grey"));
     }
 }
