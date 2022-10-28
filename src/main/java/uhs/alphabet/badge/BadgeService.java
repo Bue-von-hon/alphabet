@@ -56,11 +56,33 @@ public class BadgeService {
     }
 
     public String getRankedBadge(final RankedBadgeRequest request) {
-        RankWebSite rankWebSite = webSiteMap.get(request.getWebsiteFromRequest());
-        RankedBadgeFile rankedBadgeFile = badgeFileMap.get(request.getWebsiteFromRequest());
-        String rank = rankWebSite.getRank(request.getHandle());
-        String color = rankWebSite.getColor(rank);
-        String handle = request.getHandle();
+        RankWebSite rankWebSite = getRankWebSite(request);
+        RankedBadgeFile rankedBadgeFile = getRankedBadgeFile(request);
+
+        String handle = getHandle(request);
+        String color = getColor(rankWebSite, handle);
+
+        return makeBadge(rankedBadgeFile, handle, color);
+    }
+
+    final RankedBadgeFile getRankedBadgeFile(RankedBadgeRequest request) {
+        return badgeFileMap.get(request.getWebsiteFromRequest());
+    }
+
+    final RankWebSite getRankWebSite(RankedBadgeRequest request) {
+        return webSiteMap.get(request.getWebsiteFromRequest());
+    }
+
+    final String getHandle(RankedBadgeRequest request) {
+        return request.getHandle();
+    }
+
+    final String getColor(RankWebSite rankWebSite, String handle) {
+        String rank = rankWebSite.getRank(handle);
+        return rankWebSite.getColor(rank);
+    }
+
+    final String makeBadge(RankedBadgeFile rankedBadgeFile, String handle, String color) {
         RankedBadge badge = new RankedBadge(rankedBadgeFile.getBadge(), handle, color);
         return badge.getBadge();
     }
