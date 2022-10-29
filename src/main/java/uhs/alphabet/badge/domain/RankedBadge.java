@@ -1,9 +1,10 @@
 package uhs.alphabet.badge.domain;
 
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import uhs.alphabet.badge.application.RankedBadgeFile;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class RankedBadge {
 
     private final String badge;
