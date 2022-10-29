@@ -1,15 +1,29 @@
 package uhs.alphabet.badge.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import uhs.alphabet.badge.application.RankWebSite;
 
 @Getter
+@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class RankedBadgeData {
 
-    private String handle;
-    private String coloe;
+    private final String handle;
+    private final String color;
 
-    public RankedBadgeData(String handle, String coloe) {
-        this.handle = handle;
-        this.coloe = coloe;
+    public static RankedBadgeData of(RankedBadgeRequest request, RankWebSite webSite) {
+        String handle = getHandle(request);
+        String color = getColor(webSite, handle);
+        return new RankedBadgeData(handle, color);
+    }
+
+    static String getHandle(RankedBadgeRequest request) {
+        return request.getHandle();
+    }
+
+    static String getColor(RankWebSite rankWebSite, String handle) {
+        String rank = rankWebSite.getRank(handle);
+        return rankWebSite.getColor(rank);
     }
 }

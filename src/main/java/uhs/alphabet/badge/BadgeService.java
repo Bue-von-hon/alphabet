@@ -57,38 +57,17 @@ public class BadgeService {
     }
 
     public String requestRankedBadge(final RankedBadgeRequest request) {
-        RankedBadgeData rankedBadgeData = getBadgeData(request);
+        RankWebSite webSite = getWebSite(request);
         RankedBadgeFile rankedBadgeFile = getRankedBadgeFile(request);
-        return makeRankedBadge(rankedBadgeFile, rankedBadgeData);
+        RankedBadgeData badgeData = RankedBadgeData.of(request, webSite);
+        return RankedBadge.getBadge(rankedBadgeFile, badgeData);
     }
 
-    final RankedBadgeData getBadgeData(RankedBadgeRequest request) {
-        RankWebSite webSite = getRankWebSite(request);
-        String handle = getHandle(request);
-        String color = getColor(webSite, handle);
-        return new RankedBadgeData(handle, color);
+    final RankWebSite getWebSite(RankedBadgeRequest request) {
+        return webSiteMap.get(request.getWebsiteFromRequest());
     }
 
     final RankedBadgeFile getRankedBadgeFile(RankedBadgeRequest request) {
         return badgeFileMap.get(request.getWebsiteFromRequest());
-    }
-
-    final RankWebSite getRankWebSite(RankedBadgeRequest request) {
-        return webSiteMap.get(request.getWebsiteFromRequest());
-    }
-
-    final String getHandle(RankedBadgeRequest request) {
-        return request.getHandle();
-    }
-
-    final String getColor(RankWebSite rankWebSite, String handle) {
-        String rank = rankWebSite.getRank(handle);
-        return rankWebSite.getColor(rank);
-    }
-
-    final String makeRankedBadge(RankedBadgeFile rankedBadgeFile, RankedBadgeData badgeData) {
-        RankedBadge badge = new RankedBadge(rankedBadgeFile.getBadge(), badgeData.getHandle(),
-            badgeData.getColoe());
-        return badge.getBadge();
     }
 }
