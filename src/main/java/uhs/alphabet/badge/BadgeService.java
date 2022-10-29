@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import uhs.alphabet.badge.application.RankWebSite;
 import uhs.alphabet.badge.application.RankedBadgeFile;
 import uhs.alphabet.badge.domain.RankedBadge;
+import uhs.alphabet.badge.domain.RankedBadgeData;
 import uhs.alphabet.badge.domain.RankedBadgeRequest;
 import uhs.alphabet.badge.domain.Website;
 import uhs.alphabet.badge.students.Student;
@@ -55,14 +56,17 @@ public class BadgeService {
         return StudentBadge.of(user.get().getName(), user.get().getHandle());
     }
 
-    public String getRankedBadge(final RankedBadgeRequest request) {
-        RankWebSite rankWebSite = getRankWebSite(request);
+    public String requestRankedBadge(final RankedBadgeRequest request) {
+        RankedBadgeData rankedBadgeData = getBadgeData(request);
         RankedBadgeFile rankedBadgeFile = getRankedBadgeFile(request);
+        return makeRankedBadge(rankedBadgeFile, rankedBadgeData);
+    }
 
+    final RankedBadgeData getBadgeData(RankedBadgeRequest request) {
+        RankWebSite webSite = getRankWebSite(request);
         String handle = getHandle(request);
-        String color = getColor(rankWebSite, handle);
-
-        return makeBadge(rankedBadgeFile, handle, color);
+        String color = getColor(webSite, handle);
+        return new RankedBadgeData(handle, color);
     }
 
     final RankedBadgeFile getRankedBadgeFile(RankedBadgeRequest request) {
@@ -82,8 +86,9 @@ public class BadgeService {
         return rankWebSite.getColor(rank);
     }
 
-    final String makeBadge(RankedBadgeFile rankedBadgeFile, String handle, String color) {
-        RankedBadge badge = new RankedBadge(rankedBadgeFile.getBadge(), handle, color);
+    final String makeRankedBadge(RankedBadgeFile rankedBadgeFile, RankedBadgeData badgeData) {
+        RankedBadge badge = new RankedBadge(rankedBadgeFile.getBadge(), badgeData.getHandle(),
+            badgeData.getColoe());
         return badge.getBadge();
     }
 }

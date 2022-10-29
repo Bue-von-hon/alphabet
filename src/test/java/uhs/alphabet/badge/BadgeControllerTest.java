@@ -89,7 +89,7 @@ class BadgeControllerTest {
     @WithMockUser
     @DisplayName("코드포스 뱃지 정보 가져오는 테스트")
     void test2() throws Exception {
-        Mockito.when(badgeService.getRankedBadge(any())).thenReturn(cfbadge);
+        Mockito.when(badgeService.requestRankedBadge(any())).thenReturn(cfbadge);
         mockMvc.perform(
                 get("/cfbadge")
                     .param("handle", "jack"))
