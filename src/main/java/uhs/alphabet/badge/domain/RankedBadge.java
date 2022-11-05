@@ -1,19 +1,30 @@
 package uhs.alphabet.badge.domain;
 
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import uhs.alphabet.badge.application.RankedBadgeFile;
+
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class RankedBadge {
+
+    private final String badge;
     private final String handle;
     private final String color;
-    private final String badge;
 
-    public RankedBadge(String badge, String handle, String color) {
-        this.badge = badge;
-        this.handle = handle;
-        this.color = color;
+    public static String getBadge(RankedBadgeFile rankedBadgeFile, RankedBadgeData badgeData) {
+        RankedBadge badge = getRankedBadge(rankedBadgeFile, badgeData);
+        return badge.replaceHandleAndColor();
     }
 
-    public String getBadge() {
+    static RankedBadge getRankedBadge(RankedBadgeFile rankedBadgeFile,
+        RankedBadgeData badgeData) {
+        return new RankedBadge(rankedBadgeFile.getBadge(), badgeData.getHandle(),
+            badgeData.getColor());
+    }
+
+    final String replaceHandleAndColor() {
         return badge
-                .replaceAll("\\{(handle)}", handle)
-                .replaceAll("\\{(color)}", color);
+            .replaceAll("\\{(handle)}", handle)
+            .replaceAll("\\{(color)}", color);
     }
 }

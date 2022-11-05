@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import uhs.alphabet.badge.application.RankWebSite;
 import uhs.alphabet.badge.application.RankedBadgeFile;
 import uhs.alphabet.badge.domain.RankedBadge;
+import uhs.alphabet.badge.domain.RankedBadgeData;
 import uhs.alphabet.badge.domain.RankedBadgeRequest;
 import uhs.alphabet.badge.domain.Website;
 import uhs.alphabet.badge.students.Student;
@@ -55,13 +56,18 @@ public class BadgeService {
         return StudentBadge.of(user.get().getName(), user.get().getHandle());
     }
 
-    public String getRankedBadge(final RankedBadgeRequest request) {
-        RankWebSite rankWebSite = webSiteMap.get(request.getWebsiteFromRequest());
-        RankedBadgeFile rankedBadgeFile = badgeFileMap.get(request.getWebsiteFromRequest());
-        String rank = rankWebSite.getRank(request.getHandle());
-        String color = rankWebSite.getColor(rank);
-        String handle = request.getHandle();
-        RankedBadge badge = new RankedBadge(rankedBadgeFile.getBadge(), handle, color);
-        return badge.getBadge();
+    public String requestRankedBadge(final RankedBadgeRequest request) {
+        RankWebSite webSite = getWebSite(request);
+        RankedBadgeFile rankedBadgeFile = getRankedBadgeFile(request);
+        RankedBadgeData badgeData = RankedBadgeData.of(request, webSite);
+        return RankedBadge.getBadge(rankedBadgeFile, badgeData);
+    }
+
+    final RankWebSite getWebSite(RankedBadgeRequest request) {
+        return webSiteMap.get(request.getWebsiteFromRequest());
+    }
+
+    final RankedBadgeFile getRankedBadgeFile(RankedBadgeRequest request) {
+        return badgeFileMap.get(request.getWebsiteFromRequest());
     }
 }

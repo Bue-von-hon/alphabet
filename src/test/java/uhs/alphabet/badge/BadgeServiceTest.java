@@ -32,7 +32,7 @@ class BadgeServiceTest {
     @DisplayName("handle=jack, Rank=newbie일때 grey색의 jack 뱃지가 리턴되는지 확인")
     void test1() {
         RankedBadgeRequest request = new RankedBadgeRequest(Website.CODEFORCES, "jack");
-        String rankedBadge = badgeService.getRankedBadge(request);
+        String rankedBadge = badgeService.requestRankedBadge(request);
         Assertions.assertTrue(rankedBadge.contains("jack"));
         Assertions.assertTrue(rankedBadge.contains("grey"));
     }
